@@ -763,8 +763,7 @@
             this.cbbVaiTroCuaNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbVaiTroCuaNhanVien.FormattingEnabled = true;
             this.cbbVaiTroCuaNhanVien.Items.AddRange(new object[] {
-            "VT001",
-            "VT002"});
+            ""});
             this.cbbVaiTroCuaNhanVien.Location = new System.Drawing.Point(709, 219);
             this.cbbVaiTroCuaNhanVien.Margin = new System.Windows.Forms.Padding(2);
             this.cbbVaiTroCuaNhanVien.Name = "cbbVaiTroCuaNhanVien";
