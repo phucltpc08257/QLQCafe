@@ -24,12 +24,23 @@ namespace DuAn1Lion
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            FormChucNangQuanLy form = new FormChucNangQuanLy();
+            string email = txtNhapEmail.Text;
+            string matKhau = txtNhapMatKhau.Text;
 
-            form.ShowDialog();
-            form = null;
-            this.Show();
-            this.Close();
+            var QLBanHang = new LionQuanLyQuanCaPheDataContext();
+            var user = QLBanHang.NhanViens.FirstOrDefault(u => u.Email == email && u.MatKhau == matKhau);
+
+            if (user != null)
+            {
+                string vaiTro = user.VaiTro.MaVaiTro;
+                FormChucNangQuanLy formChucNang = new FormChucNangQuanLy(vaiTro);
+                formChucNang.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.");
+            }
         }
     }
 }
