@@ -518,6 +518,7 @@
             this.btnTimKiem.TabIndex = 2;
             this.btnTimKiem.Text = "Tìm kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = true;
+            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
             // grbChucNangKhachHang
             // 
@@ -543,6 +544,7 @@
             this.btnXoaKhachHang.TabIndex = 2;
             this.btnXoaKhachHang.Text = "Xóa";
             this.btnXoaKhachHang.UseVisualStyleBackColor = true;
+            this.btnXoaKhachHang.Click += new System.EventHandler(this.btnXoaKhachHang_Click);
             // 
             // btnSuaKhachHang
             // 
@@ -553,6 +555,7 @@
             this.btnSuaKhachHang.TabIndex = 1;
             this.btnSuaKhachHang.Text = "Sửa";
             this.btnSuaKhachHang.UseVisualStyleBackColor = true;
+            this.btnSuaKhachHang.Click += new System.EventHandler(this.btnSuaKhachHang_Click);
             // 
             // btnThemKhachHang
             // 
@@ -563,6 +566,7 @@
             this.btnThemKhachHang.TabIndex = 0;
             this.btnThemKhachHang.Text = "Thêm";
             this.btnThemKhachHang.UseVisualStyleBackColor = true;
+            this.btnThemKhachHang.Click += new System.EventHandler(this.btnThemKhachHang_Click);
             // 
             // dttpNgaySinhKhachHang
             // 
@@ -686,14 +690,17 @@
             // 
             // dtgvThongTinKhachHang
             // 
+            this.dtgvThongTinKhachHang.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgvThongTinKhachHang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvThongTinKhachHang.Location = new System.Drawing.Point(0, 36);
             this.dtgvThongTinKhachHang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtgvThongTinKhachHang.Name = "dtgvThongTinKhachHang";
             this.dtgvThongTinKhachHang.RowHeadersWidth = 51;
             this.dtgvThongTinKhachHang.RowTemplate.Height = 24;
+            this.dtgvThongTinKhachHang.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvThongTinKhachHang.Size = new System.Drawing.Size(1180, 233);
             this.dtgvThongTinKhachHang.TabIndex = 0;
+            this.dtgvThongTinKhachHang.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvThongTinKhachHang_CellClick);
             // 
             // txtMaKhachHang
             // 
@@ -750,9 +757,6 @@
             // 
             this.cbbVaiTroCuaNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbVaiTroCuaNhanVien.FormattingEnabled = true;
-            this.cbbVaiTroCuaNhanVien.Items.AddRange(new object[] {
-            "VT001",
-            "VT002"});
             this.cbbVaiTroCuaNhanVien.Location = new System.Drawing.Point(945, 270);
             this.cbbVaiTroCuaNhanVien.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbbVaiTroCuaNhanVien.Name = "cbbVaiTroCuaNhanVien";
@@ -1363,7 +1367,7 @@
             // 
             this.tclThongKeNhanVien.Controls.Add(this.TcThongKeNhanVien);
             this.tclThongKeNhanVien.Location = new System.Drawing.Point(11, 4);
-            this.tclThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tclThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4);
             this.tclThongKeNhanVien.Name = "tclThongKeNhanVien";
             this.tclThongKeNhanVien.SelectedIndex = 0;
             this.tclThongKeNhanVien.Size = new System.Drawing.Size(1268, 726);
@@ -1375,9 +1379,9 @@
             this.TcThongKeNhanVien.Controls.Add(this.GrbThongKeNhanVien);
             this.TcThongKeNhanVien.Controls.Add(this.label24);
             this.TcThongKeNhanVien.Location = new System.Drawing.Point(4, 25);
-            this.TcThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TcThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4);
             this.TcThongKeNhanVien.Name = "TcThongKeNhanVien";
-            this.TcThongKeNhanVien.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TcThongKeNhanVien.Padding = new System.Windows.Forms.Padding(4);
             this.TcThongKeNhanVien.Size = new System.Drawing.Size(1260, 697);
             this.TcThongKeNhanVien.TabIndex = 0;
             this.TcThongKeNhanVien.Text = "Thống kê nhân viên";
@@ -1388,9 +1392,9 @@
             this.dtgvThongTinThongKeNhanVien.Controls.Add(this.dtgvThongKeNhanVien);
             this.dtgvThongTinThongKeNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtgvThongTinThongKeNhanVien.Location = new System.Drawing.Point(47, 171);
-            this.dtgvThongTinThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtgvThongTinThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4);
             this.dtgvThongTinThongKeNhanVien.Name = "dtgvThongTinThongKeNhanVien";
-            this.dtgvThongTinThongKeNhanVien.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtgvThongTinThongKeNhanVien.Padding = new System.Windows.Forms.Padding(4);
             this.dtgvThongTinThongKeNhanVien.Size = new System.Drawing.Size(1160, 281);
             this.dtgvThongTinThongKeNhanVien.TabIndex = 3;
             this.dtgvThongTinThongKeNhanVien.TabStop = false;
@@ -1400,7 +1404,7 @@
             // 
             this.dtgvThongKeNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvThongKeNhanVien.Location = new System.Drawing.Point(0, 36);
-            this.dtgvThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtgvThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4);
             this.dtgvThongKeNhanVien.Name = "dtgvThongKeNhanVien";
             this.dtgvThongKeNhanVien.RowHeadersWidth = 51;
             this.dtgvThongKeNhanVien.Size = new System.Drawing.Size(1209, 277);
@@ -1412,9 +1416,9 @@
             this.GrbThongKeNhanVien.Controls.Add(this.btnThongKeNhanVien);
             this.GrbThongKeNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrbThongKeNhanVien.Location = new System.Drawing.Point(736, 524);
-            this.GrbThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.GrbThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4);
             this.GrbThongKeNhanVien.Name = "GrbThongKeNhanVien";
-            this.GrbThongKeNhanVien.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.GrbThongKeNhanVien.Padding = new System.Windows.Forms.Padding(4);
             this.GrbThongKeNhanVien.Size = new System.Drawing.Size(471, 145);
             this.GrbThongKeNhanVien.TabIndex = 2;
             this.GrbThongKeNhanVien.TabStop = false;
@@ -1423,7 +1427,7 @@
             // txtThongKeNhanVien
             // 
             this.txtThongKeNhanVien.Location = new System.Drawing.Point(23, 54);
-            this.txtThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4);
             this.txtThongKeNhanVien.Multiline = true;
             this.txtThongKeNhanVien.Name = "txtThongKeNhanVien";
             this.txtThongKeNhanVien.Size = new System.Drawing.Size(275, 46);
@@ -1433,7 +1437,7 @@
             // 
             this.btnThongKeNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThongKeNhanVien.Location = new System.Drawing.Point(321, 54);
-            this.btnThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnThongKeNhanVien.Margin = new System.Windows.Forms.Padding(4);
             this.btnThongKeNhanVien.Name = "btnThongKeNhanVien";
             this.btnThongKeNhanVien.Size = new System.Drawing.Size(137, 47);
             this.btnThongKeNhanVien.TabIndex = 0;
@@ -1474,9 +1478,9 @@
             this.dtgvThongTinVaiTro.Controls.Add(this.dtgvVaiTro);
             this.dtgvThongTinVaiTro.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtgvThongTinVaiTro.Location = new System.Drawing.Point(60, 236);
-            this.dtgvThongTinVaiTro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtgvThongTinVaiTro.Margin = new System.Windows.Forms.Padding(4);
             this.dtgvThongTinVaiTro.Name = "dtgvThongTinVaiTro";
-            this.dtgvThongTinVaiTro.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtgvThongTinVaiTro.Padding = new System.Windows.Forms.Padding(4);
             this.dtgvThongTinVaiTro.Size = new System.Drawing.Size(1247, 277);
             this.dtgvThongTinVaiTro.TabIndex = 49;
             this.dtgvThongTinVaiTro.TabStop = false;
@@ -1487,7 +1491,7 @@
             this.dtgvVaiTro.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgvVaiTro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvVaiTro.Location = new System.Drawing.Point(0, 47);
-            this.dtgvVaiTro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtgvVaiTro.Margin = new System.Windows.Forms.Padding(4);
             this.dtgvVaiTro.Name = "dtgvVaiTro";
             this.dtgvVaiTro.RowHeadersWidth = 51;
             this.dtgvVaiTro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1497,7 +1501,7 @@
             // txtTenVaiTro
             // 
             this.txtTenVaiTro.Location = new System.Drawing.Point(884, 162);
-            this.txtTenVaiTro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTenVaiTro.Margin = new System.Windows.Forms.Padding(4);
             this.txtTenVaiTro.Multiline = true;
             this.txtTenVaiTro.Name = "txtTenVaiTro";
             this.txtTenVaiTro.Size = new System.Drawing.Size(240, 34);
@@ -1506,7 +1510,7 @@
             // txtMaVaiTro
             // 
             this.txtMaVaiTro.Location = new System.Drawing.Point(225, 162);
-            this.txtMaVaiTro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMaVaiTro.Margin = new System.Windows.Forms.Padding(4);
             this.txtMaVaiTro.Multiline = true;
             this.txtMaVaiTro.Name = "txtMaVaiTro";
             this.txtMaVaiTro.Size = new System.Drawing.Size(240, 34);
@@ -1588,9 +1592,9 @@
             this.grbtimkiemVaiTro.Controls.Add(this.btntimkiemVaiTro);
             this.grbtimkiemVaiTro.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbtimkiemVaiTro.Location = new System.Drawing.Point(760, 586);
-            this.grbtimkiemVaiTro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grbtimkiemVaiTro.Margin = new System.Windows.Forms.Padding(4);
             this.grbtimkiemVaiTro.Name = "grbtimkiemVaiTro";
-            this.grbtimkiemVaiTro.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grbtimkiemVaiTro.Padding = new System.Windows.Forms.Padding(4);
             this.grbtimkiemVaiTro.Size = new System.Drawing.Size(471, 145);
             this.grbtimkiemVaiTro.TabIndex = 3;
             this.grbtimkiemVaiTro.TabStop = false;
@@ -1599,7 +1603,7 @@
             // txttimkiemVaiTro
             // 
             this.txttimkiemVaiTro.Location = new System.Drawing.Point(23, 54);
-            this.txttimkiemVaiTro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txttimkiemVaiTro.Margin = new System.Windows.Forms.Padding(4);
             this.txttimkiemVaiTro.Multiline = true;
             this.txttimkiemVaiTro.Name = "txttimkiemVaiTro";
             this.txttimkiemVaiTro.Size = new System.Drawing.Size(275, 46);
@@ -1609,7 +1613,7 @@
             // 
             this.btntimkiemVaiTro.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btntimkiemVaiTro.Location = new System.Drawing.Point(321, 54);
-            this.btntimkiemVaiTro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btntimkiemVaiTro.Margin = new System.Windows.Forms.Padding(4);
             this.btntimkiemVaiTro.Name = "btntimkiemVaiTro";
             this.btntimkiemVaiTro.Size = new System.Drawing.Size(137, 47);
             this.btntimkiemVaiTro.TabIndex = 0;

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLiQuanCaPhe" Class="LionQuanLyQuanCaPheDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=ADMIN-LUAN-PC08;Initial Catalog=QuanLiQuanCaPhe;Persist Security Info=True;User ID=sa;Trust Server Certificate=True" SettingsObjectName="DuAn1Lion.Properties.Settings" SettingsPropertyName="QuanLiQuanCaPheConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=NGUYENQUOCANH-S;Initial Catalog=QuanLiQuanCaPhe;Persist Security Info=True;User ID=sa;Encrypt=False" SettingsObjectName="DuAn1Lion.Properties.Settings" SettingsPropertyName="QuanLiQuanCaPheConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.HoaDon" Member="HoaDons">
     <Type Name="HoaDon">
       <Column Name="MaHoaDon" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -13,6 +13,13 @@
       <Association Name="HoaDon_HoaDonChiTiet" Member="HoaDonChiTiets" ThisKey="MaHoaDon" OtherKey="MaHoaDon" Type="HoaDonChiTiet" />
       <Association Name="KhachHang_HoaDon" Member="KhachHang" ThisKey="MaKhachHang" OtherKey="MaKhachHang" Type="KhachHang" IsForeignKey="true" />
       <Association Name="NhanVien_HoaDon" Member="NhanVien" ThisKey="MaNhanVien" OtherKey="MaNhanVien" Type="NhanVien" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VaiTro" Member="VaiTros">
+    <Type Name="VaiTro">
+      <Column Name="MaVaiTro" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenVaiTro" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="VaiTro_NhanVien" Member="NhanViens" ThisKey="MaVaiTro" OtherKey="MaVaiTro" Type="NhanVien" />
     </Type>
   </Table>
   <Table Name="dbo.HoaDonChiTiet" Member="HoaDonChiTiets">
@@ -80,13 +87,6 @@
       <Column Name="HinhAnh" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="SanPham_HoaDonChiTiet" Member="HoaDonChiTiets" ThisKey="MaSanPham" OtherKey="MaSanPham" Type="HoaDonChiTiet" />
       <Association Name="NhanVien_SanPham" Member="NhanVien" ThisKey="MaNhanVien" OtherKey="MaNhanVien" Type="NhanVien" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.VaiTro" Member="VaiTros">
-    <Type Name="VaiTro">
-      <Column Name="MaVaiTro" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TenVaiTro" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Association Name="VaiTro_NhanVien" Member="NhanViens" ThisKey="MaVaiTro" OtherKey="MaVaiTro" Type="NhanVien" />
     </Type>
   </Table>
 </Database>
