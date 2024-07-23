@@ -538,6 +538,11 @@ namespace DuAn1Lion
             }
 
         }
+
+        private void txtMaSanPham_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
