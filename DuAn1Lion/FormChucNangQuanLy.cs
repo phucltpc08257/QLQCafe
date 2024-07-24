@@ -21,7 +21,7 @@ namespace DuAn1Lion
             InitializeComponent();
             tclFormChucNang.SelectedIndexChanged += tclFormChucNang_SelectedIndexChanged;
             LoadData();
-            dtgvThongTinNhanVien.CellFormatting += dtgvThongTinNhanVien_CellFormatting;
+          
         }
 
         // Event handlers
@@ -44,40 +44,7 @@ namespace DuAn1Lion
             }
         }
 
-        public partial class YourDataContext : DataContext
-        {
-            public Table<NhanVien> NhanViens;
-            public Table<HoaDon> HoaDons;
-
-            public YourDataContext(string connectionString) : base(connectionString) { }
-
-            [Function(Name = "ThongKeNhanVien")]
-            public ISingleResult<ThongKeNhanVienResult> ThongKeNhanVien()
-            {
-                IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-                return ((ISingleResult<ThongKeNhanVienResult>)(result.ReturnValue));
-            }
-        }
-        [Table(Name = "ThongKeNhanVien")]
-        public class ThongKeNhanVienResult
-        {
-            [Column(Name = "MaNhanVien")]
-            public string MaNhanVien { get; set; }
-
-            [Column(Name = "TenNhanVien")]
-            public string TenNhanVien { get; set; }
-
-            [Column(Name = "SoLuongHoaDonTuan")]
-            public int SoLuongHoaDonTuan { get; set; }
-
-            [Column(Name = "SoLuongHoaDonThang")]
-            public int SoLuongHoaDonThang { get; set; }
-
-            [Column(Name = "SoLuongHoaDonNam")]
-            public int SoLuongHoaDonNam { get; set; }
-
-
-        }
+      
 
 
         private void dtgvThongTinNhanVien_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -154,21 +121,8 @@ namespace DuAn1Lion
             txtMaVaiTro.ReadOnly = true;
             txtMaVaiTro.TabStop = false;
             TimKiemThongKeNhanVien();
-            string connectionString = @"Data Source=ADMIN-LUAN-PC08;Initial Catalog=QuanLiQuanCaPhe;Integrated Security=True;";
+           
 
-            using (var db = new YourDataContext(connectionString))
-            {
-                try
-                {
-                    var result = db.ThongKeNhanVien(); // Thực thi stored procedure
-
-                    dtgvThongKeNhanVien.DataSource = result.ToList(); // Hiển thị kết quả lên DataGridView
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Lỗi khi thực thi stored procedure: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
 
         }
 

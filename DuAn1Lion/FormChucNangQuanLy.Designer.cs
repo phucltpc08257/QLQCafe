@@ -1406,9 +1406,11 @@
             // 
             // dtgvThongKeNhanVien
             // 
+            this.dtgvThongKeNhanVien.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgvThongKeNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvThongKeNhanVien.Location = new System.Drawing.Point(0, 29);
             this.dtgvThongKeNhanVien.Name = "dtgvThongKeNhanVien";
+            this.dtgvThongKeNhanVien.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvThongKeNhanVien.Size = new System.Drawing.Size(907, 225);
             this.dtgvThongKeNhanVien.TabIndex = 1;
             // 
@@ -1485,7 +1487,7 @@
             // 
             this.dtgvVaiTro.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgvVaiTro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgvVaiTro.Location = new System.Drawing.Point(0, 38);
+            this.dtgvVaiTro.Location = new System.Drawing.Point(41, 56);
             this.dtgvVaiTro.Name = "dtgvVaiTro";
             this.dtgvVaiTro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvVaiTro.Size = new System.Drawing.Size(937, 199);
