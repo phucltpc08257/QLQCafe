@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace DuAn1Lion
             InitializeComponent();
             tclFormChucNang.SelectedIndexChanged += tclFormChucNang_SelectedIndexChanged;
             LoadData();
+            string maNhanVien = FormDangNhap.MaNhanVienHienTai;
+
 
         }
 
@@ -37,8 +40,15 @@ namespace DuAn1Lion
         {
 
         }
+        private bool IsMaNhanVienValid(string maNhanVien)
+        {
+            using (var sp = new LionQuanLyQuanCaPheDataContext())
+            {
+                return sp.NhanViens.Any(nv => nv.MaNhanVien == maNhanVien);
+            }
+        }
+
         //Thêm, Sửa, Xóa, Tìm Kiếm, Thống Kê, DTGV Sản Phẩm
-        private int Ma_Nhan_Vien = 001;
         private string GetNewMaSanPham(LionQuanLyQuanCaPheDataContext sp_Quan_Tri)
         {
             var existingMaHangs = sp_Quan_Tri.SanPhams.Select(sp => sp.MaSanPham).ToList();
@@ -79,6 +89,15 @@ namespace DuAn1Lion
                 return;
             }
 
+            if (giaNhap >= giaBan)
+            {
+                MessageBox.Show("Lỗi! Giá Nhập Phải Nhỏ Hơn Giá Bán", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            giaNhap *= 1000;
+            giaBan *= 1000;
+
             if (pic_AnhSanPham.Image == null)
             {
                 MessageBox.Show("Vui lòng chọn ảnh cho sản phẩm!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -86,11 +105,20 @@ namespace DuAn1Lion
             }
 
             byte[] imgData = null;
-            using (MemoryStream ms = new MemoryStream())
+            try
             {
-                pic_AnhSanPham.Image.Save(ms, pic_AnhSanPham.Image.RawFormat);
-                imgData = ms.ToArray();
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    pic_AnhSanPham.Image.Save(ms, pic_AnhSanPham.Image.RawFormat);
+                    imgData = ms.ToArray();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xử lý ảnh: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string maNhanVien = FormDangNhap.MaNhanVienHienTai;
 
             using (var sp = new LionQuanLyQuanCaPheDataContext())
             {
@@ -98,7 +126,7 @@ namespace DuAn1Lion
                 SanPham ThemSp = new SanPham
                 {
                     MaSanPham = auto_Ma_Sp,
-                    MaNhanVien = txtMaNhanVien.Text,
+                    MaNhanVien = maNhanVien,  
                     TenSanPham = txtTenSanPham.Text,
                     GiaBan = giaBan,
                     GiaNhap = giaNhap,
@@ -106,8 +134,6 @@ namespace DuAn1Lion
                 };
 
                 sp.SanPhams.InsertOnSubmit(ThemSp);
-                ThemSp.MaNhanVien = "NV" + Ma_Nhan_Vien.ToString("D3");
-                Ma_Nhan_Vien++;
 
                 try
                 {
@@ -122,6 +148,7 @@ namespace DuAn1Lion
                 }
             }
         }
+
 
 
         private void btnSuaSanPham_Click(object sender, EventArgs e)
@@ -204,7 +231,7 @@ namespace DuAn1Lion
 
                         using (var Sp = new LionQuanLyQuanCaPheDataContext())
                         {
-                            var XoaSanPham = Sp.SanPhams.SingleOrDefault(sp => sp.TenSanPham == tenSP);
+                            var XoaSanPham = Sp.SanPhams.FirstOrDefault(sp => sp.TenSanPham == tenSP);
 
                             if (XoaSanPham != null)
                             {
@@ -213,7 +240,15 @@ namespace DuAn1Lion
                                 }
 
                                 Sp.SanPhams.DeleteOnSubmit(XoaSanPham);
-                                Sp.SubmitChanges();
+
+                                try
+                                {
+                                    Sp.SubmitChanges();
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show($"Lỗi: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                         }
                     }
@@ -328,31 +363,26 @@ namespace DuAn1Lion
                           };
 
             var resultList = List_SP.ToList();
-
             dtgvSanPham.DataSource = resultList;
 
-            /*
             if (dtgvSanPham.Columns.Contains("GiaBan"))
             {
                 dtgvSanPham.Columns["GiaBan"].DefaultCellStyle.Format = "N0";
-                dtgvSanPham.Columns["GiaBan"].DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+                dtgvSanPham.Columns["GiaBan"].DefaultCellStyle.FormatProvider = new CultureInfo("vi-VN")
+                {
+                    NumberFormat = { NumberGroupSeparator = "." }
+                };
             }
+
             if (dtgvSanPham.Columns.Contains("GiaNhap"))
             {
                 dtgvSanPham.Columns["GiaNhap"].DefaultCellStyle.Format = "N0";
-                dtgvSanPham.Columns["GiaNhap"].DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+                dtgvSanPham.Columns["GiaNhap"].DefaultCellStyle.FormatProvider = new CultureInfo("vi-VN")
+                {
+                    NumberFormat = { NumberGroupSeparator = "." }
+                };
             }
-            */
-            if (dtgvSanPham.Columns.Contains("GiaBan"))
-            {
-                dtgvSanPham.Columns["GiaBan"].DefaultCellStyle.Format = "N0";
-                dtgvSanPham.Columns["GiaBan"].DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
-            }
-            if (dtgvSanPham.Columns.Contains("GiaNhap"))
-            {
-                dtgvSanPham.Columns["GiaNhap"].DefaultCellStyle.Format = "N0";
-                dtgvSanPham.Columns["GiaNhap"].DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
-            }
+
             if (!dtgvSanPham.Columns.Contains("AnhSanPham"))
             {
                 DataGridViewImageColumn Column = new DataGridViewImageColumn();
@@ -396,43 +426,47 @@ namespace DuAn1Lion
                 txtMaSanPham.Text = row.Cells["MaSanPham"].Value.ToString();
                 txtTenSanPham.Text = row.Cells["TenSanPham"].Value.ToString();
 
-                // Lấy giá bán và giá nhập từ ô dữ liệu
                 decimal giaBan, giaNhap;
+
+                NumberFormatInfo nfi = new NumberFormatInfo
+                {
+                    NumberGroupSeparator = ".",
+                    NumberDecimalSeparator = ",",
+                    NumberGroupSizes = new int[] { 3 }
+                };
 
                 if (decimal.TryParse(row.Cells["GiaBan"].Value.ToString(), out giaBan))
                 {
-                    txtGiaBan.Text = giaBan.ToString("0"); // Hiển thị số nguyên bình thường, không có dấu phân cách
+                    txtGiaBan.Text = giaBan.ToString("N0", nfi);
                 }
                 else
                 {
-                    txtGiaBan.Text = string.Empty; // Xử lý trường hợp không phải là số hợp lệ
+                    txtGiaBan.Text = string.Empty;
                 }
 
                 if (decimal.TryParse(row.Cells["GiaNhap"].Value.ToString(), out giaNhap))
                 {
-                    txtGiaNhap.Text = giaNhap.ToString("0"); // Hiển thị số nguyên bình thường, không có dấu phân cách
+                    txtGiaNhap.Text = giaNhap.ToString("N0", nfi);
                 }
                 else
                 {
-                    txtGiaNhap.Text = string.Empty; // Xử lý trường hợp không phải là số hợp lệ
+                    txtGiaNhap.Text = string.Empty;
                 }
 
-                var cellValue = row.Cells["AnhSanPham"].Value;
+                var cellValue = row.Cells["HinhAnh"].Value;
 
                 if (cellValue != null && cellValue != DBNull.Value)
                 {
-                    var image = (Image)cellValue;
-                    pic_AnhSanPham.Image = image;
+                    byte[] DataImg = ((System.Data.Linq.Binary)cellValue).ToArray();
+                    using (var ms = new MemoryStream(DataImg))
+                    {
+                        var image = Image.FromStream(ms);
+                        pic_AnhSanPham.Image = image;
+                    }
                 }
                 else
                 {
                     pic_AnhSanPham.Image = null;
-                }
-
-                if (e.RowIndex >= 0 && e.RowIndex < dtgvSanPham.Rows.Count)
-                {
-                    string ma_san_pham = row.Cells["MaSanPham"].Value.ToString();
-                    LoadImage(ma_san_pham);
                 }
             }
         }
@@ -475,13 +509,18 @@ namespace DuAn1Lion
             }
         }
 
+
         private void dtgvThongKeSanPham_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dtgvThongKeSanPham.Columns["AnhSanPhamImage_TK"].Index && e.RowIndex >= 0)
+            if (dtgvThongKeSanPham == null) return;
+
+            // Kiểm tra cột và hàng
+            if (e.ColumnIndex == dtgvThongKeSanPham.Columns["AnhSanPham"]?.Index && e.RowIndex >= 0)
             {
-                if (dtgvThongKeSanPham.Columns.Contains("AnhSanPham"))
+                // Kiểm tra sự tồn tại của cột
+                if (dtgvThongKeSanPham.Columns.Contains("HinhAnh"))
                 {
-                    var cellValue_HD = dtgvThongKeSanPham.Rows[e.RowIndex].Cells["AnhSanPham"].Value;
+                    var cellValue_HD = dtgvThongKeSanPham.Rows[e.RowIndex]?.Cells["HinhAnh"]?.Value;
                     if (cellValue_HD != null && cellValue_HD != DBNull.Value)
                     {
                         try
@@ -509,6 +548,7 @@ namespace DuAn1Lion
                 }
             }
         }
+
 
         private string imagePath = "";
 
@@ -605,10 +645,10 @@ namespace DuAn1Lion
                 dtgvThongKeSanPham.Columns["GiaNhap"].DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
             }
 
-            if (!dtgvThongKeSanPham.Columns.Contains("AnhSanPham_TK"))
+            if (!dtgvThongKeSanPham.Columns.Contains("AnhSanPham"))
             {
                 DataGridViewImageColumn Column_NK = new DataGridViewImageColumn();
-                Column_NK.Name = "AnhSanPham_TK";
+                Column_NK.Name = "AnhSanPham";
                 Column_NK.HeaderText = "Ảnh Sản Phẩm";
                 Column_NK.Width = 100;
                 Column_NK.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -624,12 +664,12 @@ namespace DuAn1Lion
                     using (var ms_NK = new MemoryStream(DataImg_NK))
                     {
                         var image_NK = Image.FromStream(ms_NK);
-                        row_NK.Cells["AnhSanPham_TK"].Value = image_NK;
+                        row_NK.Cells["AnhSanPham"].Value = image_NK;
                     }
                 }
                 else
                 {
-                    row_NK.Cells["AnhSanPham_TK"].Value = null;
+                    row_NK.Cells["v"].Value = null;
                 }
             }
 
@@ -638,6 +678,7 @@ namespace DuAn1Lion
                 dtgvThongKeSanPham.Columns["HinhAnh"].Visible = false;
             }
         }
+    
         /*
                 private void hienThi_Thong_Ke_San_Pham_NhapKho()
                 {
@@ -729,12 +770,40 @@ namespace DuAn1Lion
 
         private void tclFormChucNang_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if(tclFormChucNang.SelectedTab == tpSanPham)
+            {
+                hienThiSan_Pham();
+            }
+            if(tclFormChucNang.SelectedTab == tpNhanVien)
+            {
+                LamMoi_SP();
+            }
+            if (tclFormChucNang.SelectedTab == tpKhachHang)
+            {
+                LamMoi_SP();
+            }
+            if (tclFormChucNang.SelectedTab == tpNguyenLieu)
+            {
+                LamMoi_SP();
+            }
+            if (tclFormChucNang.SelectedTab == tpOrder)
+            {
+                LamMoi_SP();
+            }
+            if (tclFormChucNang.SelectedTab == tpThongKe)
+            {
+                LamMoi_SP();
+            }
+            if (tclFormChucNang.SelectedTab == tpVaiTro)
+            {
+                LamMoi_SP();
+            }
         }
         private void LoadData()
         {
             HienThiNhanVien();
             hienThiSan_Pham();
+            hienThi_ThongKe_SanPham();
             txtMaSanPham.ReadOnly = true;
             txtMaSanPham.TabStop = false;
             //txtMaNhanVien.Text = FormDangNhap.Lay_Ma_Nhan_Vien;

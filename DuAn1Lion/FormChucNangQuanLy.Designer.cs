@@ -1760,6 +1760,7 @@
             this.dtgvThongKeSanPham.Margin = new System.Windows.Forms.Padding(4);
             this.dtgvThongKeSanPham.Name = "dtgvThongKeSanPham";
             this.dtgvThongKeSanPham.RowHeadersWidth = 51;
+            this.dtgvThongKeSanPham.RowTemplate.Height = 70;
             this.dtgvThongKeSanPham.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvThongKeSanPham.Size = new System.Drawing.Size(1225, 332);
             this.dtgvThongKeSanPham.TabIndex = 1;
