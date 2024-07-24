@@ -76,8 +76,8 @@ namespace DuAn1Lion
         {
             hienThiKhachHang();
             HienThiNhanVien();
-         
-           
+
+
         }
 
         private void tclFormChucNang_SelectedIndexChanged(object sender, EventArgs e)
@@ -578,24 +578,7 @@ namespace DuAn1Lion
 
 
 
-        private void LoadcbbVaiTroCuaNhanVien()
-        {
-            try
-            {
-                using (var context = new LionQuanLyQuanCaPheDataContext())
-                {
-                    // Select all MaVaiTro from VaiTros table
-                    var vaiTros = context.VaiTros.Select(vt => vt.MaVaiTro).ToList();
 
-                    // Bind the list to the ComboBox
-                    cbbVaiTroCuaNhanVien.DataSource = vaiTros;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading roles: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
 
 
@@ -628,6 +611,18 @@ namespace DuAn1Lion
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+        //PHAN CUA QUOC ANH
         private void txtMaSanPham_TextChanged(object sender, EventArgs e)
         {
 
@@ -651,7 +646,7 @@ namespace DuAn1Lion
 
         private void btnTimKiemKhachHang_Click(object sender, EventArgs e)
         {
-            timKiemKhachHang();
+
         }
 
 
@@ -699,41 +694,57 @@ namespace DuAn1Lion
                string.IsNullOrEmpty(txtEmailKhachHang.Text))
             {
                 MessageBox.Show("Bạn không thể thêm khi để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+
+            if (string.IsNullOrEmpty(txtTenKhachHang.Text) || Regex.IsMatch(txtTenKhachHang.Text, @"\d"))
+            {
+                MessageBox.Show("Tên không được bỏ trống và không được chứa số!");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtSDTKhachHang.Text) || !Regex.IsMatch(txtSDTKhachHang.Text, @"^\d{10}$"))
+            {
+                MessageBox.Show("Số điện thoại không được bỏ trống và phải có 10 số!");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtEmailKhachHang.Text) || !Regex.IsMatch(txtEmailKhachHang.Text, @"^[a-zA-Z0-9._%+-]+@gmail\.com$"))
+            {
+                MessageBox.Show("Email không được bỏ trống và phải có định dạng @gmail.com!");
+                return;
+            }
+
+            try
             {
                 var QLKH = new LionQuanLyQuanCaPheDataContext();
-
-                using (QLKH)
+                KhachHang Themkh = new KhachHang()
                 {
-                    KhachHang Themkh = new KhachHang()
-                    {
 
-                        TenKhachHang = txtTenKhachHang.Text,
-                        DiaChi = txtDiaChiKhachHang.Text,
-                        SDT = txtSDTKhachHang.Text,
-                        NgaySinh = dttpNgaySinhKhachHang.Value,
-                        Email = txtEmailKhachHang.Text
+                    TenKhachHang = txtTenKhachHang.Text,
+                    DiaChi = txtDiaChiKhachHang.Text,
+                    SDT = txtSDTKhachHang.Text,
+                    NgaySinh = dttpNgaySinhKhachHang.Value,
+                    Email = txtEmailKhachHang.Text
 
 
-                    };
-                    QLKH.KhachHangs.InsertOnSubmit(Themkh);
-                    Themkh.MaKhachHang = "KH" + maKh.ToString("D3");
-                    maKh++;
-                    try
-                    {
-                        QLKH.SubmitChanges();
-                        MessageBox.Show("Thêm thành công");
-                        hienThiKhachHang();
-                        lamMoiKhachHang();
+                };
+                QLKH.KhachHangs.InsertOnSubmit(Themkh);
+                Themkh.MaKhachHang = "KH" + maKh.ToString("D3");
+                maKh +=1;
 
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Lỗi");
-                    }
-                }
+                QLKH.SubmitChanges();
+                MessageBox.Show("Thêm thành công");
+                hienThiKhachHang();
+                lamMoiKhachHang();
+
             }
+            catch (Exception)
+            {
+                MessageBox.Show("Lỗi khi thêm");
+            }
+
+
         }
 
 
@@ -821,24 +832,7 @@ namespace DuAn1Lion
 
         }
 
-        private void timKiemKhachHang()
-        {
-            var QLKH = new LionQuanLyQuanCaPheDataContext();
 
-            var khachHangs = from kh in QLKH.KhachHangs
-                             where kh.MaKhachHang == kh.MaKhachHang
-                             select new
-                             {
-                                 kh.MaKhachHang,
-                                 kh.TenKhachHang,
-                                 kh.DiaChi,
-                                 kh.SDT,
-                                 kh.NgaySinh,
-                                 kh.Email
-                             };
-
-            dtgvThongTinKhachHang.DataSource = khachHangs.ToList();
-        }
 
 
         private void dtgvThongTinKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -859,8 +853,8 @@ namespace DuAn1Lion
         }
 
 
-     
-    
+
+
     }
 
 
