@@ -62,6 +62,8 @@ namespace DuAn1Lion
                 btnXoaSanPham.Enabled = false;
 
             }
+
+
         }
 
         public FormChucNangQuanLy()
@@ -76,8 +78,15 @@ namespace DuAn1Lion
         {
             hienThiKhachHang();
             HienThiNhanVien();
+            load();
+            SetupUI();
 
+        }
 
+        private void load()
+        {
+            txtMaKhachHang.ReadOnly = true;
+            txtMaKhachHang.TabStop = false;
         }
 
         private void tclFormChucNang_SelectedIndexChanged(object sender, EventArgs e)
@@ -174,7 +183,7 @@ namespace DuAn1Lion
 
         private void btnTimKiemNhanVien_Click(object sender, EventArgs e)
         {
-            timKiemNhanVien();
+            TimKiemNhanVien();
         }
 
 
@@ -339,33 +348,29 @@ namespace DuAn1Lion
         }
 
 
-        private void timKiemNhanVien()
+        private void TimKiemNhanVien()
         {
             using (var QLNV = new LionQuanLyQuanCaPheDataContext())
             {
-                string maNhanVien = txtTimKiemNhanVien.Text.Trim(); // Lấy mã nhân viên từ textbox tìm kiếm
+                var list = from nv in QLNV.NhanViens
+                           join vt in QLNV.VaiTros on nv.MaVaiTro equals vt.MaVaiTro
+                           where nv.MaNhanVien.Contains(txtTimKiemNhanVien.Text) || nv.TenNhanVien.Contains(txtTimKiemNhanVien.Text)
+                           select new
+                           {
+                               nv.MaNhanVien,
+                               nv.TenNhanVien,
+                               nv.SDT,
+                               nv.Email,
+                               nv.DiaChi,
+                               nv.MaVaiTro,
+                               nv.NgaySinh,
+                               nv.GioiTinh,
+                               nv.MatKhau,
+                               nv.NgayBatDauLamViec,
+                               TenVaiTro = vt.TenVaiTro // Include the name of the role
+                           };
 
-                // Query lấy thông tin nhân viên từ database dựa vào mã nhân viên nhập vào
-                var timKiem = from nv in QLNV.NhanViens
-                              join vt in QLNV.VaiTros on nv.MaVaiTro equals vt.MaVaiTro into vtGroup
-                              from vt in vtGroup.DefaultIfEmpty()
-                              where nv.MaNhanVien.Contains(maNhanVien)
-                              select new
-                              {
-                                  nv.MaNhanVien,
-                                  nv.GioiTinh,
-                                  nv.NgaySinh,
-                                  nv.TenNhanVien,
-                                  nv.SDT,
-                                  nv.NgayBatDauLamViec,
-                                  nv.Email,
-                                  nv.DiaChi,
-                                  nv.MatKhau,
-                                  MaVaiTro = vt != null ? vt.MaVaiTro : "", // Lấy mã vai trò nếu tồn tại, ngược lại trả về rỗng
-                                  TenVaiTro = vt != null ? vt.TenVaiTro : "" // Lấy tên vai trò nếu tồn tại, ngược lại trả về rỗng
-                              };
-
-                dtgvThongTinNhanVien.DataSource = timKiem.ToList(); // Gán kết quả vào DataSource của DataGridView
+                dtgvThongTinNhanVien.DataSource = list.ToList();
             }
         }
 
@@ -643,11 +648,11 @@ namespace DuAn1Lion
             xoaKhachHang();
         }
 
-
         private void btnTimKiemKhachHang_Click(object sender, EventArgs e)
         {
-
+            TimKiemKhachHang();
         }
+
 
 
         //LAM MỚI KHÁCH HÀNG
@@ -833,7 +838,31 @@ namespace DuAn1Lion
         }
 
 
+        private void TimKiemKhachHang()
+        {
+            using (var QLNV = new LionQuanLyQuanCaPheDataContext())
+            {
+                string timKiemValue = txtTimKiemKhachHang.Text.Trim(); // Lấy giá trị tìm kiếm từ textbox
 
+                // Query lấy thông tin nhân viên từ database dựa vào mã nhân viên hoặc tên nhân viên nhập vào
+                var timKiem = from kh in QLNV.KhachHangs
+                              join nv in QLNV.NhanViens on kh.MaNhanVien equals nv.MaNhanVien into vtGroup
+                              from vt in vtGroup.DefaultIfEmpty()
+                              where kh.MaKhachHang.Contains(timKiemValue) || kh.TenKhachHang.Contains(timKiemValue)
+                              select new
+                              {
+                                 kh.MaKhachHang,
+                                 kh.MaNhanVien,
+                                 kh.TenKhachHang,
+                                 kh.DiaChi,
+                                 kh.SDT,
+                                 kh.NgaySinh,
+                                 kh.Email
+                              };
+
+                dtgvThongTinKhachHang.DataSource = timKiem.ToList();
+            }
+        }
 
         private void dtgvThongTinKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -852,9 +881,7 @@ namespace DuAn1Lion
             txtEmailKhachHang.Text = HTKhachHang.Email.ToString();
         }
 
-
-
-
+      
     }
 
 
