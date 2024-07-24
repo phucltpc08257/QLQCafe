@@ -54,7 +54,7 @@
             this.tpKhachHang = new System.Windows.Forms.TabPage();
             this.grbTimKiemKhachHang = new System.Windows.Forms.GroupBox();
             this.txtTimKiemKhachHang = new System.Windows.Forms.TextBox();
-            this.btnTimKiem = new System.Windows.Forms.Button();
+            this.btnTimKiemKhachHang = new System.Windows.Forms.Button();
             this.grbChucNangKhachHang = new System.Windows.Forms.GroupBox();
             this.btnXoaKhachHang = new System.Windows.Forms.Button();
             this.btnSuaKhachHang = new System.Windows.Forms.Button();
@@ -235,7 +235,6 @@
             this.tpSanPham.TabIndex = 0;
             this.tpSanPham.Text = "Sản phẩm";
             this.tpSanPham.UseVisualStyleBackColor = true;
-            this.tpSanPham.Click += new System.EventHandler(this.tpSanPham_Click);
             // 
             // pic_AnhSanPham
             // 
@@ -259,7 +258,6 @@
             this.grbTimKiem.TabIndex = 15;
             this.grbTimKiem.TabStop = false;
             this.grbTimKiem.Text = "Tìm kiếm";
-            this.grbTimKiem.Enter += new System.EventHandler(this.grbTimKiem_Enter);
             // 
             // txtTimKiemSanPham
             // 
@@ -293,7 +291,6 @@
             this.grbChucNangSanPham.TabIndex = 14;
             this.grbChucNangSanPham.TabStop = false;
             this.grbChucNangSanPham.Text = "Chức năng";
-            this.grbChucNangSanPham.Enter += new System.EventHandler(this.grbChucNangSanPham_Enter);
             // 
             // btnXoaSanPham
             // 
@@ -324,7 +321,6 @@
             this.btnThemSanPham.TabIndex = 0;
             this.btnThemSanPham.Text = "Thêm";
             this.btnThemSanPham.UseVisualStyleBackColor = true;
-            this.btnThemSanPham.Click += new System.EventHandler(this.btnThemSanPham_Click);
             // 
             // grbThongTinSanPham
             // 
@@ -338,7 +334,6 @@
             this.grbThongTinSanPham.TabIndex = 13;
             this.grbThongTinSanPham.TabStop = false;
             this.grbThongTinSanPham.Text = "Thông tin Sản phẩm";
-            this.grbThongTinSanPham.Enter += new System.EventHandler(this.grbThongTinSanPham_Enter);
             // 
             // dtgvSanPham
             // 
@@ -485,12 +480,11 @@
             this.tpKhachHang.TabIndex = 1;
             this.tpKhachHang.Text = "Khách hàng";
             this.tpKhachHang.UseVisualStyleBackColor = true;
-            this.tpKhachHang.Click += new System.EventHandler(this.tpKhachHang_Click);
             // 
             // grbTimKiemKhachHang
             // 
             this.grbTimKiemKhachHang.Controls.Add(this.txtTimKiemKhachHang);
-            this.grbTimKiemKhachHang.Controls.Add(this.btnTimKiem);
+            this.grbTimKiemKhachHang.Controls.Add(this.btnTimKiemKhachHang);
             this.grbTimKiemKhachHang.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbTimKiemKhachHang.Location = new System.Drawing.Point(693, 625);
             this.grbTimKiemKhachHang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -509,16 +503,16 @@
             this.txtTimKiemKhachHang.Size = new System.Drawing.Size(273, 30);
             this.txtTimKiemKhachHang.TabIndex = 3;
             // 
-            // btnTimKiem
+            // btnTimKiemKhachHang
             // 
-            this.btnTimKiem.Location = new System.Drawing.Point(355, 41);
-            this.btnTimKiem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnTimKiem.Name = "btnTimKiem";
-            this.btnTimKiem.Size = new System.Drawing.Size(131, 36);
-            this.btnTimKiem.TabIndex = 2;
-            this.btnTimKiem.Text = "Tìm kiếm";
-            this.btnTimKiem.UseVisualStyleBackColor = true;
-            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
+            this.btnTimKiemKhachHang.Location = new System.Drawing.Point(355, 41);
+            this.btnTimKiemKhachHang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnTimKiemKhachHang.Name = "btnTimKiemKhachHang";
+            this.btnTimKiemKhachHang.Size = new System.Drawing.Size(131, 36);
+            this.btnTimKiemKhachHang.TabIndex = 2;
+            this.btnTimKiemKhachHang.Text = "Tìm kiếm";
+            this.btnTimKiemKhachHang.UseVisualStyleBackColor = true;
+            this.btnTimKiemKhachHang.Click += new System.EventHandler(this.btnTimKiemKhachHang_Click);
             // 
             // grbChucNangKhachHang
             // 
@@ -613,7 +607,6 @@
             this.txtDiaChiKhachHang.Name = "txtDiaChiKhachHang";
             this.txtDiaChiKhachHang.Size = new System.Drawing.Size(289, 34);
             this.txtDiaChiKhachHang.TabIndex = 21;
-            this.txtDiaChiKhachHang.TextChanged += new System.EventHandler(this.txtDiaChiKhachHang_TextChanged);
             // 
             // label13
             // 
@@ -856,6 +849,7 @@
             this.btnTimKiemNhanVien.TabIndex = 2;
             this.btnTimKiemNhanVien.Text = "Tìm kiếm";
             this.btnTimKiemNhanVien.UseVisualStyleBackColor = true;
+            this.btnTimKiemNhanVien.Click += new System.EventHandler(this.btnTimKiemNhanVien_Click);
             // 
             // grbChucNangNhanVien
             // 
@@ -1026,7 +1020,6 @@
             this.dtgvThongTinNhanVien.Size = new System.Drawing.Size(1315, 192);
             this.dtgvThongTinNhanVien.TabIndex = 0;
             this.dtgvThongTinNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvThongTinNhanVien_CellClick);
-            this.dtgvThongTinNhanVien.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvThongTinNhanVien_CellContentClick);
             // 
             // txtMaNhanVien
             // 
@@ -1738,7 +1731,7 @@
         private System.Windows.Forms.DateTimePicker dttpNgaySinhKhachHang;
         private System.Windows.Forms.GroupBox grbTimKiemKhachHang;
         private System.Windows.Forms.TextBox txtTimKiemKhachHang;
-        private System.Windows.Forms.Button btnTimKiem;
+        private System.Windows.Forms.Button btnTimKiemKhachHang;
         private System.Windows.Forms.GroupBox grbChucNangKhachHang;
         private System.Windows.Forms.Button btnXoaKhachHang;
         private System.Windows.Forms.Button btnSuaKhachHang;
