@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -71,34 +72,12 @@ namespace DuAn1Lion
 
         }
 
-        private void tpSanPham_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void FormChucNangQuanLy_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void grbThongTinSanPham_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnThemSanPham_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void grbChucNangSanPham_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tpKhachHang_Click(object sender, EventArgs e)
-        {
-
+            hienThiKhachHang();
+            HienThiNhanVien();
+         
+           
         }
 
         private void tclFormChucNang_SelectedIndexChanged(object sender, EventArgs e)
@@ -171,23 +150,6 @@ namespace DuAn1Lion
 
 
 
-        private void grbTimKiem_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtDiaChiKhachHang_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dtgvThongTinNhanVien_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-
-        }
-
-
 
         private void btnXoaNhanVien_Click(object sender, EventArgs e)
         {
@@ -209,6 +171,12 @@ namespace DuAn1Lion
             ClearTextBox();
 
         }
+
+        private void btnTimKiemNhanVien_Click(object sender, EventArgs e)
+        {
+            timKiemNhanVien();
+        }
+
 
         private string GenerateMaNhanVien()
         {
@@ -238,10 +206,7 @@ namespace DuAn1Lion
             return maNhanVien;
         }
 
-        private void dtgvThongTinVaiTro_Enter(object sender, EventArgs e)
-        {
 
-        }
 
         private int maNV = 001;
         private void ThemNhanVieṇ()
@@ -266,10 +231,11 @@ namespace DuAn1Lion
                         Email = txtEmail.Text,
                         SDT = txtSDTNhanVien.Text,
                         DiaChi = txtDiaChi.Text,
-                        MaVaiTro = cbbVaiTroCuaNhanVien.Text,
+                        MaVaiTro = cbbVaiTroCuaNhanVien.Text.Trim(),
                         NgaySinh = dttpNgaySinhNhanVien.Value,
                         GioiTinh = cbbGioiTinhNhanVien.Text,
                         NgayBatDauLamViec = dttpNgayBatDauLamCuaNhanVien.Value,
+                        MatKhau = randomMatKhau()
                     };
 
                     try
@@ -371,6 +337,54 @@ namespace DuAn1Lion
                 MessageBox.Show("Lỗi khi xóa nhân viên này: " + ex.Message);
             }
         }
+
+
+        private void timKiemNhanVien()
+        {
+            using (var QLNV = new LionQuanLyQuanCaPheDataContext())
+            {
+                string maNhanVien = txtTimKiemNhanVien.Text.Trim(); // Lấy mã nhân viên từ textbox tìm kiếm
+
+                // Query lấy thông tin nhân viên từ database dựa vào mã nhân viên nhập vào
+                var timKiem = from nv in QLNV.NhanViens
+                              join vt in QLNV.VaiTros on nv.MaVaiTro equals vt.MaVaiTro into vtGroup
+                              from vt in vtGroup.DefaultIfEmpty()
+                              where nv.MaNhanVien.Contains(maNhanVien)
+                              select new
+                              {
+                                  nv.MaNhanVien,
+                                  nv.GioiTinh,
+                                  nv.NgaySinh,
+                                  nv.TenNhanVien,
+                                  nv.SDT,
+                                  nv.NgayBatDauLamViec,
+                                  nv.Email,
+                                  nv.DiaChi,
+                                  nv.MatKhau,
+                                  MaVaiTro = vt != null ? vt.MaVaiTro : "", // Lấy mã vai trò nếu tồn tại, ngược lại trả về rỗng
+                                  TenVaiTro = vt != null ? vt.TenVaiTro : "" // Lấy tên vai trò nếu tồn tại, ngược lại trả về rỗng
+                              };
+
+                dtgvThongTinNhanVien.DataSource = timKiem.ToList(); // Gán kết quả vào DataSource của DataGridView
+            }
+        }
+
+
+
+        private string randomMatKhau()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            StringBuilder randomMatKhau = new StringBuilder();
+            Random random = new Random();
+            for (int i = 0; i < 8; i++)
+            {
+                randomMatKhau.Append(chars[random.Next(chars.Length)]);
+            }
+            return randomMatKhau.ToString();
+        }
+
+
+
         private void ClearTextBox()
         {
             txtDiaChi.Text = "";
@@ -634,10 +648,12 @@ namespace DuAn1Lion
             xoaKhachHang();
         }
 
-        private void btnTimKiem_Click(object sender, EventArgs e)
-        {
 
+        private void btnTimKiemKhachHang_Click(object sender, EventArgs e)
+        {
+            timKiemKhachHang();
         }
+
 
         //LAM MỚI KHÁCH HÀNG
         private void lamMoiKhachHang()
@@ -805,6 +821,26 @@ namespace DuAn1Lion
 
         }
 
+        private void timKiemKhachHang()
+        {
+            var QLKH = new LionQuanLyQuanCaPheDataContext();
+
+            var khachHangs = from kh in QLKH.KhachHangs
+                             where kh.MaKhachHang == kh.MaKhachHang
+                             select new
+                             {
+                                 kh.MaKhachHang,
+                                 kh.TenKhachHang,
+                                 kh.DiaChi,
+                                 kh.SDT,
+                                 kh.NgaySinh,
+                                 kh.Email
+                             };
+
+            dtgvThongTinKhachHang.DataSource = khachHangs.ToList();
+        }
+
+
         private void dtgvThongTinKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             var QLKH = new LionQuanLyQuanCaPheDataContext();
@@ -823,6 +859,8 @@ namespace DuAn1Lion
         }
 
 
+     
+    
     }
 
 
