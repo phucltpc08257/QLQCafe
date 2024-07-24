@@ -102,6 +102,7 @@
             this.txtNhapMatKhau.Name = "txtNhapMatKhau";
             this.txtNhapMatKhau.Size = new System.Drawing.Size(537, 34);
             this.txtNhapMatKhau.TabIndex = 5;
+            this.txtNhapMatKhau.UseSystemPasswordChar = true;
             // 
             // btnQuenMatKhau
             // 
