@@ -54,7 +54,7 @@ namespace DuAn1Lion
     #endregion
 		
 		public LionQuanLyQuanCaPheDataContext() : 
-				base(global::DuAn1Lion.Properties.Settings.Default.QuanLiQuanCaPheConnectionString1, mappingSource)
+				base(global::DuAn1Lion.Properties.Settings.Default.QuanLiQuanCaPheConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}

@@ -16,7 +16,8 @@ namespace DuAn1Lion
         {
             InitializeComponent();
         }
-
+        public static string Lay_Ma_Nhan_Vien { get; private set; }
+        
         private void FormDangNhap_Load(object sender, EventArgs e)
         {
 
@@ -24,12 +25,7 @@ namespace DuAn1Lion
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            FormChucNangQuanLy form = new FormChucNangQuanLy();
-
-            form.ShowDialog();
-            form = null;
-            this.Show();
-            this.Close();
+            
         }
     }
 }

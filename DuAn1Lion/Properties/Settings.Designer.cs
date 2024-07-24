@@ -44,5 +44,17 @@ namespace DuAn1Lion.Properties {
                 return ((string)(this["QuanLiQuanCaPheConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ADMIN\\HOANGKHANG;Initial Catalog=QuanLiQuanCaPhe;Persist Security Inf" +
+            "o=True;User ID=sa;Password=hoangkhang160205;Encrypt=True;TrustServerCertificate=" +
+            "True")]
+        public string QuanLiQuanCaPheConnectionString2 {
+            get {
+                return ((string)(this["QuanLiQuanCaPheConnectionString2"]));
+            }
+        }
     }
 }
