@@ -1509,7 +1509,6 @@
             this.dtgvVaiTro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvVaiTro.Size = new System.Drawing.Size(937, 199);
             this.dtgvVaiTro.TabIndex = 1;
-            this.dtgvVaiTro.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvVaiTro_CellClick);
             // 
             // txtTenVaiTro
             // 
