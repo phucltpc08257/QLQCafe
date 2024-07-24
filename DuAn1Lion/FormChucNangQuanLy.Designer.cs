@@ -141,6 +141,7 @@
             this.btnThongKeNhanVien = new System.Windows.Forms.Button();
             this.label24 = new System.Windows.Forms.Label();
             this.tpVaiTro = new System.Windows.Forms.TabPage();
+            this.cbbvaitro = new System.Windows.Forms.ComboBox();
             this.dtgvThongTinVaiTro = new System.Windows.Forms.GroupBox();
             this.dtgvVaiTro = new System.Windows.Forms.DataGridView();
             this.txtMaVaiTro = new System.Windows.Forms.TextBox();
@@ -157,7 +158,6 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.cbbvaitro = new System.Windows.Forms.ComboBox();
             this.tclFormChucNang.SuspendLayout();
             this.tpSanPham.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_AnhSanPham)).BeginInit();
@@ -1027,12 +1027,14 @@
             // 
             // dtgvThongTinNhanVien
             // 
+            this.dtgvThongTinNhanVien.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgvThongTinNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvThongTinNhanVien.Location = new System.Drawing.Point(1, 23);
             this.dtgvThongTinNhanVien.Margin = new System.Windows.Forms.Padding(2);
             this.dtgvThongTinNhanVien.Name = "dtgvThongTinNhanVien";
             this.dtgvThongTinNhanVien.RowHeadersWidth = 51;
             this.dtgvThongTinNhanVien.RowTemplate.Height = 24;
+            this.dtgvThongTinNhanVien.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvThongTinNhanVien.Size = new System.Drawing.Size(986, 156);
             this.dtgvThongTinNhanVien.TabIndex = 0;
             this.dtgvThongTinNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvThongTinNhanVien_CellClick);
@@ -1483,6 +1485,15 @@
             this.tpVaiTro.Text = "VaiTro";
             this.tpVaiTro.UseVisualStyleBackColor = true;
             // 
+            // cbbvaitro
+            // 
+            this.cbbvaitro.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbvaitro.FormattingEnabled = true;
+            this.cbbvaitro.Location = new System.Drawing.Point(663, 139);
+            this.cbbvaitro.Name = "cbbvaitro";
+            this.cbbvaitro.Size = new System.Drawing.Size(181, 26);
+            this.cbbvaitro.TabIndex = 50;
+            // 
             // dtgvThongTinVaiTro
             // 
             this.dtgvThongTinVaiTro.Controls.Add(this.dtgvVaiTro);
@@ -1621,15 +1632,6 @@
             this.label34.Size = new System.Drawing.Size(99, 33);
             this.label34.TabIndex = 0;
             this.label34.Text = "Vai trò";
-            // 
-            // cbbvaitro
-            // 
-            this.cbbvaitro.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbbvaitro.FormattingEnabled = true;
-            this.cbbvaitro.Location = new System.Drawing.Point(663, 139);
-            this.cbbvaitro.Name = "cbbvaitro";
-            this.cbbvaitro.Size = new System.Drawing.Size(181, 26);
-            this.cbbvaitro.TabIndex = 50;
             // 
             // FormChucNangQuanLy
             // 
