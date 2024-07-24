@@ -83,8 +83,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.grbTimKiemNhanVien = new System.Windows.Forms.GroupBox();
-            this.txtTimKiemNhanVien = new System.Windows.Forms.TextBox();
-            this.btnTimKiemNhanVien = new System.Windows.Forms.Button();
+            this.txtTimKiemThongTinNhanVien = new System.Windows.Forms.TextBox();
             this.grbChucNangNhanVien = new System.Windows.Forms.GroupBox();
             this.btnXoaNhanVien = new System.Windows.Forms.Button();
             this.btnSuaNhanVien = new System.Windows.Forms.Button();
@@ -158,6 +157,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.btnTimKiemthongtinNhanVien = new System.Windows.Forms.Button();
             this.tclFormChucNang.SuspendLayout();
             this.tpSanPham.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_AnhSanPham)).BeginInit();
@@ -235,7 +235,6 @@
             this.tpSanPham.TabIndex = 0;
             this.tpSanPham.Text = "Sản phẩm";
             this.tpSanPham.UseVisualStyleBackColor = true;
-            this.tpSanPham.Click += new System.EventHandler(this.tpSanPham_Click);
             // 
             // pic_AnhSanPham
             // 
@@ -259,7 +258,6 @@
             this.grbTimKiem.TabIndex = 15;
             this.grbTimKiem.TabStop = false;
             this.grbTimKiem.Text = "Tìm kiếm";
-            this.grbTimKiem.Enter += new System.EventHandler(this.grbTimKiem_Enter);
             // 
             // txtTimKiemSanPham
             // 
@@ -293,7 +291,6 @@
             this.grbChucNangSanPham.TabIndex = 14;
             this.grbChucNangSanPham.TabStop = false;
             this.grbChucNangSanPham.Text = "Chức năng";
-            this.grbChucNangSanPham.Enter += new System.EventHandler(this.grbChucNangSanPham_Enter);
             // 
             // btnXoaSanPham
             // 
@@ -324,7 +321,6 @@
             this.btnThemSanPham.TabIndex = 0;
             this.btnThemSanPham.Text = "Thêm";
             this.btnThemSanPham.UseVisualStyleBackColor = true;
-            this.btnThemSanPham.Click += new System.EventHandler(this.btnThemSanPham_Click);
             // 
             // grbThongTinSanPham
             // 
@@ -338,7 +334,6 @@
             this.grbThongTinSanPham.TabIndex = 13;
             this.grbThongTinSanPham.TabStop = false;
             this.grbThongTinSanPham.Text = "Thông tin Sản phẩm";
-            this.grbThongTinSanPham.Enter += new System.EventHandler(this.grbThongTinSanPham_Enter);
             // 
             // dtgvSanPham
             // 
@@ -490,7 +485,6 @@
             this.tpKhachHang.TabIndex = 1;
             this.tpKhachHang.Text = "Khách hàng";
             this.tpKhachHang.UseVisualStyleBackColor = true;
-            this.tpKhachHang.Click += new System.EventHandler(this.tpKhachHang_Click);
             // 
             // grbTimKiemKhachHang
             // 
@@ -614,7 +608,6 @@
             this.txtDiaChiKhachHang.Name = "txtDiaChiKhachHang";
             this.txtDiaChiKhachHang.Size = new System.Drawing.Size(218, 28);
             this.txtDiaChiKhachHang.TabIndex = 21;
-            this.txtDiaChiKhachHang.TextChanged += new System.EventHandler(this.txtDiaChiKhachHang_TextChanged);
             // 
             // label13
             // 
@@ -837,8 +830,8 @@
             // 
             // grbTimKiemNhanVien
             // 
-            this.grbTimKiemNhanVien.Controls.Add(this.txtTimKiemNhanVien);
-            this.grbTimKiemNhanVien.Controls.Add(this.btnTimKiemNhanVien);
+            this.grbTimKiemNhanVien.Controls.Add(this.btnTimKiemthongtinNhanVien);
+            this.grbTimKiemNhanVien.Controls.Add(this.txtTimKiemThongTinNhanVien);
             this.grbTimKiemNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbTimKiemNhanVien.Location = new System.Drawing.Point(514, 500);
             this.grbTimKiemNhanVien.Margin = new System.Windows.Forms.Padding(2);
@@ -849,23 +842,13 @@
             this.grbTimKiemNhanVien.TabStop = false;
             this.grbTimKiemNhanVien.Text = "Tìm kiếm";
             // 
-            // txtTimKiemNhanVien
+            // txtTimKiemThongTinNhanVien
             // 
-            this.txtTimKiemNhanVien.Location = new System.Drawing.Point(17, 38);
-            this.txtTimKiemNhanVien.Margin = new System.Windows.Forms.Padding(2);
-            this.txtTimKiemNhanVien.Name = "txtTimKiemNhanVien";
-            this.txtTimKiemNhanVien.Size = new System.Drawing.Size(206, 26);
-            this.txtTimKiemNhanVien.TabIndex = 3;
-            // 
-            // btnTimKiemNhanVien
-            // 
-            this.btnTimKiemNhanVien.Location = new System.Drawing.Point(266, 33);
-            this.btnTimKiemNhanVien.Margin = new System.Windows.Forms.Padding(2);
-            this.btnTimKiemNhanVien.Name = "btnTimKiemNhanVien";
-            this.btnTimKiemNhanVien.Size = new System.Drawing.Size(98, 29);
-            this.btnTimKiemNhanVien.TabIndex = 2;
-            this.btnTimKiemNhanVien.Text = "Tìm kiếm";
-            this.btnTimKiemNhanVien.UseVisualStyleBackColor = true;
+            this.txtTimKiemThongTinNhanVien.Location = new System.Drawing.Point(33, 34);
+            this.txtTimKiemThongTinNhanVien.Margin = new System.Windows.Forms.Padding(2);
+            this.txtTimKiemThongTinNhanVien.Name = "txtTimKiemThongTinNhanVien";
+            this.txtTimKiemThongTinNhanVien.Size = new System.Drawing.Size(206, 26);
+            this.txtTimKiemThongTinNhanVien.TabIndex = 3;
             // 
             // grbChucNangNhanVien
             // 
@@ -1042,7 +1025,6 @@
             this.dtgvThongTinNhanVien.Size = new System.Drawing.Size(986, 156);
             this.dtgvThongTinNhanVien.TabIndex = 0;
             this.dtgvThongTinNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvThongTinNhanVien_CellClick);
-            this.dtgvThongTinNhanVien.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvThongTinNhanVien_CellContentClick);
             // 
             // txtMaNhanVien
             // 
@@ -1635,6 +1617,17 @@
             this.label34.TabIndex = 0;
             this.label34.Text = "Vai trò";
             // 
+            // btnTimKiemthongtinNhanVien
+            // 
+            this.btnTimKiemthongtinNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTimKiemthongtinNhanVien.Location = new System.Drawing.Point(275, 27);
+            this.btnTimKiemthongtinNhanVien.Name = "btnTimKiemthongtinNhanVien";
+            this.btnTimKiemthongtinNhanVien.Size = new System.Drawing.Size(103, 38);
+            this.btnTimKiemthongtinNhanVien.TabIndex = 4;
+            this.btnTimKiemthongtinNhanVien.Text = "Tìm kiếm";
+            this.btnTimKiemthongtinNhanVien.UseVisualStyleBackColor = true;
+            this.btnTimKiemthongtinNhanVien.Click += new System.EventHandler(this.btnTimKiemthongtinNhanVien_Click_1);
+            // 
             // FormChucNangQuanLy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1747,7 +1740,7 @@
         private System.Windows.Forms.Button btnSuaKhachHang;
         private System.Windows.Forms.Button btnThemKhachHang;
         private System.Windows.Forms.GroupBox grbTimKiemNhanVien;
-        private System.Windows.Forms.TextBox txtTimKiemNhanVien;
+        private System.Windows.Forms.TextBox txtTimKiemThongTinNhanVien;
         private System.Windows.Forms.Button btnTimKiemNhanVien;
         private System.Windows.Forms.GroupBox grbChucNangNhanVien;
         private System.Windows.Forms.Button btnXoaNhanVien;
@@ -1826,5 +1819,6 @@
         private System.Windows.Forms.GroupBox dtgvThongTinVaiTro;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
         private System.Windows.Forms.GroupBox dtgvThongTinThongKeNhanVien;
+        private System.Windows.Forms.Button btnTimKiemthongtinNhanVien;
     }
 }

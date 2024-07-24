@@ -1,54 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Data.Linq.Mapping;
+using System.Data.Linq;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace DuAn1Lion
 {
     public partial class FormChucNangQuanLy : Form
     {
+
+
         public FormChucNangQuanLy()
         {
             InitializeComponent();
             tclFormChucNang.SelectedIndexChanged += tclFormChucNang_SelectedIndexChanged;
             LoadData();
-          
-      }
+            dtgvThongTinNhanVien.CellFormatting += dtgvThongTinNhanVien_CellFormatting;
+        }
 
-        private void tpSanPham_Click(object sender, EventArgs e)
+        // Event handlers
+        private void dtgvThongTinNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dtgvThongTinNhanVien.Rows[e.RowIndex];
+                DisplayNhanVienDetails(selectedRow);
+
+                // Kích hoạt nút Sửa và Xóa khi có hàng được chọn
+                btnSuaNhanVien.Enabled = true;
+                btnXoaNhanVien.Enabled = true;
+            }
+            else
+            {
+                // Vô hiệu hóa nút Sửa và Xóa khi không có hàng nào được chọn
+                btnSuaNhanVien.Enabled = false;
+                btnXoaNhanVien.Enabled = false;
+            }
+        }
+
+        public partial class YourDataContext : DataContext
+        {
+            public Table<NhanVien> NhanViens;
+            public Table<HoaDon> HoaDons;
+
+            public YourDataContext(string connectionString) : base(connectionString) { }
+
+            [Function(Name = "ThongKeNhanVien")]
+            public ISingleResult<ThongKeNhanVienResult> ThongKeNhanVien()
+            {
+                IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+                return ((ISingleResult<ThongKeNhanVienResult>)(result.ReturnValue));
+            }
+        }
+        [Table(Name = "ThongKeNhanVien")]
+        public class ThongKeNhanVienResult
+        {
+            [Column(Name = "MaNhanVien")]
+            public string MaNhanVien { get; set; }
+
+            [Column(Name = "TenNhanVien")]
+            public string TenNhanVien { get; set; }
+
+            [Column(Name = "SoLuongHoaDonTuan")]
+            public int SoLuongHoaDonTuan { get; set; }
+
+            [Column(Name = "SoLuongHoaDonThang")]
+            public int SoLuongHoaDonThang { get; set; }
+
+            [Column(Name = "SoLuongHoaDonNam")]
+            public int SoLuongHoaDonNam { get; set; }
+
 
         }
 
-        private void FormChucNangQuanLy_Load(object sender, EventArgs e)
+
+        private void dtgvThongTinNhanVien_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-
-        }
-
-        private void grbThongTinSanPham_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnThemSanPham_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void grbChucNangSanPham_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tpKhachHang_Click(object sender, EventArgs e)
-        {
-
+            // Kiểm tra nếu đang xử lý cột "MatKhau"
+            if (dtgvThongTinNhanVien.Columns[e.ColumnIndex].Name == "MatKhau")
+            {
+                // Kiểm tra giá trị của ô
+                if (e.Value != null)
+                {
+                    e.Value = "********"; // Thay đổi giá trị của ô thành "********"
+                }
+            }
         }
 
         private void tclFormChucNang_SelectedIndexChanged(object sender, EventArgs e)
@@ -57,89 +99,122 @@ namespace DuAn1Lion
             {
                 HienThiNhanVien();
             }
-
-            if (tclFormChucNang.SelectedTab == tpVaiTro)
+            else if (tclFormChucNang.SelectedTab == tpVaiTro)
             {
                 HienThioVaiTro();
             }
         }
+
+        private void btnThemNhanVien_Click(object sender, EventArgs e)
+        {
+            ThemNhanVien();
+        }
+
+        private void btnSuaNhanVien_Click(object sender, EventArgs e)
+        {
+            SuaNhanVien();
+        }
+
+        private void btnXoaNhanVien_Click(object sender, EventArgs e)
+        {
+            XoaNhanVien();
+        }
+
+        private void btnThemVaiTro_Click(object sender, EventArgs e)
+        {
+            ThemVaiTro();
+        }
+
+        private void btnsuaVaiTro_Click(object sender, EventArgs e)
+        {
+            SuaVaiTro();
+        }
+
+        private void btnxoaVaiTro_Click(object sender, EventArgs e)
+        {
+            XoaVaiTro();
+        }
+
+        private void btntimkiemVaiTro_Click(object sender, EventArgs e)
+        {
+            TimKiemVaiTro();
+        }
+
+        // Form load and initialization
+        private void FormChucNangQuanLy_Load(object sender, EventArgs e)
+        {
+            // Additional initialization if needed
+        }
+
+        // Data loading and display methods
         private void LoadData()
         {
             HienThiNhanVien();
             HienThioVaiTro();
-       
-        }
-        //hien thi nhan vien
-        private void LoadVaiTro()
-        {
-            try
+            txtMaVaiTro.ReadOnly = true;
+            txtMaVaiTro.TabStop = false;
+            TimKiemThongKeNhanVien();
+            string connectionString = @"Data Source=ADMIN-LUAN-PC08;Initial Catalog=QuanLiQuanCaPhe;Integrated Security=True;";
+
+            using (var db = new YourDataContext(connectionString))
             {
-                var QLNV = new LionQuanLyQuanCaPheDataContext();
+                try
+                {
+                    var result = db.ThongKeNhanVien(); // Thực thi stored procedure
 
-                // Lấy danh sách vai trò từ cơ sở dữ liệu
-                var vaiTros = QLNV.VaiTros.ToList();
-
-                // Thiết lập DisplayMember và ValueMember của ComboBox
-                cbbVaiTroCuaNhanVien.DisplayMember = "TenVaiTro"; // Hiển thị tên vai trò
-                cbbVaiTroCuaNhanVien.ValueMember = "MaVaiTro";    // Giá trị của mã vai trò
-
-                // Gán danh sách vai trò làm DataSource cho ComboBox
-                cbbVaiTroCuaNhanVien.DataSource = vaiTros;
+                    dtgvThongKeNhanVien.DataSource = result.ToList(); // Hiển thị kết quả lên DataGridView
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi thực thi stored procedure: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi tải vai trò: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
         }
 
         private void HienThiNhanVien()
         {
-            var QLNV = new LionQuanLyQuanCaPheDataContext();
+            using (var QLNV = new LionQuanLyQuanCaPheDataContext())
+            {
+                var list = from nv in QLNV.NhanViens
+                           join vt in QLNV.VaiTros on nv.MaVaiTro equals vt.MaVaiTro
+                           select new
+                           {
+                               nv.MaNhanVien,
+                               nv.GioiTinh,
+                               nv.NgaySinh,
+                               nv.TenNhanVien,
+                               nv.SDT,
+                               nv.NgayBatDauLamViec,
+                               nv.Email,
+                               nv.DiaChi,
+                               nv.MatKhau,
+                               vt.MaVaiTro,
+                               vt.TenVaiTro
+                           };
 
-            var List = from nv in QLNV.NhanViens
-                       join vt in QLNV.VaiTros on nv.MaVaiTro equals vt.MaVaiTro into nvvt
-                       from subvt in nvvt.DefaultIfEmpty()
-                       select new
-                       {
-                           nv.MaNhanVien,
-                           nv.GioiTinh,
-                           nv.NgaySinh,
-                           nv.TenNhanVien,
-                           nv.SDT,
-                           nv.NgayBatDauLamViec,
-                           nv.Email,
-                           nv.DiaChi,
-                           nv.MatKhau,
-                           VaiTro = subvt == null ? "" : subvt.TenVaiTro
-                       };
+                dtgvThongTinNhanVien.DataSource = list.ToList();
 
-            dtgvThongTinNhanVien.DataSource = List.ToList();
-
-            // Đổ dữ liệu vào ComboBox cbbVaiTroCuaNhanVien
-            var vaiTros = QLNV.VaiTros.Select(vt => vt.TenVaiTro).ToList();
-            cbbVaiTroCuaNhanVien.DataSource = vaiTros;
+                // Load mã và tên vai trò vào ComboBox
+                var vaiTroList = QLNV.VaiTros.ToList();
+                cbbVaiTroCuaNhanVien.DataSource = vaiTroList;
+                cbbVaiTroCuaNhanVien.DisplayMember = "TenVaiTro";
+                cbbVaiTroCuaNhanVien.ValueMember = "MaVaiTro";
+            }
         }
 
-
-        //hienthivaitro
         private void HienThioVaiTro()
         {
-            try
+            using (var QLNV = new LionQuanLyQuanCaPheDataContext())
             {
-                var QLNV = new LionQuanLyQuanCaPheDataContext();
-
-                var List = from vt in QLNV.VaiTros
+                var list = from vt in QLNV.VaiTros
                            select new
                            {
                                vt.MaVaiTro,
                                vt.TenVaiTro
                            };
 
-                dtgvVaiTro.DataSource = List.ToList();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi hiển thị vai trò: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dtgvVaiTro.DataSource = list.ToList();
             }
         }
 
@@ -147,282 +222,100 @@ namespace DuAn1Lion
 
 
 
-        private void grbTimKiem_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtDiaChiKhachHang_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dtgvThongTinNhanVien_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-
-        }
-
-        private void dtgvThongTinNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = dtgvThongTinNhanVien.Rows[e.RowIndex];
-
-              
-                string maNhanVien = row.Cells["MaNhanVien"].Value.ToString();
-                string tenNhanVien = row.Cells["TenNhanVien"].Value.ToString();
-                string email = row.Cells["Email"].Value.ToString();
-                string sdt = row.Cells["SDT"].Value.ToString();
-                string diaChi = row.Cells["DiaChi"].Value.ToString();
-                DateTime ngaySinh = (DateTime)row.Cells["NgaySinh"].Value;
-                DateTime ngayBatDau = (DateTime)row.Cells["NgayBatDauLamViec"].Value;
-                string gioiTinh = row.Cells["GioiTinh"].Value.ToString();
-              
-              
-                txtMaNhanVien.Text = maNhanVien;
-                txtTenNhanVien.Text = tenNhanVien;
-                txtEmail.Text = email;
-                txtSDTNhanVien.Text = sdt;
-                txtDiaChi.Text = diaChi;
-                dttpNgaySinhNhanVien.Value = ngaySinh;
-                dttpNgayBatDauLamCuaNhanVien.Value = ngayBatDau;
-                cbbGioiTinhNhanVien.Text = gioiTinh;
-             
-              
-
-               
-            }
-        }
-       
-
-
-        private void btnXoaNhanVien_Click(object sender, EventArgs e)
-        {
-            XoaNhanVien();
-            ClearTextBox();
-        }
-
-
-
-        private void btnSuaNhanVien_Click(object sender, EventArgs e)
-        {
-            SuaNhanVien();
-            ClearTextBox();
-        }
-
-        private void btnThemNhanVien_Click(object sender, EventArgs e)
-        {
-            ThemNhanVien();
-            ClearTextBox();
-
-        }
-
-
-
-        private void dtgvThongTinVaiTro_Enter(object sender, EventArgs e)
-        {
-
-        }
+        // CRUD operations for NhanVien
         private void ThemNhanVien()
         {
-            // Kiểm tra các trường bắt buộc phải được nhập đầy đủ
-            if (string.IsNullOrEmpty(txtTenNhanVien.Text) ||
-                string.IsNullOrEmpty(txtSDTNhanVien.Text) ||
-                string.IsNullOrEmpty(txtDiaChi.Text) ||
-                string.IsNullOrEmpty(cbbGioiTinhNhanVien.Text) ||
-                string.IsNullOrEmpty(txtEmail.Text) ||
-                dttpNgaySinhNhanVien.Value == null ||
-                dttpNgayBatDauLamCuaNhanVien.Value == null ||
-                cbbVaiTroCuaNhanVien.SelectedValue == null)
+            if (ValidateNhanVienInput())
             {
-                MessageBox.Show("Vui lòng điền đầy đủ thông tin vào các trường bắt buộc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Kiểm tra định dạng email
-            if (!IsValidEmail(txtEmail.Text))
-            {
-                MessageBox.Show("Email không hợp lệ. Vui lòng nhập đúng định dạng email (ví dụ: example@gmail.com).", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Kiểm tra định dạng số điện thoại
-            if (!IsValidPhoneNumber(txtSDTNhanVien.Text))
-            {
-                MessageBox.Show("Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại 10 chữ số.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            var QLNV = new LionQuanLyQuanCaPheDataContext();
-            using (QLNV)
-            {
-                // Tạo mã nhân viên tự động
-                string maNhanVien = GenerateMaNhanVien();
-
-                // Lấy giá trị MaVaiTro từ ComboBox
-                string maVaiTro = cbbVaiTroCuaNhanVien.SelectedValue.ToString();
-
-                // Kiểm tra xem mã vai trò đã tồn tại trong bảng VaiTros chưa
-                var vaiTro = QLNV.VaiTros.FirstOrDefault(vt => vt.MaVaiTro == maVaiTro);
-                if (vaiTro == null)
+                using (var QLNV = new LionQuanLyQuanCaPheDataContext())
                 {
-                  
-                    vaiTro = new VaiTro()
+                    string randomPassword = RandomMatKhau(); // Tạo mật khẩu ngẫu nhiên
+                    NhanVien ThemNV = new NhanVien()
                     {
-                        MaVaiTro = maVaiTro,
-                        TenVaiTro = cbbVaiTroCuaNhanVien.Text // Thêm tên vai trò vào đây, nếu cần
+                        MaNhanVien = GenerateMaNhanVien(),
+                        TenNhanVien = txtTenNhanVien.Text,
+                        Email = txtEmail.Text,
+                        SDT = txtSDTNhanVien.Text,
+                        DiaChi = txtDiaChi.Text,
+                        MaVaiTro = cbbVaiTroCuaNhanVien.SelectedValue.ToString(),
+                        NgaySinh = dttpNgaySinhNhanVien.Value,
+                        GioiTinh = cbbGioiTinhNhanVien.Text,
+                        NgayBatDauLamViec = dttpNgayBatDauLamCuaNhanVien.Value,
+                        MatKhau = randomPassword // Gán mật khẩu ngẫu nhiên vào nhân viên mới
                     };
-                    QLNV.VaiTros.InsertOnSubmit(vaiTro);
-                    QLNV.SubmitChanges();
-                }
 
-                // Sau khi đảm bảo mã vai trò tồn tại, thêm nhân viên
-                NhanVien ThemNV = new NhanVien()
-                {
-                    MaNhanVien = maNhanVien,
-                    TenNhanVien = txtTenNhanVien.Text,
-                    Email = txtEmail.Text,
-                    SDT = txtSDTNhanVien.Text,
-                    DiaChi = txtDiaChi.Text,
-                    MaVaiTro = maVaiTro, // Gán mã vai trò từ ComboBox
-                    NgaySinh = dttpNgaySinhNhanVien.Value,
-                    GioiTinh = cbbGioiTinhNhanVien.Text,
-                    NgayBatDauLamViec = dttpNgayBatDauLamCuaNhanVien.Value
-                };
-
-                try
-                {
-                    QLNV.NhanViens.InsertOnSubmit(ThemNV);
-                    QLNV.SubmitChanges();
-                    MessageBox.Show("Thêm nhân viên thành công");
-                    HienThiNhanVien(); // Cập nhật lại danh sách nhân viên
-                    ClearTextBox(); // Xóa trắng các control nhập liệu sau khi thêm thành công
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi khi thêm nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        QLNV.NhanViens.InsertOnSubmit(ThemNV);
+                        QLNV.SubmitChanges();
+                        MessageBox.Show("Thêm thành công");
+                        HienThiNhanVien();
+                        ClearTextBox();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi thêm thông tin nhân viên: " + ex.Message);
+                    }
                 }
             }
         }
 
 
-        private string GenerateMaNhanVien()
+        private string RandomMatKhau()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            StringBuilder randomMatKhau = new StringBuilder();
+            Random random = new Random();
+            for (int i = 0; i < 8; i++)
             {
-                string maNhanVien = "";
-                using (var dd = new LionQuanLyQuanCaPheDataContext())
-                {
-                    var latestEmployee = dd.NhanViens.OrderByDescending(nv => nv.MaNhanVien).FirstOrDefault();
-
-                    if (latestEmployee == null)
-                    {
-                        maNhanVien = "NV001";
-                    }
-                    else
-                    {
-                        string currentMaNhanVien = latestEmployee.MaNhanVien;
-                        int currentIndex = int.Parse(currentMaNhanVien.Substring(2)) + 1;
-                        maNhanVien = "NV" + currentIndex.ToString("D3");
-                    }
-                }
-
-                return maNhanVien;
+                randomMatKhau.Append(chars[random.Next(chars.Length)]);
             }
-
-        
-
-        private bool IsValidEmail(string email)
-            {
-                try
-                {
-                    var addr = new System.Net.Mail.MailAddress(email);
-                    return addr.Address == email;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-
-            private bool IsValidPhoneNumber(string phone)
-            {
-                return Regex.Match(phone, @"^\d{10}$").Success;
-            }
-
-       
-
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            return randomMatKhau.ToString();
+        }
 
 
         private void SuaNhanVien()
         {
-            if (string.IsNullOrEmpty(txtTenNhanVien.Text) || string.IsNullOrEmpty(txtDiaChi.Text) ||
-                string.IsNullOrEmpty(txtMaNhanVien.Text) || string.IsNullOrEmpty(txtEmail.Text) ||
-               
-                string.IsNullOrEmpty(txtSDTNhanVien.Text))
+            if (ValidateNhanVienInput()) // Kiểm tra thông tin nhập vào là hợp lệ
             {
-                MessageBox.Show("Không được bỏ trống các trường!");
-                return;
-            }
-
-
-
-            try
-            {
-                var QLNV = new LionQuanLyQuanCaPheDataContext();
-
-                string maNV = txtMaNhanVien.Text;
-                var nhanVien = QLNV.NhanViens.FirstOrDefault(nv => nv.MaNhanVien == maNV);
-                if (nhanVien == null)
+                using (var QLNV = new LionQuanLyQuanCaPheDataContext())
                 {
-                    MessageBox.Show("Mã nhân viên không tồn tại!");
-                    return;
-                }
+                    string maNV = txtMaNhanVien.Text;
+                    var nhanVien = QLNV.NhanViens.FirstOrDefault(nv => nv.MaNhanVien == maNV);
 
-                string manv = txtMaNhanVien.Text;
-                var nhanvien = QLNV.NhanViens.FirstOrDefault(nv => nv.MaNhanVien == manv);
-                if (nhanVien != null)
-                {
-                    nhanVien.TenNhanVien = txtTenNhanVien.Text;
-                    nhanVien.Email = txtEmail.Text;
-                    nhanVien.SDT = txtSDTNhanVien.Text;
-                    nhanVien.DiaChi = txtDiaChi.Text;
-                    nhanVien.MaVaiTro = cbbVaiTroCuaNhanVien.Text;
-                    nhanVien.NgaySinh = dttpNgaySinhNhanVien.Value;
-                    nhanVien.GioiTinh = cbbGioiTinhNhanVien.Text;
-                    nhanVien.NgayBatDauLamViec = dttpNgayBatDauLamCuaNhanVien.Value;
-                    QLNV.SubmitChanges();
-                    HienThiNhanVien();
-                    MessageBox.Show("Đã cập nhật thông tin nhân viên thành công!");
+                    if (nhanVien != null)
+                    {
+                        // Cập nhật thông tin từ các control vào đối tượng nhanVien
+                        nhanVien.TenNhanVien = txtTenNhanVien.Text;
+                        nhanVien.Email = txtEmail.Text;
+                        nhanVien.SDT = txtSDTNhanVien.Text;
+                        nhanVien.DiaChi = txtDiaChi.Text;
+                        nhanVien.MaVaiTro = cbbVaiTroCuaNhanVien.SelectedValue.ToString(); // Lấy mã vai trò từ combobox
+                        nhanVien.NgaySinh = dttpNgaySinhNhanVien.Value;
+                        nhanVien.GioiTinh = cbbGioiTinhNhanVien.Text;
+                        nhanVien.NgayBatDauLamViec = dttpNgayBatDauLamCuaNhanVien.Value;
+
+                        try
+                        {
+                            QLNV.SubmitChanges(); // Lưu các thay đổi vào cơ sở dữ liệu
+                            MessageBox.Show("Đã cập nhật thông tin nhân viên thành công!");
+                            HienThiNhanVien(); // Hiển thị lại danh sách nhân viên
+                            ClearTextBox(); // Xóa các trường nhập liệu
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi khi cập nhật thông tin nhân viên: " + ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy nhân viên có mã số này!");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy nhân viên có mã số này!");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi cập nhật thông tin nhân viên: " + ex.Message);
             }
         }
+
+
         private void XoaNhanVien()
         {
             try
@@ -430,19 +323,22 @@ namespace DuAn1Lion
                 DialogResult dialogResult = MessageBox.Show("Bạn chắc chắn muốn xóa nhân viên này?", "Xác nhận xóa", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    var QLNV = new LionQuanLyQuanCaPheDataContext();
-                    string maNV = txtMaNhanVien.Text;
-                    var nhanvien = QLNV.NhanViens.FirstOrDefault(k => k.MaNhanVien == maNV);
-                    if (nhanvien != null)
+                    using (var QLNV = new LionQuanLyQuanCaPheDataContext())
                     {
-                        QLNV.NhanViens.DeleteOnSubmit(nhanvien);
-                        QLNV.SubmitChanges();
-                        HienThiNhanVien();
-                        MessageBox.Show("Đã xóa nhân viên thành công!");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Không tìm thấy nhân viên có mã số này!");
+                        string maNV = txtMaNhanVien.Text;
+                        var nhanvien = QLNV.NhanViens.FirstOrDefault(k => k.MaNhanVien == maNV);
+                        if (nhanvien != null)
+                        {
+                            QLNV.NhanViens.DeleteOnSubmit(nhanvien);
+                            QLNV.SubmitChanges();
+                            HienThiNhanVien();
+                            MessageBox.Show("Đã xóa nhân viên thành công!");
+                            ClearTextBox();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy nhân viên có mã số này!");
+                        }
                     }
                 }
             }
@@ -451,82 +347,58 @@ namespace DuAn1Lion
                 MessageBox.Show("Lỗi khi xóa nhân viên này: " + ex.Message);
             }
         }
-        private void ClearTextBox()
+
+        // CRUD operations for VaiTro
+        private void TimKiemNhanVien()
         {
-            txtDiaChi.Text = "";
-            txtEmail.Text = "";
-            txtTenNhanVien.Text = "";
-            txtMaNhanVien.Text = "";
-            dttpNgayBatDauLamCuaNhanVien.Text = "";
-            dttpNgaySinhNhanVien.Text = "";
-            txtMaVaiTro.Text = "";
-            cbbGioiTinhNhanVien.Text = "";
-            txtSDTNhanVien.Text = "";
-            txtMaVaiTro.Text = "";
-            txtTenVaiTro.Text = "";
+            using (var QLNV = new LionQuanLyQuanCaPheDataContext())
+            {
+                string maNhanVien = txtTimKiemThongTinNhanVien.Text.Trim(); // Lấy mã nhân viên từ textbox tìm kiếm
 
+                // Query lấy thông tin nhân viên từ database dựa vào mã nhân viên nhập vào
+                var timKiem = from nv in QLNV.NhanViens
+                              join vt in QLNV.VaiTros on nv.MaVaiTro equals vt.MaVaiTro into vtGroup
+                              from vt in vtGroup.DefaultIfEmpty()
+                              where nv.MaNhanVien.Contains(maNhanVien)
+                              select new
+                              {
+                                  nv.MaNhanVien,
+                                  nv.GioiTinh,
+                                  nv.NgaySinh,
+                                  nv.TenNhanVien,
+                                  nv.SDT,
+                                  nv.NgayBatDauLamViec,
+                                  nv.Email,
+                                  nv.DiaChi,
+                                  nv.MatKhau,
+                                  MaVaiTro = vt != null ? vt.MaVaiTro : "", // Lấy mã vai trò nếu tồn tại, ngược lại trả về rỗng
+                                  TenVaiTro = vt != null ? vt.TenVaiTro : "" // Lấy tên vai trò nếu tồn tại, ngược lại trả về rỗng
+                              };
 
-        }
-        private void cbbVaiTroCuaNhanVien_DropDown(object sender, EventArgs e)
-        {
-            var QLNV = new LionQuanLyQuanCaPheDataContext();
-            var vaiTros = QLNV.VaiTros.ToList(); 
-
-            cbbVaiTroCuaNhanVien.DisplayMember = "TenVaiTro";
-            cbbVaiTroCuaNhanVien.ValueMember = "MaVaiTro"; 
-
-            cbbVaiTroCuaNhanVien.DataSource = vaiTros; // Thiết lập nguồn dữ liệu
-        }
-
-
-        private void btnThemVaiTro_Click(object sender, EventArgs e)
-        {
-            ThemVaiTro();
-            ClearTextBox();
+                dtgvThongTinNhanVien.DataSource = timKiem.ToList(); // Gán kết quả vào DataSource của DataGridView
+            }
         }
 
-        private void btnsuaVaiTro_Click(object sender, EventArgs e)
-        {
-            SuaVaiTro();
-            ClearTextBox();
-        }
 
-        private void btnxoaVaiTro_Click(object sender, EventArgs e)
-        {
-            XoaVaiTro();
-            ClearTextBox();
-        }
         private void ThemVaiTro()
         {
-            if (string.IsNullOrEmpty(txtTenVaiTro.Text) ||
-
-        string.IsNullOrEmpty(txtTenVaiTro.Text))
+            if (ValidateVaiTroInput())
             {
-                MessageBox.Show("Vui lòng điền đầy đủ thông tin vào các trường bắt buộc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-            }
-            else
-            {
-                // Tạo mã nhân viên tự động ví dụ NV01, NV02, ...
-                string maVaiTro = GenerateMavaitro();
-
-                var dd = new LionQuanLyQuanCaPheDataContext();
-                using (dd)
+                using (var QLNV = new LionQuanLyQuanCaPheDataContext())
                 {
-                    VaiTro newEmployee = new VaiTro()
+                    VaiTro newVaiTro = new VaiTro()
                     {
-                        MaVaiTro = txtMaVaiTro.Text,
+                        MaVaiTro = GenerateMaVaiTro(),
                         TenVaiTro = txtTenVaiTro.Text
-
                     };
 
-
-                    dd.VaiTros.InsertOnSubmit(newEmployee);
+                    QLNV.VaiTros.InsertOnSubmit(newVaiTro);
                     try
                     {
-                        dd.SubmitChanges();
+                        QLNV.SubmitChanges();
                         MessageBox.Show("Thêm thành công");
-                        HienThiNhanVien();
+                        HienThioVaiTro();
+                        ClearTextBox();
                     }
                     catch (Exception ex)
                     {
@@ -534,155 +406,232 @@ namespace DuAn1Lion
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin vào các trường bắt buộc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
-     
+
         private void SuaVaiTro()
         {
-            if (string.IsNullOrEmpty(txtMaVaiTro.Text) ||
-               string.IsNullOrEmpty(txtTenVaiTro.Text))
+            using (var QLNV = new LionQuanLyQuanCaPheDataContext())
             {
-                MessageBox.Show("Không được bỏ trống các trường!");
-                return;
-            }
-
-
-
-            try
-            {
-                var QLNV = new LionQuanLyQuanCaPheDataContext();
-
                 string mavt = txtMaVaiTro.Text;
                 var vaitro = QLNV.VaiTros.FirstOrDefault(vt => vt.MaVaiTro == mavt);
                 if (vaitro != null)
                 {
-
                     vaitro.TenVaiTro = txtTenVaiTro.Text;
-
-                    ;
-                    QLNV.SubmitChanges();
-                    HienThiNhanVien();
-                    MessageBox.Show("Đã cập nhật thông tin vai trò thành công!");
+                    try
+                    {
+                        QLNV.SubmitChanges();
+                        MessageBox.Show("Sửa thông tin vai trò thành công");
+                        HienThioVaiTro();
+                        ClearTextBox();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Không tìm thấy vai trò có mã số này!");
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi cập nhật thông tin vai trò: " + ex.Message);
             }
         }
 
         private void XoaVaiTro()
         {
-
-            try
+            DialogResult dr = MessageBox.Show("Bạn có muốn xóa không?", "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.Yes)
             {
-                DialogResult dialogResult = MessageBox.Show("Bạn chắc chắn muốn xóa vai trò hàng này?", "Xác nhận xóa", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
+                using (var QLNV = new LionQuanLyQuanCaPheDataContext())
                 {
-                    var Vaitro = new LionQuanLyQuanCaPheDataContext();
-                    string MaVt = txtMaVaiTro.Text;
-                    var vaiTRO = Vaitro.VaiTros.FirstOrDefault(k => k.MaVaiTro == MaVt);
-                    if (vaiTRO != null)
-
-                        Vaitro.VaiTros.DeleteOnSubmit(vaiTRO);
-                    Vaitro.SubmitChanges();
-                    HienThiNhanVien();
-                    MessageBox.Show("Đã xóa Vai trò thành công!");
+                    string ma = txtMaVaiTro.Text;
+                    var xoa = QLNV.VaiTros.FirstOrDefault(vt => vt.MaVaiTro == ma);
+                    if (xoa != null)
+                    {
+                        QLNV.VaiTros.DeleteOnSubmit(xoa);
+                        QLNV.SubmitChanges();
+                        MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        HienThioVaiTro();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy vai trò", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy vai trò có mã số này!");
-                }
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi xóa vai trò: " + ex.Message);
             }
         }
-        private string GenerateMavaitro()
+
+        private void TimKiemVaiTro()
         {
-            string maVaiTro = "";
-            using (var dd = new LionQuanLyQuanCaPheDataContext())
+            using (var QLNV = new LionQuanLyQuanCaPheDataContext())
             {
-                // Lấy mã nhân viên cao nhất hiện có
-                var latestEmployee = dd.VaiTros.OrderByDescending(vt => vt.MaVaiTro).FirstOrDefault();
+                string maVaiTro = txttimkiemVaiTro.Text.Trim(); // Lấy mã vai trò từ textbox tìm kiếm
 
-                if (latestEmployee == null)
-                {
-                    // Nếu chưa có nhân viên nào, bắt đầu từ NV01
-                    maVaiTro = "VT001";
-                }
-                else
-                {
-                    // Lấy số thứ tự từ mã nhân viên hiện tại và tăng lên 1
-                    string currentMaVaiTro = latestEmployee.MaVaiTro;
-                    int currentIndex = int.Parse(currentMaVaiTro.Substring(2));
-                    currentIndex++;
+                // Query lấy thông tin vai trò từ database dựa vào mã vai trò nhập vào
+                var timKiem = from vt in QLNV.VaiTros
+                              where vt.MaVaiTro.Contains(maVaiTro)
+                              select new
+                              {
+                                  vt.MaVaiTro,
+                                  vt.TenVaiTro
+                              };
 
-                    // Tạo mã mới
-                    maVaiTro = "VT" + currentIndex.ToString("D2"); // Định dạng số với 2 chữ số
-                }
+                dtgvVaiTro.DataSource = timKiem.ToList(); // Gán kết quả vào DataSource của DataGridView
             }
-
-            return maVaiTro;
         }
 
 
 
 
-        private void btntimkiemVaiTro_Click(object sender, EventArgs e)
+        // Utility methods
+        private string GenerateMaNhanVien()
         {
-            var QLBH = new LionQuanLyQuanCaPheDataContext();
-            using (QLBH)
+            using (var context = new LionQuanLyQuanCaPheDataContext())
             {
-                string maNhanVienQT = txttimkiemVaiTro.Text; // Lấy giá trị tìm kiếm từ TextBox txttimkiem
-                var QuanTri = QLBH.VaiTros.FirstOrDefault(nv => nv.MaVaiTro == maNhanVienQT);
+                int nextId = 1;
+                string newMaNhanVien = $"NV{nextId:D3}";
 
-                if (QuanTri != null)
+                // Kiểm tra xem mã nhân viên đã tồn tại chưa
+                while (context.NhanViens.Any(nv => nv.MaNhanVien == newMaNhanVien))
                 {
-                    // Hiển thị thông tin  tìm được trong các TextBox
-                    txtMaVaiTro.Text = QuanTri.MaVaiTro;
-                    txtTenVaiTro.Text = QuanTri.TenVaiTro;
-
-
-
-
+                    nextId++;
+                    newMaNhanVien = $"NV{nextId:D3}";
                 }
-                else
-                {
-                    // Nếu không tìm thấy , xóa dữ liệu từ các TextBox và hiển thị thông báo
 
-                    MessageBox.Show("Không tìm thấy nhân viên với mã này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return newMaNhanVien;
+            }
+        }
+
+
+        private string GenerateMaVaiTro()
+        {
+            using (var context = new LionQuanLyQuanCaPheDataContext())
+            {
+                int nextId = 1;
+                string newMaVaiTro = $"VT{nextId:D3}";
+
+                // Kiểm tra xem mã vai trò đã tồn tại chưa
+                while (context.VaiTros.Any(vt => vt.MaVaiTro == newMaVaiTro))
+                {
+                    nextId++;
+                    newMaVaiTro = $"VT{nextId:D3}";
+                }
+
+                return newMaVaiTro;
+            }
+        }
+
+
+
+
+        private void DisplayNhanVienDetails(DataGridViewRow selectedRow)
+        {
+            txtMaNhanVien.Text = selectedRow.Cells["MaNhanVien"].Value.ToString();
+            txtTenNhanVien.Text = selectedRow.Cells["TenNhanVien"].Value.ToString();
+            txtEmail.Text = selectedRow.Cells["Email"].Value.ToString();
+            txtSDTNhanVien.Text = selectedRow.Cells["SDT"].Value.ToString();
+            txtDiaChi.Text = selectedRow.Cells["DiaChi"].Value.ToString();
+
+            dttpNgaySinhNhanVien.Value = Convert.ToDateTime(selectedRow.Cells["NgaySinh"].Value);
+            cbbGioiTinhNhanVien.Text = selectedRow.Cells["GioiTinh"].Value.ToString();
+            dttpNgayBatDauLamCuaNhanVien.Value = Convert.ToDateTime(selectedRow.Cells["NgayBatDauLamViec"].Value);
+
+            // Lấy mã và tên vai trò từ dòng được chọn
+            string maVaiTro = selectedRow.Cells["MaVaiTro"].Value.ToString();
+            string tenVaiTro = selectedRow.Cells["TenVaiTro"].Value.ToString();
+
+            // Hiển thị vai trò lên combobox cbbVaiTroCuaNhanVien
+            var vaiTroList = cbbVaiTroCuaNhanVien.DataSource as List<VaiTro>; // Lấy danh sách vai trò từ combobox
+            if (vaiTroList != null)
+            {
+                // Tìm vai trò trong danh sách
+                VaiTro selectedVaiTro = vaiTroList.FirstOrDefault(vt => vt.MaVaiTro == maVaiTro);
+                if (selectedVaiTro != null)
+                {
+                    cbbVaiTroCuaNhanVien.SelectedItem = selectedVaiTro; // Chọn vai trò tương ứng
                 }
             }
 
+
+        }
+
+
+        private void ClearTextBox()
+        {
+            txtMaNhanVien.Clear();
+            txtTenNhanVien.Clear();
+            txtEmail.Clear();
+            txtSDTNhanVien.Clear();
+            txtDiaChi.Clear();
+            cbbVaiTroCuaNhanVien.SelectedIndex = -1; // or .Text = ""
+            dttpNgaySinhNhanVien.Value = DateTime.Now; // or your default value
+            cbbGioiTinhNhanVien.SelectedIndex = -1; // or .Text = ""
+            dttpNgayBatDauLamCuaNhanVien.Value = DateTime.Now; // or your default value
+        }
+
+        private bool ValidateNhanVienInput()
+        {
+
+            return true;
+        }
+
+        private bool ValidateVaiTroInput()
+        {
+            return true;
         }
 
         private void dtgvVaiTro_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Đảm bảo người dùng đã chọn một dòng hợp lệ
-            {
-                DataGridViewRow row = dtgvVaiTro.Rows[e.RowIndex];
 
-                // Lấy giá trị của các ô trong dòng được chọn từ cột MaVaiTro và TenVaiTro
-                string maVaiTro = row.Cells["MaVaiTro"].Value.ToString();
-                string tenVaiTro = row.Cells["TenVaiTro"].Value.ToString();
+            if (e.RowIndex == -1) return;
 
-                // Hiển thị thông tin lên các control như TextBox, Label, hoặc ComboBox
-                txtMaVaiTro.Text = maVaiTro;
-                txtTenVaiTro.Text = tenVaiTro;
-            }
+
+            DataGridViewRow row = dtgvVaiTro.Rows[e.RowIndex];
+
+
+            string maVaiTro = row.Cells["MaVaiTro"].Value.ToString();
+            string tenVaiTro = row.Cells["TenVaiTro"].Value.ToString();
+
+            txtMaVaiTro.Text = maVaiTro;
+            txtTenVaiTro.Text = tenVaiTro;
         }
 
+
+        private void btnTimKiemSanPham_Click(object sender, EventArgs e)
+        {
+
+        }
+
+     
+
+        private void TcThongKeNhanVien_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void TimKiemThongKeNhanVien()
+        {
+
+        }
+
+        private void btnTimKiemthongtinNhanVien_Click_1(object sender, EventArgs e)
+        {
+            TimKiemNhanVien();
+        }
     }
 
 
+
+
 }
-
-
 
