@@ -54,7 +54,6 @@
             this.tpKhachHang = new System.Windows.Forms.TabPage();
             this.grbTimKiemKhachHang = new System.Windows.Forms.GroupBox();
             this.txtTimKiemKhachHang = new System.Windows.Forms.TextBox();
-            this.btnTimKiemKhachHang = new System.Windows.Forms.Button();
             this.grbChucNangKhachHang = new System.Windows.Forms.GroupBox();
             this.btnXoaKhachHang = new System.Windows.Forms.Button();
             this.btnSuaKhachHang = new System.Windows.Forms.Button();
@@ -158,6 +157,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.btnTimKiemKhachHang = new System.Windows.Forms.Button();
             this.tclFormChucNang.SuspendLayout();
             this.tpSanPham.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_AnhSanPham)).BeginInit();
@@ -483,8 +483,8 @@
             // 
             // grbTimKiemKhachHang
             // 
-            this.grbTimKiemKhachHang.Controls.Add(this.txtTimKiemKhachHang);
             this.grbTimKiemKhachHang.Controls.Add(this.btnTimKiemKhachHang);
+            this.grbTimKiemKhachHang.Controls.Add(this.txtTimKiemKhachHang);
             this.grbTimKiemKhachHang.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbTimKiemKhachHang.Location = new System.Drawing.Point(693, 625);
             this.grbTimKiemKhachHang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -502,17 +502,6 @@
             this.txtTimKiemKhachHang.Name = "txtTimKiemKhachHang";
             this.txtTimKiemKhachHang.Size = new System.Drawing.Size(273, 30);
             this.txtTimKiemKhachHang.TabIndex = 3;
-            // 
-            // btnTimKiemKhachHang
-            // 
-            this.btnTimKiemKhachHang.Location = new System.Drawing.Point(355, 41);
-            this.btnTimKiemKhachHang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnTimKiemKhachHang.Name = "btnTimKiemKhachHang";
-            this.btnTimKiemKhachHang.Size = new System.Drawing.Size(131, 36);
-            this.btnTimKiemKhachHang.TabIndex = 2;
-            this.btnTimKiemKhachHang.Text = "Tìm kiếm";
-            this.btnTimKiemKhachHang.UseVisualStyleBackColor = true;
-            this.btnTimKiemKhachHang.Click += new System.EventHandler(this.btnTimKiemKhachHang_Click);
             // 
             // grbChucNangKhachHang
             // 
@@ -1625,6 +1614,17 @@
             this.label34.TabIndex = 0;
             this.label34.Text = "Vai trò";
             // 
+            // btnTimKiemKhachHang
+            // 
+            this.btnTimKiemKhachHang.Location = new System.Drawing.Point(360, 41);
+            this.btnTimKiemKhachHang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnTimKiemKhachHang.Name = "btnTimKiemKhachHang";
+            this.btnTimKiemKhachHang.Size = new System.Drawing.Size(131, 36);
+            this.btnTimKiemKhachHang.TabIndex = 29;
+            this.btnTimKiemKhachHang.Text = "Tìm kiếm";
+            this.btnTimKiemKhachHang.UseVisualStyleBackColor = true;
+            this.btnTimKiemKhachHang.Click += new System.EventHandler(this.btnTimKiemKhachHang_Click);
+            // 
             // FormChucNangQuanLy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1731,7 +1731,6 @@
         private System.Windows.Forms.DateTimePicker dttpNgaySinhKhachHang;
         private System.Windows.Forms.GroupBox grbTimKiemKhachHang;
         private System.Windows.Forms.TextBox txtTimKiemKhachHang;
-        private System.Windows.Forms.Button btnTimKiemKhachHang;
         private System.Windows.Forms.GroupBox grbChucNangKhachHang;
         private System.Windows.Forms.Button btnXoaKhachHang;
         private System.Windows.Forms.Button btnSuaKhachHang;
@@ -1816,5 +1815,6 @@
         private System.Windows.Forms.GroupBox dtgvThongTinVaiTro;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
         private System.Windows.Forms.GroupBox dtgvThongTinThongKeNhanVien;
+        private System.Windows.Forms.Button btnTimKiemKhachHang;
     }
 }
