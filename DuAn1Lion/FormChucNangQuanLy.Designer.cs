@@ -1738,6 +1738,7 @@
             this.btnTimKiem_ThongKeSanPham.TabIndex = 2;
             this.btnTimKiem_ThongKeSanPham.Text = "Tìm kiếm";
             this.btnTimKiem_ThongKeSanPham.UseVisualStyleBackColor = true;
+            this.btnTimKiem_ThongKeSanPham.Click += new System.EventHandler(this.btnTimKiem_ThongKeSanPham_Click);
             // 
             // grbThongKeSanPham
             // 
