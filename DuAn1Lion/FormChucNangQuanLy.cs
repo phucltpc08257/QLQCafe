@@ -9,34 +9,41 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.ComponentModel;
 
 namespace DuAn1Lion
 {
+
     public partial class FormChucNangQuanLy : Form
     {
+        private string connectionString = "Server=ADMIN-LUAN-PC08;Database=QuanLiQuanCaPhe;User Id=sa;Password=123456;";
+
+
         public FormChucNangQuanLy()
         {
             InitializeComponent();
             tclFormChucNang.SelectedIndexChanged += tclFormChucNang_SelectedIndexChanged;
             LoadData();
             dtgvThongTinNhanVien.CellFormatting += dtgvThongTinNhanVien_CellFormatting;
+          
+
         }
 
         private void FormChucNangQuanLy_Load(object sender, EventArgs e)
         {
-            // Additional initialization if needed
+           
         }
 
         private void LoadData()
         {
             HienThiNhanVien();
             HienThioVaiTro();
-
+            HienThiThongKeNhanVien();
             txtMaNhanVien.ReadOnly = true;
             txtMaNhanVien.TabStop = false;
             txtMaVaiTro.ReadOnly = true;
             txtMaVaiTro.TabStop = false;
-            TimKiemThongKeNhanVien();
+ 
           
         }
 
@@ -185,10 +192,8 @@ namespace DuAn1Lion
             // Handle search button click
         }
 
-        private void TimKiemThongKeNhanVien()
-        {
-            // Implement employee statistics search
-        }
+       
+
 
         private void dtgvVaiTro_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -204,22 +209,14 @@ namespace DuAn1Lion
 
         private void dtgvThongTinNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var QLKH = new LionQuanLyQuanCaPheDataContext();
-            var HTNhanVien = (from nv in QLKH.NhanViens
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dtgvThongTinNhanVien.Rows[e.RowIndex];
+                DisplayNhanVienDetails(selectedRow);
 
-                              where nv.MaNhanVien == dtgvThongTinNhanVien.CurrentRow.
-                              Cells["MaNhanVien"].Value.ToString()
-                              select nv).SingleOrDefault();
-
-            txtMaNhanVien.Text = HTNhanVien.MaNhanVien.ToString();
-            txtTenNhanVien.Text = HTNhanVien.TenNhanVien.ToString();
-            txtSDTNhanVien.Text = HTNhanVien.SDT.ToString();
-            txtDiaChi.Text = HTNhanVien.DiaChi.ToString();
-            cbbGioiTinhNhanVien.Text = HTNhanVien.GioiTinh.ToString();
-            txtEmail.Text = HTNhanVien.Email.ToString();
-            dttpNgaySinhNhanVien.Text = HTNhanVien.NgaySinh.ToString();
-            dttpNgayBatDauLamCuaNhanVien.Text = HTNhanVien.NgayBatDauLamViec.ToString();
-            cbbVaiTroCuaNhanVien.Text = HTNhanVien.VaiTro.ToString();
+              
+            }
+           
         }
         private void DisplayNhanVienDetails(DataGridViewRow selectedRow)
         {
@@ -660,6 +657,105 @@ namespace DuAn1Lion
             }
         }
 
+        private void HienThiThongKeNhanVien()
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("ThongKeNhanVien", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    connection.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    dtgvThongKeNhanVien.DataSource = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+
+        private void TimKiemThongKeNhanVien()
+        {
+            string tuKhoa_NV = txtThongKeNhanVien.Text.Trim().ToLower();
+
+            if (string.IsNullOrWhiteSpace(tuKhoa_NV))
+            {
+                MessageBox.Show("Vui lòng nhập mã nhân viên hoặc tên nhân viên để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            try
+            {
+                var QLBH = new LionQuanLyQuanCaPheDataContext(); // Đảm bảo đã khởi tạo đối tượng DataContext
+                var List_NV = QLBH.ThongKeNhanVien().ToList(); // Gọi procedure ThongKeNhanVien để lấy danh sách nhân viên
+
+                var filteredList = from nv in List_NV
+                                   where nv.MaNhanVien.ToLower().Contains(tuKhoa_NV) ||
+                                         nv.TenNhanVien.ToLower().Contains(tuKhoa_NV)
+                                   select new
+                                   {
+                                       nv.MaNhanVien,
+                                       nv.TenNhanVien,
+                                       nv.SoLuongHoaDonTuan,
+                                       nv.SoLuongHoaDonThang,
+                                       nv.SoLuongHoaDonNam
+                                   };
+
+                if (filteredList.Any())
+                {
+                    var resultList = filteredList.ToList();
+                    dtgvThongKeNhanVien.DataSource = resultList;
+
+                    DinhDangDataGridViewNhanVien();
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy nhân viên phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dtgvThongKeNhanVien.DataSource = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DinhDangDataGridViewNhanVien()
+        {
+            // Dinh dạng DataGridView tương tự như phần DinhDangDataGridView của sản phẩm
+            // Có thể thêm định dạng cho các cột như MaNhanVien, TenNhanVien, SoLuongHoaDonTuan, ...
+
+            // Ví dụ:
+            if (dtgvThongKeNhanVien.Columns.Contains("SoLuongHoaDonTuan"))
+            {
+                dtgvThongKeNhanVien.Columns["SoLuongHoaDonTuan"].DefaultCellStyle.Format = "N0";
+            }
+        }
+
+
+
+
+        private DataTable ToDataTable<T>(IEnumerable<T> data)
+        {
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(T));
+            DataTable table = new DataTable();
+            foreach (PropertyDescriptor prop in properties)
+                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            foreach (T item in data)
+            {
+                DataRow row = table.NewRow();
+                foreach (PropertyDescriptor prop in properties)
+                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                table.Rows.Add(row);
+            }
+            return table;
+        }
 
         private string RandomMatKhau()
         {
@@ -669,6 +765,10 @@ namespace DuAn1Lion
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        
+        private void btnThongKeNhanVien_Click(object sender, EventArgs e)
+        {
+            TimKiemThongKeNhanVien();
+                
+        }
     }
 }

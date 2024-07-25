@@ -1456,6 +1456,7 @@
             this.btnThongKeNhanVien.TabIndex = 0;
             this.btnThongKeNhanVien.Text = "Tìm kiếm";
             this.btnThongKeNhanVien.UseVisualStyleBackColor = true;
+            this.btnThongKeNhanVien.Click += new System.EventHandler(this.btnThongKeNhanVien_Click);
             // 
             // label24
             // 
