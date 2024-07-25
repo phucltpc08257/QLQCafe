@@ -140,6 +140,7 @@ namespace DuAn1Lion
                     sp.SubmitChanges();
                     MessageBox.Show("Thêm thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     hienThiSan_Pham();
+                    hienThi_ThongKe_SanPham();
                     LamMoi_SP();
                 }
                 catch (Exception ex)
@@ -150,8 +151,8 @@ namespace DuAn1Lion
         }
 
 
-
-        private void btnSuaSanPham_Click(object sender, EventArgs e)
+        //Hàm Sửa Sản Phẩm
+        private void Sua_San_Pham()
         {
             decimal donGiaBan;
             decimal donGiaNhap;
@@ -168,6 +169,9 @@ namespace DuAn1Lion
                 return;
             }
 
+            // Nhân giá trị với 1000
+            donGiaBan *= 1000;
+            donGiaNhap *= 1000;
 
             var sua_Sp = new LionQuanLyQuanCaPheDataContext();
 
@@ -205,6 +209,7 @@ namespace DuAn1Lion
                     sua_Sp.SubmitChanges();
                     MessageBox.Show("Cập nhật thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     hienThiSan_Pham();
+                    hienThi_ThongKe_SanPham();
                     LamMoi_SP();
                 }
                 catch (Exception ex)
@@ -218,7 +223,8 @@ namespace DuAn1Lion
             }
         }
 
-        private void btnXoaSanPham_Click(object sender, EventArgs e)
+        //Hàm Xóa Sản Phẩm
+        private void Xoa_San_Pham()
         {
             if (dtgvSanPham.SelectedRows.Count > 0)
             {
@@ -254,6 +260,7 @@ namespace DuAn1Lion
                     }
                     MessageBox.Show("Xóa Thành Công", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     hienThiSan_Pham();
+                    hienThi_ThongKe_SanPham();
                     LamMoi_SP();
                 }
             }
@@ -263,7 +270,18 @@ namespace DuAn1Lion
             }
         }
 
-        private void btnTimKiemSanPham_Click(object sender, EventArgs e)
+        private void btnSuaSanPham_Click(object sender, EventArgs e)
+        {
+            Sua_San_Pham();
+        }
+
+        private void btnXoaSanPham_Click(object sender, EventArgs e)
+        {
+            Xoa_San_Pham();
+        }
+
+        //Hàm Tìm Kiếm Sản Phẩm
+        private void TimKiem_SanPham()
         {
             string tuKhoa_SP = txtTimKiemSanPham.Text.Trim().ToLower();
 
@@ -285,6 +303,7 @@ namespace DuAn1Lion
                            sp.TenSanPham,
                            sp.GiaBan,
                            sp.GiaNhap,
+                           sp.MaNhanVien,
                            sp.HinhAnh
                        };
             if (dtgvSanPham.Columns.Contains("GiaBan"))
@@ -344,6 +363,10 @@ namespace DuAn1Lion
                     dtgvSanPham.Columns.Remove("AnhSanPham");
                 }
             }
+        }
+        private void btnTimKiemSanPham_Click(object sender, EventArgs e)
+        {
+            TimKiem_SanPham();
         }
         private void hienThiSan_Pham()
         {
@@ -513,10 +536,8 @@ namespace DuAn1Lion
         {
             if (dtgvThongKeSanPham == null) return;
 
-            // Kiểm tra cột và hàng
             if (e.ColumnIndex == dtgvThongKeSanPham.Columns["AnhSanPham"]?.Index && e.RowIndex >= 0)
             {
-                // Kiểm tra sự tồn tại của cột
                 if (dtgvThongKeSanPham.Columns.Contains("HinhAnh"))
                 {
                     var cellValue_HD = dtgvThongKeSanPham.Rows[e.RowIndex]?.Cells["HinhAnh"]?.Value;
@@ -591,8 +612,8 @@ namespace DuAn1Lion
                 pic_AnhSanPham.Image = null;
             }
         }
-
-        private void dtgvThongKeSanPham_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        //Hàm Khai Báo DTGV Thống Kê Sản Phẩm
+        private void dtgvThongKe_SanPham_DataBindingComplete()
         {
             foreach (DataGridViewRow row in dtgvSanPham.Rows)
             {
@@ -611,6 +632,10 @@ namespace DuAn1Lion
                     row.Cells["AnhSanPham"].Value = null;
                 }
             }
+        }
+        private void dtgvThongKeSanPham_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dtgvThongKe_SanPham_DataBindingComplete();
         }
 
         private void hienThi_ThongKe_SanPham()
@@ -633,8 +658,8 @@ namespace DuAn1Lion
                 dtgvThongKeSanPham.Columns["GiaNhap"].DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
             }
         }
-
-        private void btnTimKiem_ThongKeSanPham_Click(object sender, EventArgs e)
+        //Hàm Khai Báo Tìm Kiếm Thống Kê Sản Phẩm
+        private void TimKiem_ThongKe_SanPham()
         {
             string SanPham = txtTimKiem_ThongKeSanPham.Text.Trim();
             if (string.IsNullOrWhiteSpace(SanPham))
@@ -687,6 +712,10 @@ namespace DuAn1Lion
                 MessageBox.Show("Không tìm thấy sản phẩm phù hợp.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 dtgvThongKeSanPham.DataSource = null;
             }
+        }
+        private void btnTimKiem_ThongKeSanPham_Click(object sender, EventArgs e)
+        {
+            TimKiem_ThongKe_SanPham();
         }
         private void DinhDangDataGridView()
         {
@@ -1049,8 +1078,10 @@ namespace DuAn1Lion
 
         }
 
+        private void btnThemNhanVien_Click_1(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }
 
