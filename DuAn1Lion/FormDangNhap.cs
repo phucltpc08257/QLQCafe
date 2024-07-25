@@ -26,10 +26,16 @@ namespace DuAn1Lion
         {
             FormChucNangQuanLy form = new FormChucNangQuanLy();
 
-            form.ShowDialog();
-            form = null;
-            this.Show();
-            this.Close();
+            form.Show();
+            this.Hide();
+        }
+
+        private void btnQuenMatKhau_Click(object sender, EventArgs e)
+        {
+            FormQuenMatKhau formQuenMatKhau = new FormQuenMatKhau();
+
+            formQuenMatKhau.Show();
+            this.Hide();
         }
     }
 }
