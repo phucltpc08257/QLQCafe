@@ -62,11 +62,16 @@ namespace DuAn1Lion
             {
                 HienThioVaiTro();
             }
+            if (tclFormChucNang.SelectedTab == tpNguyenLieu)
+            {
+                HienThiNguyenLieu();
+            }
         }
         private void LoadData()
         {
             HienThiNhanVien();
             HienThioVaiTro();
+            HienThiNguyenLieu();
         }
         //hien thi nhan vien
         private void HienThiNhanVien()
@@ -633,18 +638,18 @@ namespace DuAn1Lion
 
             try
             {
-                var QLNV = new LionQuanLyQuanCaPheDataContext();
+                var QLNL = new LionQuanLyQuanCaPheDataContext();
 
                 string maNL = txtTenNguyenLieu.Text;
-                var nguyenlieu = QLNV.NguyenLieus.FirstOrDefault(nl => nl.MaNguyenLieu == maNL);
+                var nguyenlieu = QLNL.NguyenLieus.FirstOrDefault(nl => nl.MaNguyenLieu == maNL);
                 if (nguyenlieu == null)
                 {
                     MessageBox.Show("Mã nhân viên không tồn tại!");
                     return;
                 }
 
-                string manl = txtMaNhanVien.Text;
-                var nhanvien = QLNV.NhanViens.FirstOrDefault(nv => nv.MaNhanVien == manl);
+                string manl = txtMaNguyenLieu.Text;
+                var nguy = QLNL.NguyenLieus.FirstOrDefault(nl => nl.MaNguyenLieu == manl);
                 if (nguyenlieu != null)
                 {
                     nguyenlieu.TenNguyenLieu = txtTenNguyenLieu.Text;
@@ -713,6 +718,11 @@ namespace DuAn1Lion
         {
             XoaNguyenLieu();
             ClearTextBox() ;
+        }
+
+        private void label26_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
