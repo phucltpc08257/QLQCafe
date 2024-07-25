@@ -78,6 +78,8 @@ namespace DuAn1Lion
         {
             hienThiKhachHang();
             HienThiNhanVien();
+            HienThiThongKeKhachHang();
+            HienThiThongKeHoaDon();
             load();
             SetupUI();
 
@@ -106,11 +108,18 @@ namespace DuAn1Lion
                 hienThiKhachHang();
                 lamMoiKhachHang();
             }
+
+            if (tclFormChucNang.SelectedTab == tpThongKe)
+            {
+                HienThiThongKeKhachHang();
+                HienThiThongKeHoaDon();
+            }
         }
         private void LoadData()
         {
             HienThiNhanVien();
             HienThioVaiTro();
+            
         }
         //hien thi nhan vien
         private void HienThiNhanVien()
@@ -653,7 +662,16 @@ namespace DuAn1Lion
             TimKiemKhachHang();
         }
 
+        //TIM KIEM THONG TIN THONG KE
+        private void btnTimKiemThongKeKhachHang_Click(object sender, EventArgs e)
+        {
+            TimKiemThongKeKhachHang();
+        }
 
+        private void btnTìmKiemThongKeHoaDon_Click(object sender, EventArgs e)
+        {
+            
+        }
 
         //LAM MỚI KHÁCH HÀNG
         private void lamMoiKhachHang()
@@ -752,7 +770,7 @@ namespace DuAn1Lion
 
         }
 
-
+        //  SUA KHÁCH HÀNG
         private void suaKhachHang()
         {
             if (string.IsNullOrEmpty(txtTenKhachHang.Text) || string.IsNullOrEmpty(txtDiaChiKhachHang.Text) ||
@@ -794,7 +812,7 @@ namespace DuAn1Lion
             }
         }
 
-
+        //  XOA KHÁCH HÀNG
         private void xoaKhachHang()
         {
 
@@ -837,7 +855,7 @@ namespace DuAn1Lion
 
         }
 
-
+        //  TIM KIEM KHÁCH HÀNG
         private void TimKiemKhachHang()
         {
             using (var QLNV = new LionQuanLyQuanCaPheDataContext())
@@ -864,6 +882,7 @@ namespace DuAn1Lion
             }
         }
 
+        // HIEN THI LEN TEXTBOX KHACH HANG
         private void dtgvThongTinKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             var QLKH = new LionQuanLyQuanCaPheDataContext();
@@ -881,7 +900,80 @@ namespace DuAn1Lion
             txtEmailKhachHang.Text = HTKhachHang.Email.ToString();
         }
 
-      
+        // HIEN THI THONG KE KHACH HANG
+        private void HienThiThongKeKhachHang()
+        {
+            var QLKH = new LionQuanLyQuanCaPheDataContext();
+            var thongKeKhach = QLKH.ThongKeKhachHang().ToList();
+            dtgvThongKeKhachHang.DataSource = thongKeKhach;
+        }
+
+ 
+
+        //TIM KIEM THONG KE KHACH HANG
+        private void TimKiemThongKeKhachHang()
+        {
+            string KhachHang = txtTimKiemThongKeKhachHang.Text.Trim();
+            if (string.IsNullOrWhiteSpace(KhachHang))
+            {
+                MessageBox.Show("Vui lòng nhập mã để tìm kiếm!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            string tuKhoa_KH = KhachHang.ToLower();
+
+            var QLBH = new LionQuanLyQuanCaPheDataContext();
+
+            var List_KH = QLBH.ThongKeKhachHang().ToList();
+
+            var filteredList = from kh in List_KH
+                               where kh.MaKhachHang.ToLower().Contains(tuKhoa_KH) ||
+                                     kh.TenKhachHang.ToLower().Contains(tuKhoa_KH) ||
+                                     kh.SDT.ToString().Contains(tuKhoa_KH) ||
+                                     kh.SoLuongHoaDonThang.ToString().Contains(tuKhoa_KH) ||
+                                     kh.SoLuongHoaDonNam.ToString().Contains(tuKhoa_KH) ||
+                                     kh.TongGiaTriThang.ToString().Contains(tuKhoa_KH) ||
+                                     kh.TongGiaTriNam.ToString().Contains(tuKhoa_KH) 
+
+
+
+
+                               select new
+                               {
+                                   kh.MaKhachHang,
+                                   kh.TenKhachHang,
+                                   kh.SDT,
+                                   kh.SoLuongHoaDonThang,
+                                   kh.SoLuongHoaDonNam,
+                                   kh.TongGiaTriThang,
+                                   kh.TongGiaTriNam
+                               };
+
+            if (filteredList.Any())
+            {
+                var resultList = filteredList.ToList();
+                dtgvThongKeKhachHang.DataSource = resultList;
+
+               
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy sản phẩm phù hợp.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dtgvThongKeKhachHang.DataSource = null;
+            }
+        }
+
+
+        // HIEN THI THONG KE HOA DON
+        private void HienThiThongKeHoaDon()
+        {
+            var QLKH = new LionQuanLyQuanCaPheDataContext();
+            var thongKeHoaDon = QLKH.ThongKeHoaDon().ToList();
+            dtgvThongKeHoaDon.DataSource = thongKeHoaDon;
+        }
+
+
+       
     }
 
 

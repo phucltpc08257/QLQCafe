@@ -44,56 +44,56 @@
         <elementListCompartment Id="57c4988b-15da-4acf-bf0c-4e79e0f0399b" absoluteBounds="6.265, 3.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(11 : 6.06814697265625); (11.75 : 6.06814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11 : 6.06814697265625); (11.75 : 6.06814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LionQuanLyQuanCaPheDataContext/HoaDon/HoaDon_HoaDonChiTiet" />
       <nodes>
         <classShapeMoniker Id="173e25e7-504a-402e-a4a2-9d879c1a6d6c" />
         <classShapeMoniker Id="38e63525-a4dd-480b-8483-7c7f74af3ceb" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 6.82774983723958); (9 : 6.82774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.25 : 6.82774983723958); (9 : 6.82774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LionQuanLyQuanCaPheDataContext/KhachHang/KhachHang_HoaDon" />
       <nodes>
         <classShapeMoniker Id="75f7c77f-6e5b-4185-b621-92c07a136700" />
         <classShapeMoniker Id="173e25e7-504a-402e-a4a2-9d879c1a6d6c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 8.032900390625); (9 : 8.032900390625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 8.032900390625); (9 : 8.032900390625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LionQuanLyQuanCaPheDataContext/NhanVien/NhanVien_HoaDon" />
       <nodes>
         <classShapeMoniker Id="a862f29b-dd47-4a82-b235-4e2ccb342192" />
         <classShapeMoniker Id="173e25e7-504a-402e-a4a2-9d879c1a6d6c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 6.70274983723958); (6.25 : 6.70274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 6.70274983723958); (6.25 : 6.70274983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LionQuanLyQuanCaPheDataContext/NhanVien/NhanVien_KhachHang" />
       <nodes>
         <classShapeMoniker Id="a862f29b-dd47-4a82-b235-4e2ccb342192" />
         <classShapeMoniker Id="75f7c77f-6e5b-4185-b621-92c07a136700" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 8.35740397135417); (4.5 : 12.8950512695312); (6.25 : 12.8950512695312)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.5 : 8.35740397135417); (4.5 : 12.8950512695312); (6.25 : 12.8950512695312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LionQuanLyQuanCaPheDataContext/NhanVien/NhanVien_NguyenLieu" />
       <nodes>
         <classShapeMoniker Id="a862f29b-dd47-4a82-b235-4e2ccb342192" />
         <classShapeMoniker Id="64082e25-13bd-447f-99ed-1d191c481192" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.97199625651042); (3.5 : 6.97199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 6.97199625651042); (3.5 : 6.97199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LionQuanLyQuanCaPheDataContext/VaiTro/VaiTro_NhanVien" />
       <nodes>
         <classShapeMoniker Id="fc19f387-a85a-41fc-bd14-ffba8bccaaaa" />
         <classShapeMoniker Id="a862f29b-dd47-4a82-b235-4e2ccb342192" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 3.85659912109375); (12.75 : 3.85659912109375); (12.75 : 4.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.25 : 3.85659912109375); (12.75 : 3.85659912109375); (12.75 : 4.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LionQuanLyQuanCaPheDataContext/SanPham/SanPham_HoaDonChiTiet" />
       <nodes>
         <classShapeMoniker Id="b5fef91e-dd89-4a30-9c0e-fa0aece2b4a9" />
         <classShapeMoniker Id="38e63525-a4dd-480b-8483-7c7f74af3ceb" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 5.625); (4.5 : 3.85659912109375); (6.25 : 3.85659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.5 : 5.625); (4.5 : 3.85659912109375); (6.25 : 3.85659912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LionQuanLyQuanCaPheDataContext/NhanVien/NhanVien_SanPham" />
       <nodes>
         <classShapeMoniker Id="a862f29b-dd47-4a82-b235-4e2ccb342192" />

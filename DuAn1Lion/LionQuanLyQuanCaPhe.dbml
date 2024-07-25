@@ -89,4 +89,55 @@
       <Association Name="NhanVien_SanPham" Member="NhanVien" ThisKey="MaNhanVien" OtherKey="MaNhanVien" Type="NhanVien" IsForeignKey="true" />
     </Type>
   </Table>
+  <Function Name="dbo.ThongKeHoaDon" Method="ThongKeHoaDon">
+    <ElementType Name="ThongKeHoaDonResult">
+      <Column Name="MaHoaDon" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="NgayXuatHoaDon" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="SoLuongSanPham" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoLuongMon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TongHoaDon" Type="System.Decimal" DbType="Decimal(10,3)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ThongKeSanPham" Method="ThongKeSanPham">
+    <ElementType Name="ThongKeSanPhamResult">
+      <Column Name="MaSanPham" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="TenSanPham" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="GiaBan" Type="System.Decimal" DbType="Decimal(10,3)" CanBeNull="true" />
+      <Column Name="SoLuongBanRaTuan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoLuongBanRaThang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoLuongBanRaNam" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TongGiaBanRaTuan" Type="System.Decimal" DbType="Decimal(38,3)" CanBeNull="true" />
+      <Column Name="TongGiaBanRaThang" Type="System.Decimal" DbType="Decimal(38,3)" CanBeNull="true" />
+      <Column Name="TongGiaBanRaNam" Type="System.Decimal" DbType="Decimal(38,3)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ThongKeKhachHang" Method="ThongKeKhachHang">
+    <ElementType Name="ThongKeKhachHangResult">
+      <Column Name="MaKhachHang" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TenKhachHang" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="SoLuongHoaDonThang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoLuongHoaDonNam" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TongGiaTriThang" Type="System.Decimal" DbType="Decimal(38,3)" CanBeNull="true" />
+      <Column Name="TongGiaTriNam" Type="System.Decimal" DbType="Decimal(38,3)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ThongKeNguyenLieu" Method="ThongKeNguyenLieu">
+    <ElementType Name="ThongKeNguyenLieuResult">
+      <Column Name="MaNguyenLieu" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="TenNguyenLieu" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="NgayHetHan" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="SoLuongNhap" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GiaNhap" Type="System.Decimal" DbType="Decimal(10,3)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ThongKeNhanVien" Method="ThongKeNhanVien">
+    <ElementType Name="ThongKeNhanVienResult">
+      <Column Name="MaNhanVien" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="TenNhanVien" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SoLuongHoaDonTuan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoLuongHoaDonThang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoLuongHoaDonNam" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

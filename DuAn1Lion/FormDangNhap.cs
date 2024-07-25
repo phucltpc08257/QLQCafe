@@ -24,6 +24,7 @@ namespace DuAn1Lion
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
+            /*
             string email = txtNhapEmail.Text;
             string matKhau = txtNhapMatKhau.Text;
 
@@ -41,6 +42,13 @@ namespace DuAn1Lion
             {
                 MessageBox.Show("Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.");
             }
+            */
+
+            FormChucNangQuanLy formChucNangQuanLy = new FormChucNangQuanLy();
+            formChucNangQuanLy.Show();
+            this.Hide();
+
+            
         }
     }
 }

@@ -138,6 +138,41 @@ namespace DuAn1Lion
 				return this.GetTable<SanPham>();
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ThongKeHoaDon")]
+		public ISingleResult<ThongKeHoaDonResult> ThongKeHoaDon()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<ThongKeHoaDonResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ThongKeSanPham")]
+		public ISingleResult<ThongKeSanPhamResult> ThongKeSanPham()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<ThongKeSanPhamResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ThongKeKhachHang")]
+		public ISingleResult<ThongKeKhachHangResult> ThongKeKhachHang()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<ThongKeKhachHangResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ThongKeNguyenLieu")]
+		public ISingleResult<ThongKeNguyenLieuResult> ThongKeNguyenLieu()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<ThongKeNguyenLieuResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ThongKeNhanVien")]
+		public ISingleResult<ThongKeNhanVienResult> ThongKeNhanVien()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<ThongKeNhanVienResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.HoaDon")]
@@ -2035,6 +2070,604 @@ namespace DuAn1Lion
 		{
 			this.SendPropertyChanging();
 			entity.SanPham = null;
+		}
+	}
+	
+	public partial class ThongKeHoaDonResult
+	{
+		
+		private string _MaHoaDon;
+		
+		private System.Nullable<System.DateTime> _NgayXuatHoaDon;
+		
+		private System.Nullable<int> _SoLuongSanPham;
+		
+		private System.Nullable<int> _SoLuongMon;
+		
+		private System.Nullable<decimal> _TongHoaDon;
+		
+		public ThongKeHoaDonResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaHoaDon", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
+		public string MaHoaDon
+		{
+			get
+			{
+				return this._MaHoaDon;
+			}
+			set
+			{
+				if ((this._MaHoaDon != value))
+				{
+					this._MaHoaDon = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayXuatHoaDon", DbType="Date")]
+		public System.Nullable<System.DateTime> NgayXuatHoaDon
+		{
+			get
+			{
+				return this._NgayXuatHoaDon;
+			}
+			set
+			{
+				if ((this._NgayXuatHoaDon != value))
+				{
+					this._NgayXuatHoaDon = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongSanPham", DbType="Int")]
+		public System.Nullable<int> SoLuongSanPham
+		{
+			get
+			{
+				return this._SoLuongSanPham;
+			}
+			set
+			{
+				if ((this._SoLuongSanPham != value))
+				{
+					this._SoLuongSanPham = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongMon", DbType="Int")]
+		public System.Nullable<int> SoLuongMon
+		{
+			get
+			{
+				return this._SoLuongMon;
+			}
+			set
+			{
+				if ((this._SoLuongMon != value))
+				{
+					this._SoLuongMon = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongHoaDon", DbType="Decimal(10,3)")]
+		public System.Nullable<decimal> TongHoaDon
+		{
+			get
+			{
+				return this._TongHoaDon;
+			}
+			set
+			{
+				if ((this._TongHoaDon != value))
+				{
+					this._TongHoaDon = value;
+				}
+			}
+		}
+	}
+	
+	public partial class ThongKeSanPhamResult
+	{
+		
+		private string _MaSanPham;
+		
+		private string _TenSanPham;
+		
+		private System.Nullable<decimal> _GiaBan;
+		
+		private System.Nullable<int> _SoLuongBanRaTuan;
+		
+		private System.Nullable<int> _SoLuongBanRaThang;
+		
+		private System.Nullable<int> _SoLuongBanRaNam;
+		
+		private System.Nullable<decimal> _TongGiaBanRaTuan;
+		
+		private System.Nullable<decimal> _TongGiaBanRaThang;
+		
+		private System.Nullable<decimal> _TongGiaBanRaNam;
+		
+		public ThongKeSanPhamResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaSanPham", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
+		public string MaSanPham
+		{
+			get
+			{
+				return this._MaSanPham;
+			}
+			set
+			{
+				if ((this._MaSanPham != value))
+				{
+					this._MaSanPham = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenSanPham", DbType="NVarChar(100)")]
+		public string TenSanPham
+		{
+			get
+			{
+				return this._TenSanPham;
+			}
+			set
+			{
+				if ((this._TenSanPham != value))
+				{
+					this._TenSanPham = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaBan", DbType="Decimal(10,3)")]
+		public System.Nullable<decimal> GiaBan
+		{
+			get
+			{
+				return this._GiaBan;
+			}
+			set
+			{
+				if ((this._GiaBan != value))
+				{
+					this._GiaBan = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongBanRaTuan", DbType="Int")]
+		public System.Nullable<int> SoLuongBanRaTuan
+		{
+			get
+			{
+				return this._SoLuongBanRaTuan;
+			}
+			set
+			{
+				if ((this._SoLuongBanRaTuan != value))
+				{
+					this._SoLuongBanRaTuan = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongBanRaThang", DbType="Int")]
+		public System.Nullable<int> SoLuongBanRaThang
+		{
+			get
+			{
+				return this._SoLuongBanRaThang;
+			}
+			set
+			{
+				if ((this._SoLuongBanRaThang != value))
+				{
+					this._SoLuongBanRaThang = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongBanRaNam", DbType="Int")]
+		public System.Nullable<int> SoLuongBanRaNam
+		{
+			get
+			{
+				return this._SoLuongBanRaNam;
+			}
+			set
+			{
+				if ((this._SoLuongBanRaNam != value))
+				{
+					this._SoLuongBanRaNam = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaBanRaTuan", DbType="Decimal(38,3)")]
+		public System.Nullable<decimal> TongGiaBanRaTuan
+		{
+			get
+			{
+				return this._TongGiaBanRaTuan;
+			}
+			set
+			{
+				if ((this._TongGiaBanRaTuan != value))
+				{
+					this._TongGiaBanRaTuan = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaBanRaThang", DbType="Decimal(38,3)")]
+		public System.Nullable<decimal> TongGiaBanRaThang
+		{
+			get
+			{
+				return this._TongGiaBanRaThang;
+			}
+			set
+			{
+				if ((this._TongGiaBanRaThang != value))
+				{
+					this._TongGiaBanRaThang = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaBanRaNam", DbType="Decimal(38,3)")]
+		public System.Nullable<decimal> TongGiaBanRaNam
+		{
+			get
+			{
+				return this._TongGiaBanRaNam;
+			}
+			set
+			{
+				if ((this._TongGiaBanRaNam != value))
+				{
+					this._TongGiaBanRaNam = value;
+				}
+			}
+		}
+	}
+	
+	public partial class ThongKeKhachHangResult
+	{
+		
+		private string _MaKhachHang;
+		
+		private string _TenKhachHang;
+		
+		private string _SDT;
+		
+		private System.Nullable<int> _SoLuongHoaDonThang;
+		
+		private System.Nullable<int> _SoLuongHoaDonNam;
+		
+		private System.Nullable<decimal> _TongGiaTriThang;
+		
+		private System.Nullable<decimal> _TongGiaTriNam;
+		
+		public ThongKeKhachHangResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaKhachHang", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string MaKhachHang
+		{
+			get
+			{
+				return this._MaKhachHang;
+			}
+			set
+			{
+				if ((this._MaKhachHang != value))
+				{
+					this._MaKhachHang = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenKhachHang", DbType="NVarChar(100)")]
+		public string TenKhachHang
+		{
+			get
+			{
+				return this._TenKhachHang;
+			}
+			set
+			{
+				if ((this._TenKhachHang != value))
+				{
+					this._TenKhachHang = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SDT", DbType="VarChar(10)")]
+		public string SDT
+		{
+			get
+			{
+				return this._SDT;
+			}
+			set
+			{
+				if ((this._SDT != value))
+				{
+					this._SDT = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongHoaDonThang", DbType="Int")]
+		public System.Nullable<int> SoLuongHoaDonThang
+		{
+			get
+			{
+				return this._SoLuongHoaDonThang;
+			}
+			set
+			{
+				if ((this._SoLuongHoaDonThang != value))
+				{
+					this._SoLuongHoaDonThang = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongHoaDonNam", DbType="Int")]
+		public System.Nullable<int> SoLuongHoaDonNam
+		{
+			get
+			{
+				return this._SoLuongHoaDonNam;
+			}
+			set
+			{
+				if ((this._SoLuongHoaDonNam != value))
+				{
+					this._SoLuongHoaDonNam = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaTriThang", DbType="Decimal(38,3)")]
+		public System.Nullable<decimal> TongGiaTriThang
+		{
+			get
+			{
+				return this._TongGiaTriThang;
+			}
+			set
+			{
+				if ((this._TongGiaTriThang != value))
+				{
+					this._TongGiaTriThang = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaTriNam", DbType="Decimal(38,3)")]
+		public System.Nullable<decimal> TongGiaTriNam
+		{
+			get
+			{
+				return this._TongGiaTriNam;
+			}
+			set
+			{
+				if ((this._TongGiaTriNam != value))
+				{
+					this._TongGiaTriNam = value;
+				}
+			}
+		}
+	}
+	
+	public partial class ThongKeNguyenLieuResult
+	{
+		
+		private string _MaNguyenLieu;
+		
+		private string _TenNguyenLieu;
+		
+		private System.Nullable<System.DateTime> _NgayHetHan;
+		
+		private System.Nullable<int> _SoLuongNhap;
+		
+		private System.Nullable<decimal> _GiaNhap;
+		
+		public ThongKeNguyenLieuResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaNguyenLieu", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
+		public string MaNguyenLieu
+		{
+			get
+			{
+				return this._MaNguyenLieu;
+			}
+			set
+			{
+				if ((this._MaNguyenLieu != value))
+				{
+					this._MaNguyenLieu = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenNguyenLieu", DbType="NVarChar(150)")]
+		public string TenNguyenLieu
+		{
+			get
+			{
+				return this._TenNguyenLieu;
+			}
+			set
+			{
+				if ((this._TenNguyenLieu != value))
+				{
+					this._TenNguyenLieu = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayHetHan", DbType="Date")]
+		public System.Nullable<System.DateTime> NgayHetHan
+		{
+			get
+			{
+				return this._NgayHetHan;
+			}
+			set
+			{
+				if ((this._NgayHetHan != value))
+				{
+					this._NgayHetHan = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongNhap", DbType="Int")]
+		public System.Nullable<int> SoLuongNhap
+		{
+			get
+			{
+				return this._SoLuongNhap;
+			}
+			set
+			{
+				if ((this._SoLuongNhap != value))
+				{
+					this._SoLuongNhap = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaNhap", DbType="Decimal(10,3)")]
+		public System.Nullable<decimal> GiaNhap
+		{
+			get
+			{
+				return this._GiaNhap;
+			}
+			set
+			{
+				if ((this._GiaNhap != value))
+				{
+					this._GiaNhap = value;
+				}
+			}
+		}
+	}
+	
+	public partial class ThongKeNhanVienResult
+	{
+		
+		private string _MaNhanVien;
+		
+		private string _TenNhanVien;
+		
+		private System.Nullable<int> _SoLuongHoaDonTuan;
+		
+		private System.Nullable<int> _SoLuongHoaDonThang;
+		
+		private System.Nullable<int> _SoLuongHoaDonNam;
+		
+		public ThongKeNhanVienResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaNhanVien", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
+		public string MaNhanVien
+		{
+			get
+			{
+				return this._MaNhanVien;
+			}
+			set
+			{
+				if ((this._MaNhanVien != value))
+				{
+					this._MaNhanVien = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenNhanVien", DbType="NVarChar(100)")]
+		public string TenNhanVien
+		{
+			get
+			{
+				return this._TenNhanVien;
+			}
+			set
+			{
+				if ((this._TenNhanVien != value))
+				{
+					this._TenNhanVien = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongHoaDonTuan", DbType="Int")]
+		public System.Nullable<int> SoLuongHoaDonTuan
+		{
+			get
+			{
+				return this._SoLuongHoaDonTuan;
+			}
+			set
+			{
+				if ((this._SoLuongHoaDonTuan != value))
+				{
+					this._SoLuongHoaDonTuan = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongHoaDonThang", DbType="Int")]
+		public System.Nullable<int> SoLuongHoaDonThang
+		{
+			get
+			{
+				return this._SoLuongHoaDonThang;
+			}
+			set
+			{
+				if ((this._SoLuongHoaDonThang != value))
+				{
+					this._SoLuongHoaDonThang = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongHoaDonNam", DbType="Int")]
+		public System.Nullable<int> SoLuongHoaDonNam
+		{
+			get
+			{
+				return this._SoLuongHoaDonNam;
+			}
+			set
+			{
+				if ((this._SoLuongHoaDonNam != value))
+				{
+					this._SoLuongHoaDonNam = value;
+				}
+			}
 		}
 	}
 }
