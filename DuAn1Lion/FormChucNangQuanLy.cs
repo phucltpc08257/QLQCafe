@@ -331,7 +331,15 @@ namespace DuAn1Lion
             txtSDTNhanVien.Text = "";
             txtMaVaiTro.Text = "";
             txtTenVaiTro.Text = "";
-        
+            txtTenNguyenLieu.Text = "";
+            txtThanhPhan.Text = "";
+            txtGiaNhapNguyenLieu.Text = "";
+            txtNhaSanXuat.Text = "";
+            txtSoLuongNguyenLieu.Text = "";
+            dttpNgayNhapNguyenLieu.Text = "";
+            dttpNgayHethanNguyenLieu.Text = "";
+            txtMaNguyenLieu.Text = "";
+
 
         }
 
@@ -537,6 +545,174 @@ namespace DuAn1Lion
                 }
             }
 
+        }
+        private void HienThiNguyenLieu()
+        {
+
+            var QLNV = new LionQuanLyQuanCaPheDataContext();
+
+            var List = from nl in QLNV.NguyenLieus
+
+
+                       select new
+                       {
+                           nl.MaNguyenLieu,
+                           nl.ThanhPhan,
+                           nl.GiaNhap,
+                           nl.NhaSanXuat,
+                           nl.TenNguyenLieu,
+                           nl.SoLuongNhap,
+                           nl.NgayNhap,
+                           nl.NgayHetHan,
+
+                       };
+
+            dttgvThongTinNguyenLieu.DataSource = List.ToList();
+        }
+        private int maNL = 002;
+        private void ThemNguyenLieu()
+        {
+            if (string.IsNullOrEmpty(txtTenNguyenLieu.Text) || string.IsNullOrEmpty(txtThanhPhan.Text) ||
+         string.IsNullOrEmpty(txtGiaNhapNguyenLieu.Text) || string.IsNullOrEmpty(txtNhaSanXuat.Text) ||
+         string.IsNullOrEmpty(txtSoLuongNguyenLieu.Text) || string.IsNullOrEmpty(dttpNgayNhapNguyenLieu.Text) || string.IsNullOrEmpty(dttpNgayHethanNguyenLieu.Text))
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin vào các trường bắt buộc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+            else
+            {
+                var QLNV = new LionQuanLyQuanCaPheDataContext();
+                using (QLNV)
+                {
+                    NguyenLieu ThemNL = new NguyenLieu()
+                    {
+
+                        TenNguyenLieu = txtTenNguyenLieu.Text,
+                        ThanhPhan = txtThanhPhan.Text,
+                        GiaNhap = int.Parse(txtGiaNhapNguyenLieu.Text),
+                        NhaSanXuat = txtNhaSanXuat.Text,
+                        SoLuongNhap = int.Parse(txtSoLuongNguyenLieu.Text),
+                        NgayNhap = dttpNgayNhapNguyenLieu.Value,
+                        NgayHetHan = dttpNgayHethanNguyenLieu.Value,
+
+                    };
+
+                    try
+                    {
+                        QLNV.NguyenLieus.InsertOnSubmit(ThemNL);
+                        ThemNL.MaNguyenLieu = "Nl" + maNL.ToString("D4");
+                        maNL++;
+                        QLNV.SubmitChanges();
+                        MessageBox.Show("Thêm thành công");
+                        HienThiNguyenLieu();
+                        ClearTextBox();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi thêm  thông tin Nguyên Liệu: " + ex.Message);
+                    }
+                }
+            }
+
+
+        }
+        private void SuaNguyenLieu()
+        {
+            if (string.IsNullOrEmpty(txtTenNguyenLieu.Text) || string.IsNullOrEmpty(txtThanhPhan.Text) ||
+                string.IsNullOrEmpty(txtMaNguyenLieu.Text) || string.IsNullOrEmpty(txtGiaNhapNguyenLieu.Text) ||
+                string.IsNullOrEmpty(txtNhaSanXuat.Text) || string.IsNullOrEmpty(txtSoLuongNguyenLieu.Text) ||
+                string.IsNullOrEmpty(txtSoLuongNguyenLieu.Text) || string.IsNullOrEmpty(dttpNgayNhapNguyenLieu.Text) ||
+                string.IsNullOrEmpty(dttpNgayHethanNguyenLieu.Text))
+            {
+                MessageBox.Show("Không được bỏ trống các trường!");
+                return;
+            }
+
+
+
+            try
+            {
+                var QLNV = new LionQuanLyQuanCaPheDataContext();
+
+                string maNL = txtTenNguyenLieu.Text;
+                var nguyenlieu = QLNV.NguyenLieus.FirstOrDefault(nl => nl.MaNguyenLieu == maNL);
+                if (nguyenlieu == null)
+                {
+                    MessageBox.Show("Mã nhân viên không tồn tại!");
+                    return;
+                }
+
+                string manl = txtMaNhanVien.Text;
+                var nhanvien = QLNV.NhanViens.FirstOrDefault(nv => nv.MaNhanVien == manl);
+                if (nguyenlieu != null)
+                {
+                    nguyenlieu.TenNguyenLieu = txtTenNguyenLieu.Text;
+                    nguyenlieu.ThanhPhan = txtThanhPhan.Text;
+                    nguyenlieu.GiaNhap = int.Parse(txtGiaNhapNguyenLieu.Text);
+                    nguyenlieu.NhaSanXuat = txtNhaSanXuat.Text;
+                    nguyenlieu.SoLuongNhap = int.Parse(txtSoLuongNguyenLieu.Text);
+                    nguyenlieu.NgayNhap = dttpNgayNhapNguyenLieu.Value;
+                    nguyenlieu.NgayHetHan = dttpNgayHethanNguyenLieu.Value;
+                    QLNV.SubmitChanges();
+                    HienThiNguyenLieu();
+                    MessageBox.Show("Đã cập nhật thông tin nguyên liệu thành công!");
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy nguyên liệu có mã số này!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi cập nhật thông tin nguyên liệu: " + ex.Message);
+            }
+        }
+        private void XoaNguyenLieu()
+        {
+            try
+            {
+                DialogResult dialogResult = MessageBox.Show("Bạn chắc chắn muốn xóa nguyên liệu này?", "Xác nhận xóa", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    var QLNV = new LionQuanLyQuanCaPheDataContext();
+                    string maNL = txtMaNguyenLieu.Text;
+                    var nguyenlieu = QLNV.NguyenLieus.FirstOrDefault(k => k.MaNguyenLieu == maNL);
+                    if (nguyenlieu != null)
+                    {
+                        QLNV.NguyenLieus.DeleteOnSubmit(nguyenlieu);
+                        QLNV.SubmitChanges();
+                        HienThiNguyenLieu();
+                        MessageBox.Show("Đã xóa Nguyên Liệu thành công!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy Nguyên Liệu có mã số này!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xóa Nguyên liệu này: " + ex.Message);
+            }
+        }
+
+        private void btnThemNguyenLieu_Click(object sender, EventArgs e)
+        {
+            ThemNguyenLieu();
+            ClearTextBox();
+        }
+
+        private void btnSuaNguyenLieu_Click(object sender, EventArgs e)
+        {
+            SuaNguyenLieu();
+            ClearTextBox();
+        }
+
+        private void btnXoaNguyenLieu_Click(object sender, EventArgs e)
+        {
+            XoaNguyenLieu();
+            ClearTextBox() ;
         }
     }
 
