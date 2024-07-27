@@ -19,6 +19,7 @@ namespace DuAn1Lion
 
         public FormChucNangQuanLy(string VaiTro)
         {
+            
             InitializeComponent();
             UserRole = VaiTro;
             SetupUI();
@@ -27,11 +28,11 @@ namespace DuAn1Lion
 
         private void SetupUI()
         {
-            if (UserRole == "admin")
+            if (UserRole == "VT001")
             {
 
             }
-            else if (UserRole == "Quản lý")
+            else if (UserRole == "VT002")
             {
                 // Ẩn các tab không phù hợp
                 tclFormChucNang.TabPages.Remove(tpVaiTro);
@@ -46,7 +47,7 @@ namespace DuAn1Lion
                 btnXoaSanPham.Enabled = false;
 
             }
-            else if (UserRole == "Nhân viên bán hàng")
+            else if (UserRole == "VT003")
             {
                 // Ẩn các tab không phù hợp
                 tclFormChucNang.TabPages.Remove(tpNhanVien);
@@ -80,12 +81,12 @@ namespace DuAn1Lion
             HienThiNhanVien();
             HienThiThongKeKhachHang();
             HienThiThongKeHoaDon();
-            load();
+            anMa();
             SetupUI();
 
         }
 
-        private void load()
+        private void anMa()
         {
             txtMaKhachHang.ReadOnly = true;
             txtMaKhachHang.TabStop = false;
@@ -670,7 +671,7 @@ namespace DuAn1Lion
 
         private void btnTìmKiemThongKeHoaDon_Click(object sender, EventArgs e)
         {
-            
+            TimKiemThongKeHoaDon();
         }
 
         //LAM MỚI KHÁCH HÀNG
@@ -972,8 +973,67 @@ namespace DuAn1Lion
             dtgvThongKeHoaDon.DataSource = thongKeHoaDon;
         }
 
+        //TIM KIEM THONG KE HOA DON 
+        private void TimKiemThongKeHoaDon()
+        {
+            string hoaDon = txtTimKiemThongKeHoaDon.Text.Trim();
+            if (string.IsNullOrWhiteSpace(hoaDon))
+            {
+                MessageBox.Show("Vui lòng nhập mã để tìm kiếm!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
-       
+            string tuKhoa_HD = hoaDon.ToLower();
+
+            var QLBH = new LionQuanLyQuanCaPheDataContext();
+
+            var List_HD = QLBH.ThongKeHoaDon().ToList();
+
+            var filteredList = from hd in List_HD
+                               where hd.MaHoaDon.ToLower().Contains(tuKhoa_HD) ||
+                                     hd.NgayXuatHoaDon.ToString().Contains(tuKhoa_HD) ||
+                                     hd.SoLuongSanPham.ToString().Contains(tuKhoa_HD) ||
+                                     hd.SoLuongMon.ToString().Contains(tuKhoa_HD) ||
+                                     hd.TongHoaDon.ToString().Contains(tuKhoa_HD) 
+                                
+
+
+
+                               select new
+                               {
+                                   hd.MaHoaDon,
+                                   hd.NgayXuatHoaDon,
+                                   hd.SoLuongSanPham,
+                                   hd.SoLuongMon,
+                                   hd.TongHoaDon
+                             
+                               };
+
+            if (filteredList.Any())
+            {
+                var resultList = filteredList.ToList();
+                dtgvThongKeHoaDon.DataSource = resultList;
+
+
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy sản phẩm phù hợp.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dtgvThongKeHoaDon.DataSource = null;
+            }
+        }
+
+        private void FormChucNangQuanLy_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormDangNhap formDangNhap = new FormDangNhap();
+            formDangNhap.Show();
+            this.Hide();
+        }
+
+        private void txtTimKiemKhachHang_Click(object sender, EventArgs e)
+        {
+            lamMoiKhachHang();
+        }
     }
 
 
