@@ -16,7 +16,7 @@ namespace DuAn1Lion
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormChucNangQuanLy());
+            Application.Run(new FormDangNhap());
         }
     }
 }

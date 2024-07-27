@@ -15,6 +15,13 @@
       <Association Name="NhanVien_HoaDon" Member="NhanVien" ThisKey="MaNhanVien" OtherKey="MaNhanVien" Type="NhanVien" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.VaiTro" Member="VaiTros">
+    <Type Name="VaiTro">
+      <Column Name="MaVaiTro" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenVaiTro" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="VaiTro_NhanVien" Member="NhanViens" ThisKey="MaVaiTro" OtherKey="MaVaiTro" Type="NhanVien" />
+    </Type>
+  </Table>
   <Table Name="dbo.HoaDonChiTiet" Member="HoaDonChiTiets">
     <Type Name="HoaDonChiTiet">
       <Column Name="MaHoaDon" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -82,13 +89,6 @@
       <Association Name="NhanVien_SanPham" Member="NhanVien" ThisKey="MaNhanVien" OtherKey="MaNhanVien" Type="NhanVien" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.VaiTro" Member="VaiTros">
-    <Type Name="VaiTro">
-      <Column Name="MaVaiTro" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TenVaiTro" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Association Name="VaiTro_NhanVien" Member="NhanViens" ThisKey="MaVaiTro" OtherKey="MaVaiTro" Type="NhanVien" />
-    </Type>
-  </Table>
   <Function Name="dbo.ThongKeHoaDon" Method="ThongKeHoaDon">
     <ElementType Name="ThongKeHoaDonResult">
       <Column Name="MaHoaDon" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
@@ -96,6 +96,19 @@
       <Column Name="SoLuongSanPham" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SoLuongMon" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TongHoaDon" Type="System.Decimal" DbType="Decimal(10,3)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ThongKeSanPham" Method="ThongKeSanPham">
+    <ElementType Name="ThongKeSanPhamResult">
+      <Column Name="MaSanPham" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="TenSanPham" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="GiaBan" Type="System.Decimal" DbType="Decimal(10,3)" CanBeNull="true" />
+      <Column Name="SoLuongBanRaTuan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoLuongBanRaThang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoLuongBanRaNam" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TongGiaBanRaTuan" Type="System.Decimal" DbType="Decimal(38,3)" CanBeNull="true" />
+      <Column Name="TongGiaBanRaThang" Type="System.Decimal" DbType="Decimal(38,3)" CanBeNull="true" />
+      <Column Name="TongGiaBanRaNam" Type="System.Decimal" DbType="Decimal(38,3)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.ThongKeKhachHang" Method="ThongKeKhachHang">
@@ -125,19 +138,6 @@
       <Column Name="SoLuongHoaDonTuan" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SoLuongHoaDonThang" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SoLuongHoaDonNam" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.ThongKeSanPham" Method="ThongKeSanPham">
-    <ElementType Name="ThongKeSanPhamResult">
-      <Column Name="MaSanPham" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
-      <Column Name="TenSanPham" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="GiaBan" Type="System.Decimal" DbType="Decimal(10,3)" CanBeNull="true" />
-      <Column Name="SoLuongBanRaTuan" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SoLuongBanRaThang" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SoLuongBanRaNam" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TongGiaBanRaTuan" Type="System.Decimal" DbType="Decimal(38,3)" CanBeNull="true" />
-      <Column Name="TongGiaBanRaThang" Type="System.Decimal" DbType="Decimal(38,3)" CanBeNull="true" />
-      <Column Name="TongGiaBanRaNam" Type="System.Decimal" DbType="Decimal(38,3)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>
