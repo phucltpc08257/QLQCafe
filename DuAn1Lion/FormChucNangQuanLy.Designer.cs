@@ -134,7 +134,7 @@
             this.tpThongKe = new System.Windows.Forms.TabPage();
             this.tclThongKeNhanVien = new System.Windows.Forms.TabControl();
             this.TcThongKeNhanVien = new System.Windows.Forms.TabPage();
-            this.dtgvThongTinThongKeNhanVien = new System.Windows.Forms.GroupBox();
+            this.grbThongTinThongKeNhanVien = new System.Windows.Forms.GroupBox();
             this.dtgvThongKeNhanVien = new System.Windows.Forms.DataGridView();
             this.GrbThongKeNhanVien = new System.Windows.Forms.GroupBox();
             this.txtThongKeNhanVien = new System.Windows.Forms.TextBox();
@@ -183,7 +183,7 @@
             this.tpThongKe.SuspendLayout();
             this.tclThongKeNhanVien.SuspendLayout();
             this.TcThongKeNhanVien.SuspendLayout();
-            this.dtgvThongTinThongKeNhanVien.SuspendLayout();
+            this.grbThongTinThongKeNhanVien.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvThongKeNhanVien)).BeginInit();
             this.GrbThongKeNhanVien.SuspendLayout();
             this.tpVaiTro.SuspendLayout();
@@ -783,7 +783,7 @@
             this.cbbGioiTinhNhanVien.Location = new System.Drawing.Point(188, 264);
             this.cbbGioiTinhNhanVien.Margin = new System.Windows.Forms.Padding(2);
             this.cbbGioiTinhNhanVien.Name = "cbbGioiTinhNhanVien";
-            this.cbbGioiTinhNhanVien.Size = new System.Drawing.Size(233, 30);
+            this.cbbGioiTinhNhanVien.Size = new System.Drawing.Size(219, 30);
             this.cbbGioiTinhNhanVien.TabIndex = 50;
             // 
             // txtDiaChi
@@ -841,6 +841,7 @@
             this.grbTimKiemNhanVien.TabIndex = 44;
             this.grbTimKiemNhanVien.TabStop = false;
             this.grbTimKiemNhanVien.Text = "Tìm kiếm";
+            this.grbTimKiemNhanVien.Enter += new System.EventHandler(this.grbTimKiemNhanVien_Enter);
             // 
             // btnTimKiemthongtinNhanVien
             // 
@@ -1029,7 +1030,7 @@
             // 
             this.dtgvThongTinNhanVien.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgvThongTinNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgvThongTinNhanVien.Location = new System.Drawing.Point(1, 23);
+            this.dtgvThongTinNhanVien.Location = new System.Drawing.Point(-3, 23);
             this.dtgvThongTinNhanVien.Margin = new System.Windows.Forms.Padding(2);
             this.dtgvThongTinNhanVien.Name = "dtgvThongTinNhanVien";
             this.dtgvThongTinNhanVien.RowHeadersWidth = 51;
@@ -1395,7 +1396,7 @@
             // 
             // TcThongKeNhanVien
             // 
-            this.TcThongKeNhanVien.Controls.Add(this.dtgvThongTinThongKeNhanVien);
+            this.TcThongKeNhanVien.Controls.Add(this.grbThongTinThongKeNhanVien);
             this.TcThongKeNhanVien.Controls.Add(this.GrbThongKeNhanVien);
             this.TcThongKeNhanVien.Controls.Add(this.label24);
             this.TcThongKeNhanVien.Location = new System.Drawing.Point(4, 22);
@@ -1406,16 +1407,16 @@
             this.TcThongKeNhanVien.Text = "Thống kê nhân viên";
             this.TcThongKeNhanVien.UseVisualStyleBackColor = true;
             // 
-            // dtgvThongTinThongKeNhanVien
+            // grbThongTinThongKeNhanVien
             // 
-            this.dtgvThongTinThongKeNhanVien.Controls.Add(this.dtgvThongKeNhanVien);
-            this.dtgvThongTinThongKeNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtgvThongTinThongKeNhanVien.Location = new System.Drawing.Point(35, 139);
-            this.dtgvThongTinThongKeNhanVien.Name = "dtgvThongTinThongKeNhanVien";
-            this.dtgvThongTinThongKeNhanVien.Size = new System.Drawing.Size(870, 228);
-            this.dtgvThongTinThongKeNhanVien.TabIndex = 3;
-            this.dtgvThongTinThongKeNhanVien.TabStop = false;
-            this.dtgvThongTinThongKeNhanVien.Text = "Thông tin thống kê nhân viên";
+            this.grbThongTinThongKeNhanVien.Controls.Add(this.dtgvThongKeNhanVien);
+            this.grbThongTinThongKeNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grbThongTinThongKeNhanVien.Location = new System.Drawing.Point(35, 139);
+            this.grbThongTinThongKeNhanVien.Name = "grbThongTinThongKeNhanVien";
+            this.grbThongTinThongKeNhanVien.Size = new System.Drawing.Size(870, 228);
+            this.grbThongTinThongKeNhanVien.TabIndex = 3;
+            this.grbThongTinThongKeNhanVien.TabStop = false;
+            this.grbThongTinThongKeNhanVien.Text = "Thông tin thống kê nhân viên";
             // 
             // dtgvThongKeNhanVien
             // 
@@ -1678,7 +1679,7 @@
             this.tclThongKeNhanVien.ResumeLayout(false);
             this.TcThongKeNhanVien.ResumeLayout(false);
             this.TcThongKeNhanVien.PerformLayout();
-            this.dtgvThongTinThongKeNhanVien.ResumeLayout(false);
+            this.grbThongTinThongKeNhanVien.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgvThongKeNhanVien)).EndInit();
             this.GrbThongKeNhanVien.ResumeLayout(false);
             this.GrbThongKeNhanVien.PerformLayout();
@@ -1823,7 +1824,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.GroupBox dtgvThongTinVaiTro;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
-        private System.Windows.Forms.GroupBox dtgvThongTinThongKeNhanVien;
+        private System.Windows.Forms.GroupBox grbThongTinThongKeNhanVien;
         private System.Windows.Forms.Button btnTimKiemthongtinNhanVien;
         private System.Windows.Forms.ComboBox cbbvaitro;
     }

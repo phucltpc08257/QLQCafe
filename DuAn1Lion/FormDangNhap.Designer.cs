@@ -47,7 +47,7 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
             this.pictureBox1.Location = new System.Drawing.Point(195, 10);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(202, 84);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -81,7 +81,7 @@
             // 
             this.txtNhapEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNhapEmail.Location = new System.Drawing.Point(82, 218);
-            this.txtNhapEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNhapEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtNhapEmail.Name = "txtNhapEmail";
             this.txtNhapEmail.Size = new System.Drawing.Size(404, 28);
             this.txtNhapEmail.TabIndex = 3;
@@ -101,7 +101,7 @@
             // 
             this.txtNhapMatKhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNhapMatKhau.Location = new System.Drawing.Point(82, 323);
-            this.txtNhapMatKhau.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNhapMatKhau.Margin = new System.Windows.Forms.Padding(2);
             this.txtNhapMatKhau.Name = "txtNhapMatKhau";
             this.txtNhapMatKhau.Size = new System.Drawing.Size(404, 28);
             this.txtNhapMatKhau.TabIndex = 5;
@@ -110,7 +110,7 @@
             // 
             this.btnQuenMatKhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnQuenMatKhau.Location = new System.Drawing.Point(82, 388);
-            this.btnQuenMatKhau.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnQuenMatKhau.Margin = new System.Windows.Forms.Padding(2);
             this.btnQuenMatKhau.Name = "btnQuenMatKhau";
             this.btnQuenMatKhau.Size = new System.Drawing.Size(157, 41);
             this.btnQuenMatKhau.TabIndex = 6;
@@ -121,18 +121,19 @@
             // 
             this.btnDoiMatKhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDoiMatKhau.Location = new System.Drawing.Point(328, 388);
-            this.btnDoiMatKhau.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDoiMatKhau.Margin = new System.Windows.Forms.Padding(2);
             this.btnDoiMatKhau.Name = "btnDoiMatKhau";
             this.btnDoiMatKhau.Size = new System.Drawing.Size(157, 41);
             this.btnDoiMatKhau.TabIndex = 7;
             this.btnDoiMatKhau.Text = "Đổi mật khẩu";
             this.btnDoiMatKhau.UseVisualStyleBackColor = true;
+            this.btnDoiMatKhau.Click += new System.EventHandler(this.btnDoiMatKhau_Click);
             // 
             // btnDangNhap
             // 
             this.btnDangNhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDangNhap.Location = new System.Drawing.Point(82, 465);
-            this.btnDangNhap.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDangNhap.Margin = new System.Windows.Forms.Padding(2);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(403, 47);
             this.btnDangNhap.TabIndex = 8;
@@ -154,7 +155,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormDangNhap";
             this.Text = "FormDangNhap";
             this.Load += new System.EventHandler(this.FormDangNhap_Load);

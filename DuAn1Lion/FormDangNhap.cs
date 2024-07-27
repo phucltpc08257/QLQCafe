@@ -31,5 +31,15 @@ namespace DuAn1Lion
             this.Show();
             this.Close();
         }
+
+        private void btnDoiMatKhau_Click(object sender, EventArgs e)
+        {
+            FormDoiMatKhau form = new FormDoiMatKhau();
+
+            form.ShowDialog();
+            form = null;
+            this.Show();
+            this.Close();
+        }
     }
 }

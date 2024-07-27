@@ -18,20 +18,21 @@ namespace DuAn1Lion
     {
         private string connectionString = "Server=ADMIN-LUAN-PC08;Database=QuanLiQuanCaPhe;User Id=sa;Password=123456;";
 
-
         public FormChucNangQuanLy()
         {
             InitializeComponent();
             tclFormChucNang.SelectedIndexChanged += tclFormChucNang_SelectedIndexChanged;
             LoadData();
             dtgvThongTinNhanVien.CellFormatting += dtgvThongTinNhanVien_CellFormatting;
-          
+
 
         }
 
         private void FormChucNangQuanLy_Load(object sender, EventArgs e)
         {
-           
+
+
+
         }
 
         private void LoadData()
@@ -43,8 +44,8 @@ namespace DuAn1Lion
             txtMaNhanVien.TabStop = false;
             txtMaVaiTro.ReadOnly = true;
             txtMaVaiTro.TabStop = false;
- 
-          
+
+            LoadGroupBoxData();
         }
 
         private void tclFormChucNang_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,12 +53,12 @@ namespace DuAn1Lion
             if (tclFormChucNang.SelectedTab == tpNhanVien)
             {
                 HienThiNhanVien();
-               
+
             }
             else if (tclFormChucNang.SelectedTab == tpVaiTro)
             {
                 HienThioVaiTro();
-                
+
             }
         }
 
@@ -78,7 +79,7 @@ namespace DuAn1Lion
                                nv.NgaySinh,
                                nv.GioiTinh,
                                nv.MatKhau,
-                             nv.NgayBatDauLamViec,
+                               nv.NgayBatDauLamViec,
                                vt.TenVaiTro
                            };
 
@@ -126,7 +127,7 @@ namespace DuAn1Lion
         private void btnThemNhanVien_Click(object sender, EventArgs e)
         {
             ThemNhanVien();
-          
+
         }
 
         private void btnSuaNhanVien_Click(object sender, EventArgs e)
@@ -171,7 +172,7 @@ namespace DuAn1Lion
 
         }
 
-     
+
 
         private void txtTimKiemThongTinVaiTro_TextChanged(object sender, EventArgs e)
         {
@@ -192,7 +193,7 @@ namespace DuAn1Lion
             // Handle search button click
         }
 
-       
+
 
 
         private void dtgvVaiTro_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -214,9 +215,9 @@ namespace DuAn1Lion
                 DataGridViewRow selectedRow = dtgvThongTinNhanVien.Rows[e.RowIndex];
                 DisplayNhanVienDetails(selectedRow);
 
-              
+
             }
-           
+
         }
         private void DisplayNhanVienDetails(DataGridViewRow selectedRow)
         {
@@ -247,15 +248,15 @@ namespace DuAn1Lion
         private void ClearTextBox()
         {
             txtMaVaiTro.Clear();
-         
+
             txtMaNhanVien.Clear();
             txtTenNhanVien.Clear();
             txtEmail.Clear();
             txtSDTNhanVien.Clear();
             txtDiaChi.Clear();
-         
+
             dttpNgaySinhNhanVien.Value = DateTime.Now;
-          
+
             dttpNgayBatDauLamCuaNhanVien.Value = DateTime.Now;
         }
 
@@ -381,45 +382,60 @@ namespace DuAn1Lion
             }
         }
 
+
+
         private void XoaNhanVien()
         {
-            string maNV = txtMaNhanVien.Text;
-
-            if (!string.IsNullOrEmpty(maNV))
+            try
             {
-                if (MessageBox.Show("Bạn có chắc muốn xóa nhân viên này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+               
+                DialogResult dialogResult = MessageBox.Show("Bạn chắc chắn muốn xóa nhân viên này?", "Xác nhận xóa", MessageBoxButtons.YesNo);
+
+
+                if (dialogResult == DialogResult.Yes)
                 {
+                 
                     using (var QLNV = new LionQuanLyQuanCaPheDataContext())
                     {
-                        var nhanVien = QLNV.NhanViens.FirstOrDefault(nv => nv.MaNhanVien == maNV);
+                        
+                        string maNV = txtMaNhanVien.Text;
 
-                        if (nhanVien != null)
+                        var nhanvien = QLNV.NhanViens.FirstOrDefault(k => k.MaNhanVien == maNV);
+
+                     
+                        if (nhanvien != null)
                         {
-                            try
-                            {
-                                QLNV.NhanViens.DeleteOnSubmit(nhanVien);
-                                QLNV.SubmitChanges();
-                                MessageBox.Show("Xóa nhân viên thành công");
-                                HienThiNhanVien();
-                                ClearTextBox();
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Lỗi khi xóa nhân viên: " + ex.Message);
-                            }
+                 
+                            QLNV.NhanViens.DeleteOnSubmit(nhanvien);
+
+                            
+                            QLNV.SubmitChanges();
+
+                       
+                            HienThiNhanVien();
+
+                           
+                            MessageBox.Show("Đã xóa nhân viên thành công!");
+
+
+                            ClearTextBox();
                         }
                         else
                         {
-                            MessageBox.Show("Không tìm thấy nhân viên để xóa");
+                            MessageBox.Show("Không tìm thấy nhân viên có mã số này!");
                         }
                     }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Vui lòng chọn nhân viên để xóa");
+                
+                MessageBox.Show("Lỗi khi xóa nhân viên: " + ex.Message);
             }
         }
+
+
+
         private bool ValidateNhanVienInput()
         {
             if (string.IsNullOrWhiteSpace(txtTenNhanVien.Text))
@@ -632,7 +648,7 @@ namespace DuAn1Lion
                                nv.GioiTinh,
                                nv.MatKhau,
                                nv.NgayBatDauLamViec,
-                               TenVaiTro = vt.TenVaiTro 
+                               TenVaiTro = vt.TenVaiTro
                            };
 
                 dtgvThongTinNhanVien.DataSource = list.ToList();
@@ -768,7 +784,28 @@ namespace DuAn1Lion
         private void btnThongKeNhanVien_Click(object sender, EventArgs e)
         {
             TimKiemThongKeNhanVien();
-                
+
+        }
+
+        private void LoadGroupBoxData()
+        {
+            txtMaVaiTro.Clear();
+
+            txtMaNhanVien.Clear();
+            txtTenNhanVien.Clear();
+            txtEmail.Clear();
+            txtSDTNhanVien.Clear();
+            txtDiaChi.Clear();
+
+            dttpNgaySinhNhanVien.Value = DateTime.Now;
+
+            dttpNgayBatDauLamCuaNhanVien.Value = DateTime.Now;
+        }
+
+        private void grbTimKiemNhanVien_Enter(object sender, EventArgs e)
+        {
+            LoadGroupBoxData();
+            grbTimKiemNhanVien.Refresh();
         }
     }
 }
