@@ -75,7 +75,7 @@ namespace DuAn1Lion
                                nv.SDT,
                                nv.Email,
                                nv.DiaChi,
-                               vt.MaVaiTro,
+                              vt.MaVaiTro,
                                nv.NgaySinh,
                                nv.GioiTinh,
                                nv.MatKhau,
@@ -330,7 +330,8 @@ namespace DuAn1Lion
                     {
                         QLNV.NhanViens.InsertOnSubmit(ThemNV);
                         QLNV.SubmitChanges();
-                        MessageBox.Show("Thêm thành công");
+                        MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                         HienThiNhanVien();
                         ClearTextBox();
                     }
@@ -365,7 +366,7 @@ namespace DuAn1Lion
                         try
                         {
                             QLNV.SubmitChanges();
-                            MessageBox.Show("Cập nhật thông tin nhân viên thành công");
+                            MessageBox.Show("Cập nhật thông tin nhân viên thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             HienThiNhanVien();
                             ClearTextBox();
                         }
@@ -376,7 +377,7 @@ namespace DuAn1Lion
                     }
                     else
                     {
-                        MessageBox.Show("Không tìm thấy nhân viên để cập nhật");
+                        MessageBox.Show("Không tìm thấy nhân viên để cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -415,14 +416,14 @@ namespace DuAn1Lion
                             HienThiNhanVien();
 
                            
-                            MessageBox.Show("Đã xóa nhân viên thành công!");
+                            MessageBox.Show("Đã xóa nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
                             ClearTextBox();
                         }
                         else
                         {
-                            MessageBox.Show("Không tìm thấy nhân viên có mã số này!");
+                            MessageBox.Show("Không tìm thấy nhân viên có mã số này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
@@ -440,7 +441,7 @@ namespace DuAn1Lion
         {
             if (string.IsNullOrWhiteSpace(txtTenNhanVien.Text))
             {
-                MessageBox.Show("Vui lòng nhập tên nhân viên");
+                MessageBox.Show("Vui lòng nhập tên nhân viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
 
@@ -536,7 +537,7 @@ namespace DuAn1Lion
                     {
                         QLNV.VaiTros.InsertOnSubmit(ThemVT);
                         QLNV.SubmitChanges();
-                        MessageBox.Show("Thêm vai trò thành công");
+                        MessageBox.Show("Thêm vai trò thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         HienThioVaiTro();
                     }
                     catch (Exception ex)
@@ -563,7 +564,7 @@ namespace DuAn1Lion
                         try
                         {
                             QLNV.SubmitChanges();
-                            MessageBox.Show("Cập nhật thông tin vai trò thành công");
+                            MessageBox.Show("Cập nhật thông tin vai trò thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             HienThioVaiTro();
                         }
                         catch (Exception ex)
@@ -573,7 +574,7 @@ namespace DuAn1Lion
                     }
                     else
                     {
-                        MessageBox.Show("Không tìm thấy vai trò để cập nhật");
+                        MessageBox.Show("Không tìm thấy vai trò để cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -597,7 +598,7 @@ namespace DuAn1Lion
                             {
                                 QLNV.VaiTros.DeleteOnSubmit(vaiTro);
                                 QLNV.SubmitChanges();
-                                MessageBox.Show("Xóa vai trò thành công");
+                                MessageBox.Show("Xóa vai trò thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 HienThioVaiTro();
                             }
                             catch (Exception ex)
@@ -607,14 +608,14 @@ namespace DuAn1Lion
                         }
                         else
                         {
-                            MessageBox.Show("Không tìm thấy vai trò để xóa");
+                            MessageBox.Show("Không tìm thấy vai trò để xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn vai trò để xóa");
+                MessageBox.Show("Vui lòng chọn vai trò để xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -622,7 +623,7 @@ namespace DuAn1Lion
         {
             if (string.IsNullOrWhiteSpace(cbbvaitro.Text))
             {
-                MessageBox.Show("Vui lòng nhập tên vai trò");
+                MessageBox.Show("Vui lòng nhập tên vai trò", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
 
