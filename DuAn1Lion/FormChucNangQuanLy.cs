@@ -538,6 +538,11 @@ namespace DuAn1Lion
             }
 
         }
+
+        private void TcThongKeSanPham_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
