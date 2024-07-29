@@ -73,15 +73,19 @@ namespace DuAn1Lion
                         this.Hide();
                         FormChucNang.Show();
                     }
-                    /*
-                    else if (user.TenVaiTro == "NhanVien")
+                    
+                    else if (user.TenVaiTro == "Quản lý")
                     {
                         MessageBox.Show("Đăng Nhập Thành Công", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Hide();
                         FormChucNang.Show();
-                        AnButtonVaTabChoNhanVien();
                     }
-                    */
+                    else if (user.TenVaiTro == "Nhân viên bán hàng")
+                    {
+                        MessageBox.Show("Đăng Nhập Thành Công", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Hide();
+                        FormChucNang.Show();
+                    }
                 }
                 else
                 {
