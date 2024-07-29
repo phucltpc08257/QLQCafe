@@ -915,6 +915,7 @@ namespace DuAn1Lion
 
         }
 
+<<<<<<< HEAD
         /*---Đẩy data lên textbox---*/
         private void dtgvThongTinKhachHang_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -975,6 +976,12 @@ namespace DuAn1Lion
         }
 
        
+=======
+        private void TcThongKeSanPham_Click(object sender, EventArgs e)
+        {
+
+        }
+>>>>>>> e980fd49038ed9ed7daf4c6ded457e658c4b08d8
     }
 
 
