@@ -26,5 +26,10 @@ namespace DuAn1Lion
         {
 
         }
+
+        private void btnXacNhan_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
