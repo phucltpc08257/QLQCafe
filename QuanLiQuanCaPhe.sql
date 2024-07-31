@@ -36,7 +36,7 @@ CREATE TABLE NguyenLieu (
 	MaNhanVien VARCHAR(8) FOREIGN KEY(MaNhanVien) REFERENCES NhanVien(MaNhanVien),
     TenNguyenLieu NVARCHAR(150),
     SoLuongNhap INT,
-    GiaNhap DECIMAL(10, 3),
+    GiaNhap DECIMAL(10,0),
     ThanhPhan NVARCHAR(350),
     NhaSanXuat NVARCHAR(125),
     NgayNhap DATE,
@@ -47,8 +47,8 @@ CREATE TABLE SanPham (
     MaSanPham VARCHAR(8) PRIMARY KEY,
 	MaNhanVien VARCHAR(8) FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
     TenSanPham NVARCHAR(100),
-    GiaBan DECIMAL(10, 3),
-	GiaNhap DECIMAL(10, 3),
+    GiaBan DECIMAL(10, 0),
+	GiaNhap DECIMAL(10, 0),
 	HinhAnh IMAGE
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE HoaDon (
     MaNhanVien VARCHAR(8) FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
     MaKhachHang VARCHAR(10) FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang),
 	NgayXuatHoaDon DATE,
-    TongHoaDon DECIMAL(10, 3),
+    TongHoaDon DECIMAL(10, 0),
 	SoLuongMon INT,
 	GiamGia INT,
 	GhiChu NVARCHAR(150)

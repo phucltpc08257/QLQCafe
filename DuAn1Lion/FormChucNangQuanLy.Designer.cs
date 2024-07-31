@@ -405,6 +405,7 @@
             this.dtgvSanPham.TabIndex = 75;
             this.dtgvSanPham.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvSanPham_CellClick);
             this.dtgvSanPham.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dtgvSanPham_CellFormatting);
+            this.dtgvSanPham.SelectionChanged += new System.EventHandler(this.dtgvSanPham_SelectionChanged);
             // 
             // btnAnhSanPham
             // 
@@ -1405,6 +1406,7 @@
             this.dtgvThongTinNguyenLieu.Size = new System.Drawing.Size(1180, 192);
             this.dtgvThongTinNguyenLieu.TabIndex = 0;
             this.dtgvThongTinNguyenLieu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvThongTinNguyenLieu_CellClick);
+            this.dtgvThongTinNguyenLieu.SelectionChanged += new System.EventHandler(this.dtgvThongTinNguyenLieu_SelectionChanged);
             // 
             // txtMaNguyenLieu
             // 
@@ -1708,6 +1710,7 @@
             this.dtgvThongKeNguyenLieu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvThongKeNguyenLieu.Size = new System.Drawing.Size(1225, 332);
             this.dtgvThongKeNguyenLieu.TabIndex = 1;
+            this.dtgvThongKeNguyenLieu.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dtgvThongKeNguyenLieu_EditingControlShowing);
             // 
             // tpThongKeSanPham
             // 
