@@ -132,7 +132,14 @@
             this.label33 = new System.Windows.Forms.Label();
             this.tpOrder = new System.Windows.Forms.TabPage();
             this.panelOrder = new System.Windows.Forms.Panel();
+            this.grbMenu = new System.Windows.Forms.GroupBox();
+            this.grbTimKiemMenu = new System.Windows.Forms.GroupBox();
+            this.txtTimKiemMenu = new System.Windows.Forms.TextBox();
+            this.btnTimKiemMenu = new System.Windows.Forms.Button();
+            this.flowLayoutPanelMenu = new System.Windows.Forms.FlowLayoutPanel();
+            this.label39 = new System.Windows.Forms.Label();
             this.grbOrder = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanelOrder = new System.Windows.Forms.FlowLayoutPanel();
             this.label38 = new System.Windows.Forms.Label();
             this.tpThongKe = new System.Windows.Forms.TabPage();
             this.tclThongKeKhachHang = new System.Windows.Forms.TabControl();
@@ -168,13 +175,6 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.flowLayoutPanelOrder = new System.Windows.Forms.FlowLayoutPanel();
-            this.grbMenu = new System.Windows.Forms.GroupBox();
-            this.flowLayoutPanelMenu = new System.Windows.Forms.FlowLayoutPanel();
-            this.label39 = new System.Windows.Forms.Label();
-            this.grbTimKiemMenu = new System.Windows.Forms.GroupBox();
-            this.txtTimKiemMenu = new System.Windows.Forms.TextBox();
-            this.btnTimKiemMenu = new System.Windows.Forms.Button();
             this.tclFormChucNang.SuspendLayout();
             this.tpSanPham.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_AnhSanPham)).BeginInit();
@@ -215,8 +215,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgvVaiTro)).BeginInit();
             this.grbChucNangVaiTro.SuspendLayout();
             this.grbtimkiemVaiTro.SuspendLayout();
-            this.grbMenu.SuspendLayout();
-            this.grbTimKiemMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // tclFormChucNang
@@ -418,7 +416,6 @@
             this.txtMaSanPham.Name = "txtMaSanPham";
             this.txtMaSanPham.Size = new System.Drawing.Size(289, 34);
             this.txtMaSanPham.TabIndex = 6;
-            this.txtMaSanPham.TextChanged += new System.EventHandler(this.txtMaSanPham_TextChanged);
             // 
             // label6
             // 
@@ -1382,6 +1379,66 @@
             this.panelOrder.Size = new System.Drawing.Size(1291, 722);
             this.panelOrder.TabIndex = 0;
             // 
+            // grbMenu
+            // 
+            this.grbMenu.Controls.Add(this.grbTimKiemMenu);
+            this.grbMenu.Controls.Add(this.flowLayoutPanelMenu);
+            this.grbMenu.Controls.Add(this.label39);
+            this.grbMenu.Location = new System.Drawing.Point(648, 3);
+            this.grbMenu.Name = "grbMenu";
+            this.grbMenu.Size = new System.Drawing.Size(640, 715);
+            this.grbMenu.TabIndex = 2;
+            this.grbMenu.TabStop = false;
+            // 
+            // grbTimKiemMenu
+            // 
+            this.grbTimKiemMenu.Controls.Add(this.txtTimKiemMenu);
+            this.grbTimKiemMenu.Controls.Add(this.btnTimKiemMenu);
+            this.grbTimKiemMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grbTimKiemMenu.Location = new System.Drawing.Point(12, 56);
+            this.grbTimKiemMenu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grbTimKiemMenu.Name = "grbTimKiemMenu";
+            this.grbTimKiemMenu.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grbTimKiemMenu.Size = new System.Drawing.Size(595, 87);
+            this.grbTimKiemMenu.TabIndex = 68;
+            this.grbTimKiemMenu.TabStop = false;
+            this.grbTimKiemMenu.Text = "Tìm kiếm";
+            // 
+            // txtTimKiemMenu
+            // 
+            this.txtTimKiemMenu.Location = new System.Drawing.Point(32, 33);
+            this.txtTimKiemMenu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtTimKiemMenu.Name = "txtTimKiemMenu";
+            this.txtTimKiemMenu.Size = new System.Drawing.Size(323, 30);
+            this.txtTimKiemMenu.TabIndex = 3;
+            // 
+            // btnTimKiemMenu
+            // 
+            this.btnTimKiemMenu.Location = new System.Drawing.Point(413, 33);
+            this.btnTimKiemMenu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnTimKiemMenu.Name = "btnTimKiemMenu";
+            this.btnTimKiemMenu.Size = new System.Drawing.Size(136, 36);
+            this.btnTimKiemMenu.TabIndex = 2;
+            this.btnTimKiemMenu.Text = "Tìm kiếm";
+            this.btnTimKiemMenu.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanelMenu
+            // 
+            this.flowLayoutPanelMenu.Location = new System.Drawing.Point(7, 161);
+            this.flowLayoutPanelMenu.Name = "flowLayoutPanelMenu";
+            this.flowLayoutPanelMenu.Size = new System.Drawing.Size(600, 548);
+            this.flowLayoutPanelMenu.TabIndex = 1;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label39.Location = new System.Drawing.Point(273, 18);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(94, 36);
+            this.label39.TabIndex = 0;
+            this.label39.Text = "Menu";
+            // 
             // grbOrder
             // 
             this.grbOrder.Controls.Add(this.flowLayoutPanelOrder);
@@ -1391,6 +1448,13 @@
             this.grbOrder.Size = new System.Drawing.Size(638, 715);
             this.grbOrder.TabIndex = 0;
             this.grbOrder.TabStop = false;
+            // 
+            // flowLayoutPanelOrder
+            // 
+            this.flowLayoutPanelOrder.Location = new System.Drawing.Point(7, 104);
+            this.flowLayoutPanelOrder.Name = "flowLayoutPanelOrder";
+            this.flowLayoutPanelOrder.Size = new System.Drawing.Size(600, 605);
+            this.flowLayoutPanelOrder.TabIndex = 1;
             // 
             // label38
             // 
@@ -1795,48 +1859,6 @@
             this.flowLayoutPanelMenu.Size = new System.Drawing.Size(600, 548);
             this.flowLayoutPanelMenu.TabIndex = 1;
             // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label39.Location = new System.Drawing.Point(273, 18);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(94, 36);
-            this.label39.TabIndex = 0;
-            this.label39.Text = "Menu";
-            // 
-            // grbTimKiemMenu
-            // 
-            this.grbTimKiemMenu.Controls.Add(this.txtTimKiemMenu);
-            this.grbTimKiemMenu.Controls.Add(this.btnTimKiemMenu);
-            this.grbTimKiemMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grbTimKiemMenu.Location = new System.Drawing.Point(12, 56);
-            this.grbTimKiemMenu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grbTimKiemMenu.Name = "grbTimKiemMenu";
-            this.grbTimKiemMenu.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grbTimKiemMenu.Size = new System.Drawing.Size(595, 87);
-            this.grbTimKiemMenu.TabIndex = 68;
-            this.grbTimKiemMenu.TabStop = false;
-            this.grbTimKiemMenu.Text = "Tìm kiếm";
-            // 
-            // txtTimKiemMenu
-            // 
-            this.txtTimKiemMenu.Location = new System.Drawing.Point(32, 33);
-            this.txtTimKiemMenu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtTimKiemMenu.Name = "txtTimKiemMenu";
-            this.txtTimKiemMenu.Size = new System.Drawing.Size(323, 30);
-            this.txtTimKiemMenu.TabIndex = 3;
-            // 
-            // btnTimKiemMenu
-            // 
-            this.btnTimKiemMenu.Location = new System.Drawing.Point(413, 33);
-            this.btnTimKiemMenu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnTimKiemMenu.Name = "btnTimKiemMenu";
-            this.btnTimKiemMenu.Size = new System.Drawing.Size(136, 36);
-            this.btnTimKiemMenu.TabIndex = 2;
-            this.btnTimKiemMenu.Text = "Tìm kiếm";
-            this.btnTimKiemMenu.UseVisualStyleBackColor = true;
-            // 
             // FormChucNangQuanLy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1880,6 +1902,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dttgvThongTinNguyenLieu)).EndInit();
             this.tpOrder.ResumeLayout(false);
             this.panelOrder.ResumeLayout(false);
+            this.grbMenu.ResumeLayout(false);
+            this.grbMenu.PerformLayout();
+            this.grbTimKiemMenu.ResumeLayout(false);
+            this.grbTimKiemMenu.PerformLayout();
             this.grbOrder.ResumeLayout(false);
             this.grbOrder.PerformLayout();
             this.tpThongKe.ResumeLayout(false);
@@ -1903,10 +1929,6 @@
             this.grbChucNangVaiTro.ResumeLayout(false);
             this.grbtimkiemVaiTro.ResumeLayout(false);
             this.grbtimkiemVaiTro.PerformLayout();
-            this.grbMenu.ResumeLayout(false);
-            this.grbMenu.PerformLayout();
-            this.grbTimKiemMenu.ResumeLayout(false);
-            this.grbTimKiemMenu.PerformLayout();
             this.ResumeLayout(false);
 
         }

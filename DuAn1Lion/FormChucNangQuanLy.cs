@@ -67,26 +67,23 @@ namespace DuAn1Lion
 
         }
 
-        public FormChucNangQuanLy()
-        {
-            InitializeComponent();
-            tclFormChucNang.SelectedIndexChanged += tclFormChucNang_SelectedIndexChanged;
-            LoadData();
 
-        }
 
         private void FormChucNangQuanLy_Load(object sender, EventArgs e)
         {
+            HienThiNhanVien();
+            HienThioVaiTro();
             hienThiKhachHang();
             HienThiNhanVien();
             HienThiThongKeKhachHang();
             HienThiThongKeHoaDon();
-            anMa();
+            hienThiOrder();
+            anMaKH();
             SetupUI();
 
         }
-
-        private void anMa()
+        //ẨN TEXTBOX MÃ KHÁCH HÀNG KHÔNG ĐƯỢC NHẬP
+        private void anMaKH()
         {
             txtMaKhachHang.ReadOnly = true;
             txtMaKhachHang.TabStop = false;
@@ -116,12 +113,7 @@ namespace DuAn1Lion
                 HienThiThongKeHoaDon();
             }
         }
-        private void LoadData()
-        {
-            HienThiNhanVien();
-            HienThioVaiTro();
             
-        }
         //hien thi nhan vien
         private void HienThiNhanVien()
         {
@@ -638,10 +630,7 @@ namespace DuAn1Lion
 
 
         //PHAN CUA QUOC ANH
-        private void txtMaSanPham_TextChanged(object sender, EventArgs e)
-        {
 
-        }
 
         private void btnThemKhachHang_Click(object sender, EventArgs e)
         {
@@ -673,6 +662,10 @@ namespace DuAn1Lion
         {
             TimKiemThongKeHoaDon();
         }
+
+
+
+
 
         //LAM MỚI KHÁCH HÀNG
         private void lamMoiKhachHang()
@@ -711,8 +704,21 @@ namespace DuAn1Lion
 
         //  THEM KHÁCH HÀNG
         private int maKh = 01;
+        //LAM MỚI MA NHAN VIEN HIEN TAI
+
+        string maNhanVien = FormDangNhap.MaNhanVienHienTai;
+
         private void themKhachHang()
         {
+            if (string.IsNullOrEmpty(maNhanVien))
+            {
+                MessageBox.Show("Lỗi! Mã nhân viên không hợp lệ. Vui lòng đăng nhập lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Hide();
+                FormDangNhap formDangNhap = new FormDangNhap();
+                formDangNhap.Show();
+                return;
+            }
+
             if (string.IsNullOrEmpty(txtTenKhachHang.Text) || string.IsNullOrEmpty(txtDiaChiKhachHang.Text) ||
                string.IsNullOrEmpty(txtSDTKhachHang.Text) || string.IsNullOrEmpty(dttpNgaySinhKhachHang.Text) ||
                string.IsNullOrEmpty(txtEmailKhachHang.Text))
@@ -744,7 +750,7 @@ namespace DuAn1Lion
                 var QLKH = new LionQuanLyQuanCaPheDataContext();
                 KhachHang Themkh = new KhachHang()
                 {
-
+                    MaNhanVien = maNhanVien,
                     TenKhachHang = txtTenKhachHang.Text,
                     DiaChi = txtDiaChiKhachHang.Text,
                     SDT = txtSDTKhachHang.Text,
@@ -755,7 +761,7 @@ namespace DuAn1Lion
                 };
                 QLKH.KhachHangs.InsertOnSubmit(Themkh);
                 Themkh.MaKhachHang = "KH" + maKh.ToString("D3");
-                maKh +=1;
+                maKh += 1;
 
                 QLKH.SubmitChanges();
                 MessageBox.Show("Thêm thành công");
@@ -769,7 +775,6 @@ namespace DuAn1Lion
             }
 
 
-        }
 
         //  SUA KHÁCH HÀNG
         private void suaKhachHang()
@@ -1034,6 +1039,17 @@ namespace DuAn1Lion
         {
             lamMoiKhachHang();
         }
+
+      
+
+        //ORDER
+        private void hienThiOrder()
+        {
+
+
+            }
+
+      
     }
 
 

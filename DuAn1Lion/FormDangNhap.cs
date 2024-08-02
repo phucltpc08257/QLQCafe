@@ -17,6 +17,7 @@ namespace DuAn1Lion
             InitializeComponent();
         }
 
+        public static string MaNhanVienHienTai { get; set; }
         private void FormDangNhap_Load(object sender, EventArgs e)
         {
 
@@ -24,12 +25,14 @@ namespace DuAn1Lion
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-
+            /*
             string email = txtNhapEmail.Text;
             string matKhau = txtNhapMatKhau.Text;
 
             var QLBanHang = new LionQuanLyQuanCaPheDataContext();
             var user = QLBanHang.NhanViens.FirstOrDefault(u => u.Email == email && u.MatKhau == matKhau);
+
+
 
             if (user != null)
             {
