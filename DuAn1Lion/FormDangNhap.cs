@@ -25,7 +25,7 @@ namespace DuAn1Lion
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            /*
+            
             string email = txtNhapEmail.Text;
             string matKhau = txtNhapMatKhau.Text;
 
@@ -36,6 +36,7 @@ namespace DuAn1Lion
 
             if (user != null)
             {
+                MaNhanVienHienTai = user.MaNhanVien;
                 string vaiTro = user.VaiTro.MaVaiTro;
                 FormChucNangQuanLy formChucNang = new FormChucNangQuanLy(vaiTro);
                 formChucNang.Show();
@@ -45,7 +46,7 @@ namespace DuAn1Lion
             {
                 MessageBox.Show("Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.");
             }
-
+            
 
 
             /*
@@ -54,6 +55,11 @@ namespace DuAn1Lion
             this.Hide();
             */
 
+        }
+
+        private void FormDangNhap_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
@@ -17,11 +18,12 @@ namespace DuAn1Lion
 
         private string UserRole;
 
-        public FormChucNangQuanLy(string VaiTro)
+        public FormChucNangQuanLy(string vaiTro)
         {
-            
+
             InitializeComponent();
-            UserRole = VaiTro;
+            tclFormChucNang.SelectedIndexChanged += tclFormChucNang_SelectedIndexChanged;
+            // UserRole = VaiTro;
             SetupUI();
 
         }
@@ -71,13 +73,15 @@ namespace DuAn1Lion
 
         private void FormChucNangQuanLy_Load(object sender, EventArgs e)
         {
+          
             HienThiNhanVien();
             HienThioVaiTro();
             hienThiKhachHang();
+            hienThiSanPham();
             HienThiNhanVien();
             HienThiThongKeKhachHang();
             HienThiThongKeHoaDon();
-            hienThiOrder();
+            
             anMaKH();
             SetupUI();
 
@@ -112,8 +116,18 @@ namespace DuAn1Lion
                 HienThiThongKeKhachHang();
                 HienThiThongKeHoaDon();
             }
+
+            if (tclFormChucNang.SelectedTab == tpOrder)
+            {
+                flowLayoutPanelOrder.Controls.Clear();
+                hienThiOrder();
+            }
+            if (tclFormChucNang.SelectedTab == tpSanPham)
+            {
+                hienThiSanPham();
+            }
         }
-            
+
         //hien thi nhan vien
         private void HienThiNhanVien()
         {
@@ -702,10 +716,9 @@ namespace DuAn1Lion
 
         }
 
-        //  THEM KHÁCH HÀNG
-        private int maKh = 01;
-        //LAM MỚI MA NHAN VIEN HIEN TAI
+        private int maKh = 1;
 
+        // LÀM MỚI MÃ NHÂN VIÊN HIỆN TẠI
         string maNhanVien = FormDangNhap.MaNhanVienHienTai;
 
         private void themKhachHang()
@@ -720,30 +733,58 @@ namespace DuAn1Lion
             }
 
             if (string.IsNullOrEmpty(txtTenKhachHang.Text) || string.IsNullOrEmpty(txtDiaChiKhachHang.Text) ||
-               string.IsNullOrEmpty(txtSDTKhachHang.Text) || string.IsNullOrEmpty(dttpNgaySinhKhachHang.Text) ||
-               string.IsNullOrEmpty(txtEmailKhachHang.Text))
+                string.IsNullOrEmpty(txtSDTKhachHang.Text) || string.IsNullOrEmpty(dttpNgaySinhKhachHang.Text) ||
+                string.IsNullOrEmpty(txtEmailKhachHang.Text))
             {
                 MessageBox.Show("Bạn không thể thêm khi để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (string.IsNullOrEmpty(txtTenKhachHang.Text) || Regex.IsMatch(txtTenKhachHang.Text, @"\d"))
+            // Kiểm tra tên khách hàng (chấp nhận dấu)
+            if (string.IsNullOrEmpty(txtTenKhachHang.Text) ||
+                Regex.IsMatch(txtTenKhachHang.Text, @"\d") ||
+                Regex.IsMatch(txtTenKhachHang.Text, @"[^\p{L}\s]")) // Chấp nhận tất cả các ký tự chữ cái Unicode
             {
-                MessageBox.Show("Tên không được bỏ trống và không được chứa số!");
+                MessageBox.Show("Tên không được bỏ trống, không được chứa số và không được chứa ký tự đặc biệt ngoài các ký tự có dấu!");
                 return;
             }
 
-            if (string.IsNullOrEmpty(txtSDTKhachHang.Text) || !Regex.IsMatch(txtSDTKhachHang.Text, @"^\d{10}$"))
+            // Kiểm tra địa chỉ khách hàng (chấp nhận dấu)
+            if (string.IsNullOrEmpty(txtDiaChiKhachHang.Text) ||
+                Regex.IsMatch(txtDiaChiKhachHang.Text, @"[^\p{L}\d\s,.-]")) // Chấp nhận tất cả các ký tự chữ cái Unicode và các ký tự dấu câu hợp lệ
             {
-                MessageBox.Show("Số điện thoại không được bỏ trống và phải có 10 số!");
+                MessageBox.Show("Địa chỉ không được bỏ trống và không được chứa ký tự đặc biệt ngoài dấu câu hợp lệ!");
                 return;
             }
 
-            if (string.IsNullOrEmpty(txtEmailKhachHang.Text) || !Regex.IsMatch(txtEmailKhachHang.Text, @"^[a-zA-Z0-9._%+-]+@gmail\.com$"))
+            // Kiểm tra số điện thoại
+            if (string.IsNullOrEmpty(txtSDTKhachHang.Text) ||
+                !Regex.IsMatch(txtSDTKhachHang.Text, @"^\d{10}$"))
             {
-                MessageBox.Show("Email không được bỏ trống và phải có định dạng @gmail.com!");
+                MessageBox.Show("Số điện thoại không được bỏ trống, không được chứa ký tự đặc biệt và phải có 10 số!");
                 return;
             }
+
+            // Kiểm tra email
+            if (string.IsNullOrEmpty(txtEmailKhachHang.Text) ||
+                !Regex.IsMatch(txtEmailKhachHang.Text, @"^[a-zA-Z0-9._%+-]+@gmail\.com$") ||
+                Regex.IsMatch(txtEmailKhachHang.Text, @"[^\w.@+-]")) // Chấp nhận các ký tự chữ cái, số và một số ký tự đặc biệt
+            {
+                MessageBox.Show("Email không được bỏ trống, phải có định dạng @gmail.com và không chứa ký tự đặc biệt ngoài những ký tự được phép!");
+                return;
+            }
+
+            // Kiểm tra ngày sinh
+            DateTime ngaySinh = dttpNgaySinhKhachHang.Value;
+            DateTime ngayHienTai = DateTime.Now;
+         
+
+            if (ngaySinh > ngayHienTai || ngaySinh == ngayHienTai )
+            {
+                MessageBox.Show("Ngày sinh không được lớn hơn hoặc bàng ngày hiện tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
 
             try
             {
@@ -756,23 +797,25 @@ namespace DuAn1Lion
                     SDT = txtSDTKhachHang.Text,
                     NgaySinh = dttpNgaySinhKhachHang.Value,
                     Email = txtEmailKhachHang.Text
-
-
                 };
-                QLKH.KhachHangs.InsertOnSubmit(Themkh);
                 Themkh.MaKhachHang = "KH" + maKh.ToString("D3");
-                maKh += 1;
+                maKh++;
 
+                QLKH.KhachHangs.InsertOnSubmit(Themkh);
                 QLKH.SubmitChanges();
+
                 MessageBox.Show("Thêm thành công");
+
                 hienThiKhachHang();
                 lamMoiKhachHang();
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm");
+                MessageBox.Show("Lỗi khi thêm: " + ex.Message);
             }
+        }
+
+
 
 
 
@@ -780,28 +823,70 @@ namespace DuAn1Lion
         private void suaKhachHang()
         {
             if (string.IsNullOrEmpty(txtTenKhachHang.Text) || string.IsNullOrEmpty(txtDiaChiKhachHang.Text) ||
-               string.IsNullOrEmpty(txtSDTKhachHang.Text) || string.IsNullOrEmpty(dttpNgaySinhKhachHang.Text) ||
-               string.IsNullOrEmpty(txtEmailKhachHang.Text))
+                string.IsNullOrEmpty(txtSDTKhachHang.Text) || string.IsNullOrEmpty(dttpNgaySinhKhachHang.Text) ||
+                string.IsNullOrEmpty(txtEmailKhachHang.Text))
             {
                 MessageBox.Show("Bạn không thể sửa khi để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+
+            // Kiểm tra tên khách hàng (chấp nhận dấu)
+            if (string.IsNullOrEmpty(txtTenKhachHang.Text) ||
+                Regex.IsMatch(txtTenKhachHang.Text, @"\d") ||
+                Regex.IsMatch(txtTenKhachHang.Text, @"[^\p{L}\s]")) // Chấp nhận tất cả các ký tự chữ cái Unicode
             {
-                var QLKH = new LionQuanLyQuanCaPheDataContext();
-                var SuaKhachHang = (from kh in QLKH.KhachHangs
+                MessageBox.Show("Tên không được bỏ trống, không được chứa số và không được chứa ký tự đặc biệt ngoài các ký tự có dấu!");
+                return;
+            }
 
-                                    where kh.MaKhachHang == dtgvThongTinKhachHang.CurrentRow.
-                                    Cells["MaKhachHang"].Value.ToString()
-                                    select kh).SingleOrDefault();
+            // Kiểm tra địa chỉ khách hàng (chấp nhận dấu)
+            if (string.IsNullOrEmpty(txtDiaChiKhachHang.Text) ||
+                Regex.IsMatch(txtDiaChiKhachHang.Text, @"[^\p{L}\d\s,.-]")) // Chấp nhận tất cả các ký tự chữ cái Unicode và các ký tự dấu câu hợp lệ
+            {
+                MessageBox.Show("Địa chỉ không được bỏ trống và không được chứa ký tự đặc biệt ngoài dấu câu hợp lệ!");
+                return;
+            }
+
+            // Kiểm tra số điện thoại
+            if (string.IsNullOrEmpty(txtSDTKhachHang.Text) ||
+                !Regex.IsMatch(txtSDTKhachHang.Text, @"^\d{10}$"))
+            {
+                MessageBox.Show("Số điện thoại không được bỏ trống, không được chứa ký tự đặc biệt và phải có 10 số!");
+                return;
+            }
+
+            // Kiểm tra email
+            if (string.IsNullOrEmpty(txtEmailKhachHang.Text) ||
+                !Regex.IsMatch(txtEmailKhachHang.Text, @"^[a-zA-Z0-9._%+-]+@gmail\.com$") ||
+                Regex.IsMatch(txtEmailKhachHang.Text, @"[^\w.@+-]")) // Chấp nhận các ký tự chữ cái, số và một số ký tự đặc biệt
+            {
+                MessageBox.Show("Email không được bỏ trống, phải có định dạng @gmail.com và không chứa ký tự đặc biệt ngoài những ký tự được phép!");
+                return;
+            }
+
+            // Kiểm tra ngày sinh
+            DateTime ngaySinh = dttpNgaySinhKhachHang.Value;
+            DateTime ngayHienTai = DateTime.Now;
 
 
+            if (ngaySinh > ngayHienTai || ngaySinh == ngayHienTai)
+            {
+                MessageBox.Show("Ngày sinh không được lớn hơn hoặc bàng ngày hiện tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            var QLKH = new LionQuanLyQuanCaPheDataContext();
+            var SuaKhachHang = (from kh in QLKH.KhachHangs
+                                where kh.MaKhachHang == dtgvThongTinKhachHang.CurrentRow.Cells["MaKhachHang"].Value.ToString()
+                                select kh).SingleOrDefault();
+
+            if (SuaKhachHang != null)
+            {
                 SuaKhachHang.TenKhachHang = txtTenKhachHang.Text;
                 SuaKhachHang.DiaChi = txtDiaChiKhachHang.Text;
                 SuaKhachHang.SDT = txtSDTKhachHang.Text;
                 SuaKhachHang.NgaySinh = dttpNgaySinhKhachHang.Value;
                 SuaKhachHang.Email = txtEmailKhachHang.Text;
-
 
                 try
                 {
@@ -809,14 +894,18 @@ namespace DuAn1Lion
                     MessageBox.Show("Cập nhật thành công");
                     hienThiKhachHang();
                     lamMoiKhachHang();
-
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Lỗi");
+                    MessageBox.Show("Lỗi khi cập nhật khách hàng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            else
+            {
+                MessageBox.Show("Không tìm thấy khách hàng để cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         //  XOA KHÁCH HÀNG
         private void xoaKhachHang()
@@ -864,29 +953,53 @@ namespace DuAn1Lion
         //  TIM KIEM KHÁCH HÀNG
         private void TimKiemKhachHang()
         {
+            var QLKH = new LionQuanLyQuanCaPheDataContext();
+
+            // Kiểm tra nếu người dùng chưa nhập khách hàng cần tìm
+            if (string.IsNullOrEmpty(txtTimKiemKhachHang.Text))
+            {
+                MessageBox.Show("Bạn chưa nhập khách hàng cần tìm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string timKiemValue = txtTimKiemKhachHang.Text.Trim();
+
+            // Kiểm tra nếu giá trị tìm kiếm chứa ký tự đặc biệt (chỉ cho phép ký tự chữ cái, số và dấu)
+            if (Regex.IsMatch(timKiemValue, @"[^\p{L}\d\s\-\,\.\/]")) // Chấp nhận tất cả các ký tự chữ cái Unicode, số, khoảng trắng, dấu gạch ngang, dấu phẩy, dấu chấm, và dấu gạch chéo
+            {
+                MessageBox.Show("Giá trị tìm kiếm không được chứa ký tự đặc biệt ngoài các ký tự có dấu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             using (var QLNV = new LionQuanLyQuanCaPheDataContext())
             {
-                string timKiemValue = txtTimKiemKhachHang.Text.Trim(); // Lấy giá trị tìm kiếm từ textbox
-
-                // Query lấy thông tin nhân viên từ database dựa vào mã nhân viên hoặc tên nhân viên nhập vào
+                // Query lấy thông tin khách hàng từ database dựa vào mã khách hàng, tên khách hàng, địa chỉ hoặc ngày sinh nhập vào
                 var timKiem = from kh in QLNV.KhachHangs
                               join nv in QLNV.NhanViens on kh.MaNhanVien equals nv.MaNhanVien into vtGroup
                               from vt in vtGroup.DefaultIfEmpty()
-                              where kh.MaKhachHang.Contains(timKiemValue) || kh.TenKhachHang.Contains(timKiemValue)
+                              where kh.MaKhachHang.Contains(timKiemValue) ||
+                                    kh.TenKhachHang.Contains(timKiemValue) ||
+                                    kh.DiaChi.Contains(timKiemValue) ||
+                                    kh.SDT.Contains(timKiemValue) ||
+                                    kh.NgaySinh.ToString().Contains(timKiemValue) || // Convert ngày sinh sang chuỗi để tìm kiếm
+                                    kh.Email.Contains(timKiemValue) ||
+                                    kh.MaNhanVien.Contains(timKiemValue)
                               select new
                               {
-                                 kh.MaKhachHang,
-                                 kh.MaNhanVien,
-                                 kh.TenKhachHang,
-                                 kh.DiaChi,
-                                 kh.SDT,
-                                 kh.NgaySinh,
-                                 kh.Email
+                                  kh.MaKhachHang,
+                                  kh.MaNhanVien,
+                                  kh.TenKhachHang,
+                                  kh.DiaChi,
+                                  kh.SDT,
+                                  kh.NgaySinh,
+                                  kh.Email
                               };
 
                 dtgvThongTinKhachHang.DataSource = timKiem.ToList();
             }
         }
+
+
 
         // HIEN THI LEN TEXTBOX KHACH HANG
         private void dtgvThongTinKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -914,7 +1027,7 @@ namespace DuAn1Lion
             dtgvThongKeKhachHang.DataSource = thongKeKhach;
         }
 
- 
+
 
         //TIM KIEM THONG KE KHACH HANG
         private void TimKiemThongKeKhachHang()
@@ -939,7 +1052,7 @@ namespace DuAn1Lion
                                      kh.SoLuongHoaDonThang.ToString().Contains(tuKhoa_KH) ||
                                      kh.SoLuongHoaDonNam.ToString().Contains(tuKhoa_KH) ||
                                      kh.TongGiaTriThang.ToString().Contains(tuKhoa_KH) ||
-                                     kh.TongGiaTriNam.ToString().Contains(tuKhoa_KH) 
+                                     kh.TongGiaTriNam.ToString().Contains(tuKhoa_KH)
 
 
 
@@ -960,7 +1073,7 @@ namespace DuAn1Lion
                 var resultList = filteredList.ToList();
                 dtgvThongKeKhachHang.DataSource = resultList;
 
-               
+
             }
             else
             {
@@ -999,8 +1112,8 @@ namespace DuAn1Lion
                                      hd.NgayXuatHoaDon.ToString().Contains(tuKhoa_HD) ||
                                      hd.SoLuongSanPham.ToString().Contains(tuKhoa_HD) ||
                                      hd.SoLuongMon.ToString().Contains(tuKhoa_HD) ||
-                                     hd.TongHoaDon.ToString().Contains(tuKhoa_HD) 
-                                
+                                     hd.TongHoaDon.ToString().Contains(tuKhoa_HD)
+
 
 
 
@@ -1011,7 +1124,7 @@ namespace DuAn1Lion
                                    hd.SoLuongSanPham,
                                    hd.SoLuongMon,
                                    hd.TongHoaDon
-                             
+
                                };
 
             if (filteredList.Any())
@@ -1035,21 +1148,372 @@ namespace DuAn1Lion
             this.Hide();
         }
 
-        private void txtTimKiemKhachHang_Click(object sender, EventArgs e)
+     
+        //  Sản phẩm
+
+
+        private void btnThemSanPham_Click(object sender, EventArgs e)
         {
-            lamMoiKhachHang();
+            themSanPham();
         }
 
-      
+        private void btnSuaSanPham_Click(object sender, EventArgs e)
+        {
 
-        //ORDER
-        private void hienThiOrder()
+        }
+
+        private void btnXoaSanPham_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtgvSanPham_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private string imagePath = "";
+        private void btnAnhSanPham_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                imagePath = openFileDialog.FileName;
+                pic_AnhSanPham.Image = Image.FromFile(imagePath);
+            }
+        }
+
+        // HIEN THI SẢN PHẨM
+        private void hienThiSanPham()
+        {
+            var QLKH = new LionQuanLyQuanCaPheDataContext();
+
+            var list = from sp in QLKH.SanPhams
+                       where sp.MaSanPham == sp.MaSanPham
+                       select new
+                       {
+                           sp.MaSanPham,
+                           sp.TenSanPham,
+                           sp.GiaBan,
+                           sp.GiaNhap,
+                           sp.HinhAnh
+                       };
+
+
+
+            dtgvSanPham.DataSource = list.ToList();
+
+        }
+        //  THEM SẢN PHẨM
+        private int maSP = 01;
+        private void themSanPham()
         {
 
 
+            byte[] imgData = null;
+            try
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    pic_AnhSanPham.Image.Save(ms, pic_AnhSanPham.Image.RawFormat);
+                    imgData = ms.ToArray();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xử lý ảnh: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
-      
+            try
+            {
+                var QLKH = new LionQuanLyQuanCaPheDataContext();
+                SanPham Themsp = new SanPham()
+                {
+
+
+                    TenSanPham = txtTenSanPham.Text,
+                    GiaBan = int.Parse(txtGiaBan.Text),
+                    GiaNhap = int.Parse(txtGiaNhap.Text),
+                    HinhAnh = imgData != null ? new System.Data.Linq.Binary(imgData) : null
+
+
+
+                };
+                QLKH.SanPhams.InsertOnSubmit(Themsp);
+                Themsp.MaSanPham = "SP" + maSP.ToString("D3");
+                maSP ++;
+
+                QLKH.SubmitChanges();
+                MessageBox.Show("Thêm thành công");
+                hienThiKhachHang();
+                lamMoiKhachHang();
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Lỗi khi thêm");
+            }
+
+
+        }
+
+
+        // ORDER
+        private List<OrderItem> orderList = new List<OrderItem>();
+
+        public class OrderItem
+        {
+            public string ProductID { get; set; } // Sử dụng string thay vì int
+            public string ProductName { get; set; }
+            public int Quantity { get; set; }
+            public decimal Price { get; set; }
+        }
+
+
+        private void hienThiOrder(string keyword = "")
+        {
+            var QLOD = new LionQuanLyQuanCaPheDataContext();
+            var sanPham = from sp in QLOD.SanPhams
+                          where sp.TenSanPham.Contains(keyword)
+                          select sp;
+
+            flowLayoutPanelMenu.Controls.Clear();
+
+            foreach (var spo in sanPham)
+            {
+                Panel panelSanPham = new Panel
+                {
+                    Width = 100,
+                    Height = 180,
+                    Margin = new Padding(5)
+                };
+
+                Button btnSanPham = new Button
+                {
+                    Tag = spo,
+                    Width = 100,
+                    Height = 140,
+                    BackgroundImageLayout = ImageLayout.Stretch
+                };
+
+                if (spo.HinhAnh != null)
+                {
+                    try
+                    {
+                        using (var ms = new MemoryStream(spo.HinhAnh.ToArray()))
+                        {
+                            btnSanPham.BackgroundImage = Image.FromStream(ms);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error loading image for product {spo.TenSanPham}: {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Product {spo.TenSanPham} does not have an image.");
+                }
+
+                btnSanPham.Click += (s, e) => AddProductToOrder((SanPham)btnSanPham.Tag);
+
+                Label lblSanPham = new Label
+                {
+                    Text = spo.TenSanPham,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Dock = DockStyle.Bottom,
+                    AutoSize = false,
+                    Height = 40
+                };
+
+                panelSanPham.Controls.Add(btnSanPham);
+                panelSanPham.Controls.Add(lblSanPham);
+
+                flowLayoutPanelMenu.Controls.Add(panelSanPham);
+            }
+        }
+
+        private void AddProductToOrder(SanPham sanPham)
+        {
+            // Sử dụng giá trị thực của MaSanPham để kiểm tra sự tồn tại của sản phẩm trong danh sách đơn hàng
+            var orderItem = orderList.FirstOrDefault(o => o.ProductID == sanPham.MaSanPham);
+            if (orderItem != null)
+            {
+                // Sản phẩm đã tồn tại, tăng số lượng
+                orderItem.Quantity++;
+            }
+            else
+            {
+                // Sản phẩm chưa tồn tại, thêm sản phẩm mới vào danh sách đơn hàng
+                orderList.Add(new OrderItem
+                {
+                    ProductID = sanPham.MaSanPham,
+                    ProductName = sanPham.TenSanPham,
+                    Quantity = 1, // Đặt số lượng ban đầu là 1
+                    Price = sanPham.GiaBan.Value
+                });
+            }
+
+            // Cập nhật giao diện đơn hàng
+            UpdateOrderUI();
+        }
+
+
+        private void UpdateOrderUI()
+        {
+            // Xóa các điều khiển cũ trước khi thêm điều khiển mới
+            flowLayoutPanelOrder.Controls.Clear();
+
+            foreach (var item in orderList)
+            {
+                Panel panel = new Panel
+                {
+                    Width = flowLayoutPanelOrder.Width - 25,
+                    Height = 60, // Giảm chiều cao của panel để điều khiển gọn hơn
+                    Margin = new Padding(5),
+                    BorderStyle = BorderStyle.FixedSingle
+                };
+
+                Label lblProductName = new Label
+                {
+                    Text = item.ProductName,
+                    Width = 150, // Giảm chiều rộng của Label để gần các điều khiển khác
+                    Height = 30,
+                    Location = new Point(10, 15), // Gần hơn với các điều khiển khác
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    Font = new Font("Arial", 12, FontStyle.Bold)
+                };
+
+                TextBox txtProductPrice = new TextBox
+                {
+                    Text = String.Format("{0:N0}", item.Price),
+                    Width = 80,
+                    Height = 30,
+                    ReadOnly = true,
+                    Location = new Point(170, 15), // Gần Label tên sản phẩm hơn
+                    TextAlign = HorizontalAlignment.Right
+                };
+
+                Button btnMinus = new Button
+                {
+                    Text = "-",
+                    Width = 25,
+                    Height = 25,
+                    Location = new Point(260, 15), // Điều chỉnh để gần các điều khiển khác
+                    BackColor = Color.Gray
+                };
+
+                TextBox txtQuantity = new TextBox
+                {
+                    Text = item.Quantity.ToString(),
+                    Width = 40,
+                    Height = 30,
+                    TextAlign = HorizontalAlignment.Center,
+                    Location = new Point(290, 15)
+                };
+
+                // Sự kiện để chỉ cho phép nhập số và không cho phép nhập số nhỏ hơn 0
+                txtQuantity.KeyPress += (s, e) =>
+                {
+                    // Chỉ cho phép nhập số và điều khiển xóa, backspace
+                    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                    {
+                        e.Handled = true;
+                    }
+                };
+                txtQuantity.TextChanged += (s, e) =>
+                {
+                    if (int.TryParse(txtQuantity.Text, out int quantity))
+                    {
+                        if (quantity < 0)
+                        {
+                            txtQuantity.Text = "0";
+                        }
+                        else
+                        {
+                            item.Quantity = quantity;
+
+                        }
+                    }
+                };
+
+                Button btnPlus = new Button
+                {
+                    Text = "+",
+                    Width = 25,
+                    Height = 25,
+                    Location = new Point(335, 15), // Gần hơn với các điều khiển khác
+                    BackColor = Color.Gray
+                };
+
+                Button btnRemove = new Button
+                {
+                    Text = "X",
+                    Width = 25,
+                    Height = 25,
+                    Location = new Point(370, 15),
+                    ForeColor = Color.Red
+                };
+
+                btnPlus.Click += (s, e) =>
+                {
+                    item.Quantity++;
+                    txtQuantity.Text = item.Quantity.ToString();
+
+                };
+                btnMinus.Click += (s, e) =>
+                {
+                    if (item.Quantity > 1)
+                    {
+                        item.Quantity--;
+                        txtQuantity.Text = item.Quantity.ToString();
+
+                    }
+                };
+                btnRemove.Click += (s, e) =>
+                {
+                    orderList.Remove(item);
+                    UpdateOrderUI();
+                };
+
+                panel.Controls.Add(lblProductName);
+                panel.Controls.Add(txtProductPrice);
+                panel.Controls.Add(btnMinus);
+                panel.Controls.Add(txtQuantity);
+                panel.Controls.Add(btnPlus);
+                panel.Controls.Add(btnRemove);
+
+                flowLayoutPanelOrder.Controls.Add(panel);
+            }
+        }
+
+        private void btnTimKiemMenu_Click_1(object sender, EventArgs e)
+        {
+            string keyword = txtTimKiemMenu.Text;
+            hienThiOrder(keyword);
+        }
+
+        private void txtTimKiemMenu_Click_1(object sender, EventArgs e)
+        {
+            hienThiOrder();
+        }
+
+        private void buttonHuyOrder()
+        {
+            flowLayoutPanelOrder.Controls.Clear();
+            orderList.Clear();
+        }
+
+        //Button hủy ORDER
+
+    
+
+        private void btnHuy_Click(object sender, EventArgs e)
+        {
+            buttonHuyOrder();
+        }
     }
 
 

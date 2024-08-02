@@ -71,6 +71,9 @@
     <Compile Include="FormQuenMatKhau.Designer.cs">
       <DependentUpon>FormQuenMatKhau.cs</DependentUpon>
     </Compile>
+    <Compile Include="LionQuanLyQuanCaPhe.cs">
+      <DependentUpon>LionQuanLyQuanCaPhe.dbml</DependentUpon>
+    </Compile>
     <Compile Include="LionQuanLyQuanCaPhe.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
