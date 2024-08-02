@@ -45,7 +45,7 @@ namespace DuAn1Lion
             string maNhanVien = FormDangNhap.MaNhanVienHienTai;
             string randomPassword = RandomPassword(8);
             this.Load += new System.EventHandler(this.FormChucNangQuanLy_Load);
-            dtgvThongKeNguyenLieu.EditingControlShowing += dtgvThongKeNguyenLieu_EditingControlShowing;
+            //dtgvThongKeNguyenLieu.EditingControlShowing += dtgvThongKeNguyenLieu_EditingControlShowing;
             Hien_Thi_Gia_Text_Box();
         }
 
@@ -268,6 +268,7 @@ namespace DuAn1Lion
                     hienThiSan_Pham();
                     hienThi_ThongKe_SanPham();
                     LamMoi_SP();
+                    Hien_Thi_Gia_Text_Box();
                 }
                 catch (Exception ex)
                 {
@@ -327,6 +328,14 @@ namespace DuAn1Lion
                 MessageBox.Show("Lỗi! Giá Nhập Không Được Lớn Hơn Giá Bán", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            
+            if (donGiaNhap == donGiaBan)
+            {
+                MessageBox.Show("Lỗi! Giá Nhập Không Được Bằng Giá Bán", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            
 
             donGiaBan *= 1000;
             donGiaNhap *= 1000;
@@ -376,6 +385,8 @@ namespace DuAn1Lion
                     hienThiSan_Pham();
                     hienThi_ThongKe_SanPham();
                     LamMoi_SP();
+                    Hien_Thi_Gia_Text_Box();
+
                 }
                 catch (Exception ex)
                 {
@@ -430,6 +441,8 @@ namespace DuAn1Lion
                     hienThiSan_Pham();
                     hienThi_ThongKe_SanPham();
                     LamMoi_SP();
+                    Hien_Thi_Gia_Text_Box();
+
                 }
             }
             else
@@ -835,9 +848,10 @@ namespace DuAn1Lion
 
         private void dtgvSanPham_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dtgvSanPham.Columns["AnhSanPham"].Index && e.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
-                if (dtgvSanPham.Columns.Contains("HinhAnh"))
+                if (dtgvSanPham.Columns.Contains("AnhSanPham") &&
+                    e.ColumnIndex == dtgvSanPham.Columns["AnhSanPham"].Index)
                 {
                     var cellValue_HD = dtgvSanPham.Rows[e.RowIndex].Cells["HinhAnh"].Value;
                     if (cellValue_HD != null && cellValue_HD != DBNull.Value)
@@ -849,6 +863,7 @@ namespace DuAn1Lion
                             {
                                 Image image = Image.FromStream(ms);
                                 e.Value = image;
+                                e.FormattingApplied = true;
                             }
                         }
                         catch (Exception ex)
@@ -858,15 +873,12 @@ namespace DuAn1Lion
                     }
                     else
                     {
-                        e.Value = null;
+                        e.Value = null; 
                     }
-                }
-                else
-                {
-                    e.Value = null;
                 }
             }
         }
+
 
 
         private void dtgvThongKeSanPham_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -979,7 +991,7 @@ namespace DuAn1Lion
         }
         private void dtgvThongKeSanPham_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            ThongKe_SanPham_DataBindingComplete();
+            //ThongKe_SanPham_DataBindingComplete();
         }
 
         private void hienThi_ThongKe_SanPham()
@@ -1027,14 +1039,8 @@ namespace DuAn1Lion
 
             var filteredList = from s in List_SP
                                where s.MaSanPham.ToLower().Contains(tuKhoa_SP) ||
-                                     s.TenSanPham.ToLower().Contains(tuKhoa_SP) ||
-                                     s.GiaBan.ToString().Contains(tuKhoa_SP) ||
-                                     s.SoLuongBanRaTuan.ToString().Contains(tuKhoa_SP) ||
-                                     s.SoLuongBanRaThang.ToString().Contains(tuKhoa_SP) ||
-                                     s.SoLuongBanRaNam.ToString().Contains(tuKhoa_SP) ||
-                                     s.TongGiaBanRaTuan.ToString().Contains(tuKhoa_SP) ||
-                                     s.TongGiaBanRaThang.ToString().Contains(tuKhoa_SP) ||
-                                     s.TongGiaBanRaNam.ToString().Contains(tuKhoa_SP)
+                                     s.TenSanPham.ToLower().Contains(tuKhoa_SP)
+                                     
 
 
 
@@ -1138,15 +1144,16 @@ namespace DuAn1Lion
                 LamMoi_SP();
                 LamMoi_NV();
                 HienThiNhanVien();
-                //LamMoi_NguyenLieu();
+                LamMoi_NguyenLieu();
             }
             if (tclFormChucNang.SelectedTab == tpKhachHang)
             {
                 LamMoi_SP();
-                //LamMoi_NguyenLieu();
+                LamMoi_NguyenLieu();
                 LamMoi_NV();
 
             }
+
             if (tclFormChucNang.SelectedTab == tpNguyenLieu)
             {
                 Hien_Thi_Nguyen_Lieu();
@@ -1167,21 +1174,21 @@ namespace DuAn1Lion
             if (tclFormChucNang.SelectedTab == tpOrder)
             {
                 LamMoi_SP();
-                //LamMoi_NguyenLieu();
+                LamMoi_NguyenLieu();
                 LamMoi_NV();
 
             }
             if (tclFormChucNang.SelectedTab == tpThongKe)
             {
                 LamMoi_SP();
-                //LamMoi_NguyenLieu();
+                LamMoi_NguyenLieu();
                 LamMoi_NV();
 
             }
             if (tclFormChucNang.SelectedTab == tpVaiTro)
             {
                 LamMoi_SP();
-                //LamMoi_NguyenLieu();
+                LamMoi_NguyenLieu();
                 LamMoi_NV();
 
             }
@@ -1643,7 +1650,6 @@ namespace DuAn1Lion
                 return;
             }
 
-            // Thêm nguyên liệu vào cơ sở dữ liệu
             using (var nl = new LionQuanLyQuanCaPheDataContext())
             {
                 string auto_Ma_NL = GetNewMaNguyenLieu(nl);
@@ -1668,6 +1674,7 @@ namespace DuAn1Lion
                     MessageBox.Show("Thêm Nguyên Liệu Thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Hien_Thi_Nguyen_Lieu();
                     LamMoi_NguyenLieu();
+                    Hien_Thi_Gia_Text_Box();
                 }
                 catch (Exception ex)
                 {
@@ -1716,13 +1723,13 @@ namespace DuAn1Lion
                           select new
                           {
                               Nl.MaNguyenLieu,
-                              Nl.ThanhPhan,
-                              Nl.GiaNhap,
-                              Nl.NhaSanXuat,
                               Nl.TenNguyenLieu,
+                              Nl.ThanhPhan,
                               Nl.SoLuongNhap,
+                              Nl.GiaNhap,
                               Nl.NgayNhap,
-                              Nl.NgayHetHan
+                              Nl.NgayHetHan,
+                              Nl.NhaSanXuat,
                           };
 
             var resultList = List_NL.ToList();
@@ -1872,6 +1879,8 @@ namespace DuAn1Lion
                     MessageBox.Show("Cập nhật thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Hien_Thi_Nguyen_Lieu();
                     LamMoi_NguyenLieu();
+                    Hien_Thi_Gia_Text_Box();
+
                 }
                 catch (Exception ex)
                 {
@@ -1896,38 +1905,53 @@ namespace DuAn1Lion
                 {
                     foreach (DataGridViewRow row in dtgvThongTinNguyenLieu.SelectedRows)
                     {
-                        string tenNL = row.Cells["TenNguyenLieu"].Value.ToString();
-
-                        using (var Nl = new LionQuanLyQuanCaPheDataContext())
+                        // Kiểm tra tên cột có chính xác không
+                        if (row.Cells["TenNguyenLieu"] != null)
                         {
-                            var XoaNguyenLieu = Nl.NguyenLieus.FirstOrDefault(nl => nl.TenNguyenLieu == tenNL);
+                            string tenNL = row.Cells["TenNguyenLieu"].Value.ToString();
 
-                            if (XoaNguyenLieu != null)
+                            using (var Nl = new LionQuanLyQuanCaPheDataContext())
                             {
-                                Nl.NguyenLieus.DeleteOnSubmit(XoaNguyenLieu);
+                                var XoaNguyenLieu = Nl.NguyenLieus.FirstOrDefault(nl => nl.TenNguyenLieu == tenNL);
 
-                                try
+                                if (XoaNguyenLieu != null)
                                 {
-                                    Nl.SubmitChanges();
+                                    Nl.NguyenLieus.DeleteOnSubmit(XoaNguyenLieu);
+
+                                    try
+                                    {
+                                        Nl.SubmitChanges();
+                                        MessageBox.Show("Xóa Nguyên Liệu Thành Công", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show($"Lỗi khi xóa nguyên liệu: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
                                 }
-                                catch (Exception ex)
+                                else
                                 {
-                                    MessageBox.Show($"Lỗi: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("Không tìm thấy nguyên liệu để xóa!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                         }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy cột 'TenNguyenLieu' trong DataGridView.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    MessageBox.Show("Xóa Nguyên Liệu Thành Công", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Hien_Thi_Gia_Text_Box();
+
                     Hien_Thi_Nguyen_Lieu();
                     LamMoi_NguyenLieu();
+                    Hien_Thi_Gia_Text_Box();
+
                 }
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn sản phẩm cần xóa!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vui lòng chọn nguyên liệu cần xóa!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         //HÀM TÌM KIẾM NGUYÊN LIỆU
         private void TimKiem_NguyenLieu()
@@ -1935,7 +1959,7 @@ namespace DuAn1Lion
             string NguyennLieu = txtTimKiemNguyenLieu.Text.Trim();
             if (string.IsNullOrWhiteSpace(txtTimKiemNguyenLieu.Text))
             {
-                MessageBox.Show("Vui lòng nhập mã để tìm kiếm!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Vui lòng nhập mã hoặc tên để tìm kiếm!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -1947,31 +1971,27 @@ namespace DuAn1Lion
 
                 var List = from nl in list_nguyenlieu.NguyenLieus
                            where nl.MaNguyenLieu.ToLower().Contains(tuKhoa_NL) ||
-                                 nl.ThanhPhan.ToString().Contains(tuKhoa_NL) ||
-                                 nl.NhaSanXuat.ToString().Contains(tuKhoa_NL) ||
-                                 nl.TenNguyenLieu.ToString().Contains(tuKhoa_NL) ||
-                                 nl.SoLuongNhap.ToString().Contains(tuKhoa_NL)
+                                 nl.TenNguyenLieu.ToLower().Contains(tuKhoa_NL) 
                            select new
                            {
                                nl.MaNguyenLieu,
-                               nl.ThanhPhan,
-                               nl.NhaSanXuat,
                                nl.TenNguyenLieu,
+                               nl.ThanhPhan,
                                nl.SoLuongNhap,
+                               nl.GiaNhap,
                                nl.NgayNhap,
                                nl.NgayHetHan,
-
+                               nl.NhaSanXuat,
                            };
 
                 if (List.Any())
                 {
-                    MessageBox.Show("Tìm Kiếm Nguyên Liệu Thành Công!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    MessageBox.Show("Tìm kiếm nguyên liệu thành công!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     dtgvThongTinNguyenLieu.DataSource = List.ToList();
                 }
                 else
                 {
-                    MessageBox.Show("Không tìm thấy Nguyên Liệu phù hợp", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Không tìm thấy nguyên liệu phù hợp", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Hien_Thi_Nguyen_Lieu();
                 }
             }
@@ -1980,6 +2000,7 @@ namespace DuAn1Lion
                 Hien_Thi_Nguyen_Lieu();
             }
         }
+
         //HIỂN THỊ THỐNG KÊ NGUYÊN LIỆU
         private void Hien_Thi_Thong_Ke_Nguyen_Lieu()
         {
@@ -2001,8 +2022,8 @@ namespace DuAn1Lion
 
                     var nfi = new System.Globalization.NumberFormatInfo
                     {
-                        NumberGroupSeparator = ".", // Thiết lập dấu phân cách hàng nghìn là dấu chấm
-                        NumberDecimalSeparator = "," // Thiết lập dấu phân cách thập phân là dấu phẩy nếu cần
+                        NumberGroupSeparator = ".", 
+                        NumberDecimalSeparator = "," 
                     };
 
                     var formattedList_NK = resultList_NK.Select(nl => new
@@ -2011,12 +2032,11 @@ namespace DuAn1Lion
                         nl.TenNguyenLieu,
                         nl.NgayHetHan,
                         nl.SoLuongNhap,
-                        GiaNhap = ((decimal)nl.GiaNhap).ToString("N0", nfi) // Định dạng giá nhập
+                        GiaNhap = ((decimal)nl.GiaNhap).ToString("N0", nfi) 
                     }).ToList();
 
                     dtgvThongKeNguyenLieu.DataSource = formattedList_NK;
 
-                    // Thiết lập định dạng cho cột giá nhập nếu cần thiết
                     dtgvThongKeNguyenLieu.Columns["GiaNhap"].DefaultCellStyle.FormatProvider = nfi;
                     dtgvThongKeNguyenLieu.Columns["GiaNhap"].DefaultCellStyle.Format = "N0";
                 }
@@ -2124,14 +2144,12 @@ namespace DuAn1Lion
         }
         private void TenNguyenLieu_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Kiểm tra nếu kí tự là chữ cái hoặc dấu cách hoặc dấu
             if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && !IsVietnameseLetter(e.KeyChar))
             {
-                e.Handled = true; // Ngăn không cho nhập kí tự không hợp lệ
+                e.Handled = true;
             }
         }
 
-        // Phương thức kiểm tra kí tự tiếng Việt
         private bool IsVietnameseLetter(char c)
         {
             string vietnameseLetters = "àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ"
@@ -2140,11 +2158,9 @@ namespace DuAn1Lion
             return vietnameseLetters.IndexOf(c) >= 0;
         }
 
-        // Đăng ký sự kiện trong form load hoặc constructor
 
         private void dtgvThongKeNguyenLieu_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            // Chỉ áp dụng cho cột TenNguyenLieu (thay "TenNguyenLieu" bằng tên cột của bạn)
             if (dtgvThongKeNguyenLieu.CurrentCell.ColumnIndex == dtgvThongKeNguyenLieu.Columns["TenNguyenLieu"].Index)
             {
                 TextBox tb = e.Control as TextBox;
