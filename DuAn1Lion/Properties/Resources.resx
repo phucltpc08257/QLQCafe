@@ -118,26 +118,38 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pngtree-login-icon-in-trendy-flat-style-login-design-house-vector-png-image_124410482" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pngtree-login-icon-in-trendy-flat-style-login-design-house-vector-png-image_124410482.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1547613013_news_451" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1547613013_news_451.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="images (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\images (1).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pngtree-password-security-icon-on-white-background-png-image_4915577" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pngtree-password-security-icon-on-white-background-png-image_4915577.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="9d03fb8d48a2ac51fea1b27a4101a479" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\9d03fb8d48a2ac51fea1b27a4101a479.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="digital-padlock-with-hud-virtual-screen-on-blue-background-cyber-security-technology-and-privacy-data-network-protection-concept-vector" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\digital-padlock-with-hud-virtual-screen-on-blue-background-cyber-security-technology-and-privacy-data-network-protection-concept-vector.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pngtree-login-icon-in-trendy-flat-style-login-design-house-vector-png-image_124410481" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pngtree-login-icon-in-trendy-flat-style-login-design-house-vector-png-image_124410481.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pngtree-coffee-background-for-simple-coffee-restaurant-image_1506" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pngtree-coffee-background-for-simple-coffee-restaurant-image_1506.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="images (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\images (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="307654180_466533708828656_7014620610752093194_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\307654180_466533708828656_7014620610752093194_n.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="eye_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\eye_open1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pngtree-login-icon-in-trendy-flat-style-login-design-house-vector-png-image_124410482" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pngtree-login-icon-in-trendy-flat-style-login-design-house-vector-png-image_124410482.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pngtree-login-icon-in-trendy-flat-style-login-design-house-vector-png-image_124410481" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pngtree-login-icon-in-trendy-flat-style-login-design-house-vector-png-image_124410481.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pngtree-vector-logout-icon-png-image_10232611" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pngtree-vector-logout-icon-png-image_10232611.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="eye-slash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\eye-slash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="9d03fb8d48a2ac51fea1b27a4101a479" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\9d03fb8d48a2ac51fea1b27a4101a479.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pngtree-vector-logout-icon-png-image_1023261" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pngtree-vector-logout-icon-png-image_1023261.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,10 +157,13 @@
   <data name="pngtree-login-icon-in-trendy-flat-style-login-design-house-vector-png-image_12441048" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pngtree-login-icon-in-trendy-flat-style-login-design-house-vector-png-image_12441048.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pngtree-coffee-background-for-simple-coffee-restaurant-image_1506" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pngtree-coffee-background-for-simple-coffee-restaurant-image_1506.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="images (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images (1).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1547613013_news_451" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1547613013_news_451.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="307654180_466533708828656_7014620610752093194_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\307654180_466533708828656_7014620610752093194_n.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="eye_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\eye_closed1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

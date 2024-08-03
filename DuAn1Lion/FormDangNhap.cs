@@ -8,9 +8,9 @@ namespace DuAn1Lion
         public FormDangNhap()
         {
             InitializeComponent();
-           
+
             this.txtNhapMatKhau.PasswordChar = '*';
-          
+
         }
         private void FormDangNhap_Load(object sender, EventArgs e)
         {
@@ -18,24 +18,27 @@ namespace DuAn1Lion
         }
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-          
 
-          
+
+
             MessageBox.Show("Chúc mừng! Bạn đã đăng nhập thành công vào hệ thống mặc dù bạn eo có tài khoản và mật khẩu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            MessageBox.Show("Hệ thống đang Load.......", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            MessageBox.Show("successfully", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            FormChucNangQuanLy form = new FormChucNangQuanLy();
-                form.ShowDialog();
-                form.Dispose(); 
-
-                
-                this.Close();   
-
+            //   MessageBox.Show("Hệ thống đang Load.......", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //   MessageBox.Show("successfully", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
           
+
+            FormChucNangQuanLy form = new FormChucNangQuanLy();
+            form.ShowDialog();
+
+            this.Hide();
+            this.Close();
+
+
+        
+
         }
         private void btnDoiMatKhau_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Chúc mừng! Bạn đã đăng nhập thành công vào hệ thống mặc dù bạn không có tài khoản và mật khẩu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
             FormDoiMatKhau form = new FormDoiMatKhau();
 

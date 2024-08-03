@@ -157,5 +157,23 @@
   <ItemGroup>
     <None Include="Resources\1547613013_news_451.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pngtree-password-security-icon-on-white-background-png-image_4915577.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\digital-padlock-with-hud-virtual-screen-on-blue-background-cyber-security-technology-and-privacy-data-network-protection-concept-vector.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eye-slash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eye_closed.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eye_open1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eye_closed1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

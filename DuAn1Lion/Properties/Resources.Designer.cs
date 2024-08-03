@@ -93,6 +93,47 @@ namespace DuAn1Lion.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap digital_padlock_with_hud_virtual_screen_on_blue_background_cyber_security_technology_and_privacy_data_network_protection_concept_vector {
+            get {
+                object obj = ResourceManager.GetObject("digital-padlock-with-hud-virtual-screen-on-blue-background-cyber-security-technol" +
+                        "ogy-and-privacy-data-network-protection-concept-vector", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap eye_closed {
+            get {
+                object obj = ResourceManager.GetObject("eye_closed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap eye_open {
+            get {
+                object obj = ResourceManager.GetObject("eye_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap eye_slash {
+            get {
+                object obj = ResourceManager.GetObject("eye-slash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap images__1_ {
             get {
                 object obj = ResourceManager.GetObject("images (1)", resourceCulture);
@@ -149,6 +190,16 @@ namespace DuAn1Lion.Properties {
             get {
                 object obj = ResourceManager.GetObject("pngtree-login-icon-in-trendy-flat-style-login-design-house-vector-png-image_12441" +
                         "0482", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pngtree_password_security_icon_on_white_background_png_image_4915577 {
+            get {
+                object obj = ResourceManager.GetObject("pngtree-password-security-icon-on-white-background-png-image_4915577", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
