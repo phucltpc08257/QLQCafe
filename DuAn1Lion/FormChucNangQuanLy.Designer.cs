@@ -311,7 +311,7 @@
             this.tpSanPham.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tpSanPham.Name = "tpSanPham";
             this.tpSanPham.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tpSanPham.Size = new System.Drawing.Size(1313, 966);
+            this.tpSanPham.Size = new System.Drawing.Size(1316, 966);
             this.tpSanPham.TabIndex = 0;
             this.tpSanPham.Text = "Sản phẩm";
             this.tpSanPham.UseVisualStyleBackColor = true;
@@ -1833,6 +1833,7 @@
             this.txtTimKiemThongKeKhachHang.Name = "txtTimKiemThongKeKhachHang";
             this.txtTimKiemThongKeKhachHang.Size = new System.Drawing.Size(275, 46);
             this.txtTimKiemThongKeKhachHang.TabIndex = 1;
+            this.txtTimKiemThongKeKhachHang.Click += new System.EventHandler(this.txtTimKiemThongKeKhachHang_Click);
             // 
             // btnTimKiemThongKeKhachHang
             // 
@@ -1918,6 +1919,7 @@
             this.txtTimKiemThongKeHoaDon.Name = "txtTimKiemThongKeHoaDon";
             this.txtTimKiemThongKeHoaDon.Size = new System.Drawing.Size(275, 46);
             this.txtTimKiemThongKeHoaDon.TabIndex = 1;
+            this.txtTimKiemThongKeHoaDon.Click += new System.EventHandler(this.txtTimKiemThongKeHoaDon_Click);
             // 
             // btnTimKiemThongKeHoaDon
             // 
@@ -1977,6 +1979,7 @@
             this.txtTimKiemThongKeNguyenLieu.Name = "txtTimKiemThongKeNguyenLieu";
             this.txtTimKiemThongKeNguyenLieu.Size = new System.Drawing.Size(275, 46);
             this.txtTimKiemThongKeNguyenLieu.TabIndex = 1;
+            this.txtTimKiemThongKeNguyenLieu.Click += new System.EventHandler(this.txtTimKiemThongKeNguyenLieu_Click);
             // 
             // btnTimKiemThongKeNguyenLieu
             // 
@@ -2072,6 +2075,7 @@
             this.txtTimKiemThongKeSanPham.Name = "txtTimKiemThongKeSanPham";
             this.txtTimKiemThongKeSanPham.Size = new System.Drawing.Size(275, 46);
             this.txtTimKiemThongKeSanPham.TabIndex = 1;
+            this.txtTimKiemThongKeSanPham.Click += new System.EventHandler(this.txtTimKiemThongKeSanPham_Click);
             // 
             // btnTimKiemThongKeSanPham
             // 
@@ -2167,6 +2171,7 @@
             this.txtTimKiemThongKeNhanVien.Name = "txtTimKiemThongKeNhanVien";
             this.txtTimKiemThongKeNhanVien.Size = new System.Drawing.Size(275, 46);
             this.txtTimKiemThongKeNhanVien.TabIndex = 1;
+            this.txtTimKiemThongKeNhanVien.Click += new System.EventHandler(this.txtTimKiemThongKeNhanVien_Click);
             // 
             // btnTimKiemThongKeNhanVien
             // 
@@ -2229,7 +2234,7 @@
             this.tpVaiTro.Location = new System.Drawing.Point(4, 25);
             this.tpVaiTro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tpVaiTro.Name = "tpVaiTro";
-            this.tpVaiTro.Size = new System.Drawing.Size(1313, 966);
+            this.tpVaiTro.Size = new System.Drawing.Size(1316, 966);
             this.tpVaiTro.TabIndex = 6;
             this.tpVaiTro.Text = "Vai Trò";
             this.tpVaiTro.UseVisualStyleBackColor = true;

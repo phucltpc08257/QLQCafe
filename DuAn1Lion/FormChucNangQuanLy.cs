@@ -2717,12 +2717,22 @@ namespace DuAn1Lion
 
         }
 
+        private void txtTimKiemThongKeNguyenLieu_Click(object sender, EventArgs e)
+        {
+            Hien_Thi_Thong_Ke_Nguyen_Lieu();
+        }
+
         /*---Thống kê Sản phẩm---*/
         private void btnTimKiemThongKeSanPham_Click(object sender, EventArgs e)
         {
             TimKiem_ThongKe_SanPham();
         }
 
+
+        private void txtTimKiemThongKeSanPham_Click(object sender, EventArgs e)
+        {
+            hienThi_ThongKe_SanPham();
+        }
         private void dtgvThongKeSanPham_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dtgvThongKeSanPham == null) return;
@@ -2771,7 +2781,14 @@ namespace DuAn1Lion
         private void btnTimKiemThongKeKhachHang_Click(object sender, EventArgs e)
         {
             TimKiemThongKeKhachHang();
+            txtTimKiemThongKeKhachHang.Clear();
         }
+
+        private void txtTimKiemThongKeKhachHang_Click(object sender, EventArgs e)
+        {
+            HienThiThongKeKhachHang();
+        }
+
         private void TimKiemThongKeKhachHang()
         {
             string KhachHang = txtTimKiemThongKeKhachHang.Text.Trim();
@@ -2924,6 +2941,12 @@ namespace DuAn1Lion
         private void btnTimKiemThongKeNhanVien_Click(object sender, EventArgs e)
         {
             TimKiemThongKeNhanVien();
+            txtTimKiemThongKeNhanVien.Clear();
+        }
+
+        private void txtTimKiemThongKeNhanVien_Click(object sender, EventArgs e)
+        {
+            HienThiThongKeNhanVien();
         }
 
         /*---Thống kê Hóa đơn---*/
@@ -2978,7 +3001,17 @@ namespace DuAn1Lion
         private void btnTimKiemThongKeHoaDon_Click(object sender, EventArgs e)
         {
             TimKiemThongKeHoaDon();
+            txtTimKiemThongKeHoaDon.Clear();
         }
+
+
+
+        private void txtTimKiemThongKeHoaDon_Click(object sender, EventArgs e)
+        {
+            HienThiThongKeHoaDon();
+        }
+
+
 
         /*---Code Orrder---*/
         // ORDER
