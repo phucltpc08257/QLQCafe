@@ -80,6 +80,7 @@
             this.txtNhapMatKhauMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNhapMatKhauMoi.Location = new System.Drawing.Point(108, 303);
             this.txtNhapMatKhauMoi.Name = "txtNhapMatKhauMoi";
+            this.txtNhapMatKhauMoi.PasswordChar = '*';
             this.txtNhapMatKhauMoi.Size = new System.Drawing.Size(534, 34);
             this.txtNhapMatKhauMoi.TabIndex = 4;
             // 
@@ -118,7 +119,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FormQuenMatKhau";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormQuenMatKhau";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormQuenMatKhau_FormClosed);
             this.Load += new System.EventHandler(this.FormQuenMatKhau_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

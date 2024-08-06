@@ -154,5 +154,11 @@ namespace DuAn1Lion
             }
         }
 
+        private void FormQuenMatKhau_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormDangNhap formDangNhap = new FormDangNhap();
+            formDangNhap.Show();
+            this.Hide();
+        }
     }
 }

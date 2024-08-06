@@ -37,8 +37,8 @@ namespace DuAn1Lion
             {
                 MaNhanVienHienTai = user.MaNhanVien;
                 string vaiTro = user.VaiTro.MaVaiTro;
-                FormChucNangQuanLy formChucNang = new FormChucNangQuanLy(vaiTro);
-                formChucNang.Show();
+                FormChucNangQuanLy formChucNangQuanLy = new FormChucNangQuanLy(vaiTro);
+                formChucNangQuanLy.Show();
                 this.Hide();
             }
             else
@@ -49,12 +49,21 @@ namespace DuAn1Lion
 
         private void btnQuenMatKhau_Click(object sender, EventArgs e)
         {
-
+            FormQuenMatKhau formQuenMatKhau = new FormQuenMatKhau();
+            formQuenMatKhau.Show();
+            this.Hide();
         }
 
         private void btnDoiMatKhau_Click(object sender, EventArgs e)
         {
+            FormDoiMatKhau formDoiMatKhau = new FormDoiMatKhau();
+            formDoiMatKhau.Show();
+            this.Hide();
+        }
 
+        private void FormDangNhap_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

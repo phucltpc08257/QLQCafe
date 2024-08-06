@@ -153,13 +153,6 @@ namespace DuAn1Lion
 			return ((ISingleResult<ThongKeKhachHangResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ThongKeNguyenLieu")]
-		public ISingleResult<ThongKeNguyenLieuResult> ThongKeNguyenLieu()
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((ISingleResult<ThongKeNguyenLieuResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ThongKeNhanVien")]
 		public ISingleResult<ThongKeNhanVienResult> ThongKeNhanVien()
 		{
@@ -321,7 +314,7 @@ namespace DuAn1Lion
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongHoaDon", DbType="Decimal(10,3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongHoaDon", DbType="Decimal(10,0)")]
 		public System.Nullable<decimal> TongHoaDon
 		{
 			get
@@ -1122,7 +1115,7 @@ namespace DuAn1Lion
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaNhap", DbType="Decimal(10,3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaNhap", DbType="Decimal(10,0)")]
 		public System.Nullable<decimal> GiaNhap
 		{
 			get
@@ -1819,7 +1812,7 @@ namespace DuAn1Lion
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaBan", DbType="Decimal(10,3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaBan", DbType="Decimal(10,0)")]
 		public System.Nullable<decimal> GiaBan
 		{
 			get
@@ -1839,7 +1832,7 @@ namespace DuAn1Lion
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaNhap", DbType="Decimal(10,3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaNhap", DbType="Decimal(10,0)")]
 		public System.Nullable<decimal> GiaNhap
 		{
 			get
@@ -2154,7 +2147,7 @@ namespace DuAn1Lion
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongHoaDon", DbType="Decimal(10,3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongHoaDon", DbType="Decimal(10,0)")]
 		public System.Nullable<decimal> TongHoaDon
 		{
 			get
@@ -2272,7 +2265,7 @@ namespace DuAn1Lion
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaTriThang", DbType="Decimal(38,3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaTriThang", DbType="Decimal(38,0)")]
 		public System.Nullable<decimal> TongGiaTriThang
 		{
 			get
@@ -2288,7 +2281,7 @@ namespace DuAn1Lion
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaTriNam", DbType="Decimal(38,3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaTriNam", DbType="Decimal(38,0)")]
 		public System.Nullable<decimal> TongGiaTriNam
 		{
 			get
@@ -2300,104 +2293,6 @@ namespace DuAn1Lion
 				if ((this._TongGiaTriNam != value))
 				{
 					this._TongGiaTriNam = value;
-				}
-			}
-		}
-	}
-	
-	public partial class ThongKeNguyenLieuResult
-	{
-		
-		private string _MaNguyenLieu;
-		
-		private string _TenNguyenLieu;
-		
-		private System.Nullable<System.DateTime> _NgayHetHan;
-		
-		private System.Nullable<int> _SoLuongNhap;
-		
-		private System.Nullable<decimal> _GiaNhap;
-		
-		public ThongKeNguyenLieuResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaNguyenLieu", DbType="VarChar(8) NOT NULL", CanBeNull=false)]
-		public string MaNguyenLieu
-		{
-			get
-			{
-				return this._MaNguyenLieu;
-			}
-			set
-			{
-				if ((this._MaNguyenLieu != value))
-				{
-					this._MaNguyenLieu = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenNguyenLieu", DbType="NVarChar(150)")]
-		public string TenNguyenLieu
-		{
-			get
-			{
-				return this._TenNguyenLieu;
-			}
-			set
-			{
-				if ((this._TenNguyenLieu != value))
-				{
-					this._TenNguyenLieu = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayHetHan", DbType="Date")]
-		public System.Nullable<System.DateTime> NgayHetHan
-		{
-			get
-			{
-				return this._NgayHetHan;
-			}
-			set
-			{
-				if ((this._NgayHetHan != value))
-				{
-					this._NgayHetHan = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongNhap", DbType="Int")]
-		public System.Nullable<int> SoLuongNhap
-		{
-			get
-			{
-				return this._SoLuongNhap;
-			}
-			set
-			{
-				if ((this._SoLuongNhap != value))
-				{
-					this._SoLuongNhap = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaNhap", DbType="Decimal(10,3)")]
-		public System.Nullable<decimal> GiaNhap
-		{
-			get
-			{
-				return this._GiaNhap;
-			}
-			set
-			{
-				if ((this._GiaNhap != value))
-				{
-					this._GiaNhap = value;
 				}
 			}
 		}
@@ -2558,7 +2453,7 @@ namespace DuAn1Lion
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaBan", DbType="Decimal(10,3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaBan", DbType="Decimal(10,0)")]
 		public System.Nullable<decimal> GiaBan
 		{
 			get
@@ -2622,7 +2517,7 @@ namespace DuAn1Lion
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaBanRaTuan", DbType="Decimal(38,3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaBanRaTuan", DbType="Decimal(38,0)")]
 		public System.Nullable<decimal> TongGiaBanRaTuan
 		{
 			get
@@ -2638,7 +2533,7 @@ namespace DuAn1Lion
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaBanRaThang", DbType="Decimal(38,3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaBanRaThang", DbType="Decimal(38,0)")]
 		public System.Nullable<decimal> TongGiaBanRaThang
 		{
 			get
@@ -2654,7 +2549,7 @@ namespace DuAn1Lion
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaBanRaNam", DbType="Decimal(38,3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongGiaBanRaNam", DbType="Decimal(38,0)")]
 		public System.Nullable<decimal> TongGiaBanRaNam
 		{
 			get
