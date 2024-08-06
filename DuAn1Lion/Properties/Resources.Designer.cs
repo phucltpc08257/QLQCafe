@@ -69,5 +69,15 @@ namespace DuAn1Lion.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap z5703718855578_c60eab9ac76b6da63a8167abb732c5a8 {
+            get {
+                object obj = ResourceManager.GetObject("z5703718855578_c60eab9ac76b6da63a8167abb732c5a8", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

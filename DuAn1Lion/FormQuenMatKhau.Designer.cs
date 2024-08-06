@@ -41,9 +41,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(266, 43);
+            this.label1.Location = new System.Drawing.Point(267, 43);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(273, 42);
+            this.label1.Size = new System.Drawing.Size(215, 36);
             this.label1.TabIndex = 0;
             this.label1.Text = "Quên mật khẩu";
             // 
@@ -53,7 +53,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(103, 142);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(238, 29);
+            this.label2.Size = new System.Drawing.Size(191, 24);
             this.label2.TabIndex = 1;
             this.label2.Text = "Nhập Email xác nhận";
             // 
@@ -61,8 +61,9 @@
             // 
             this.txtXacNhanEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtXacNhanEmail.Location = new System.Drawing.Point(108, 186);
+            this.txtXacNhanEmail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtXacNhanEmail.Name = "txtXacNhanEmail";
-            this.txtXacNhanEmail.Size = new System.Drawing.Size(534, 34);
+            this.txtXacNhanEmail.Size = new System.Drawing.Size(535, 28);
             this.txtXacNhanEmail.TabIndex = 2;
             // 
             // label3
@@ -71,7 +72,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(103, 258);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(219, 29);
+            this.label3.Size = new System.Drawing.Size(173, 24);
             this.label3.TabIndex = 3;
             this.label3.Text = "Nhập mật khẩu mới";
             // 
@@ -79,37 +80,43 @@
             // 
             this.txtNhapMatKhauMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNhapMatKhauMoi.Location = new System.Drawing.Point(108, 303);
+            this.txtNhapMatKhauMoi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNhapMatKhauMoi.Name = "txtNhapMatKhauMoi";
             this.txtNhapMatKhauMoi.PasswordChar = '*';
-            this.txtNhapMatKhauMoi.Size = new System.Drawing.Size(534, 34);
+            this.txtNhapMatKhauMoi.Size = new System.Drawing.Size(535, 28);
             this.txtNhapMatKhauMoi.TabIndex = 4;
             // 
             // btnNhanMatKhauMoi
             // 
+            this.btnNhanMatKhauMoi.BackColor = System.Drawing.Color.White;
             this.btnNhanMatKhauMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNhanMatKhauMoi.Location = new System.Drawing.Point(470, 364);
+            this.btnNhanMatKhauMoi.Location = new System.Drawing.Point(469, 364);
+            this.btnNhanMatKhauMoi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNhanMatKhauMoi.Name = "btnNhanMatKhauMoi";
-            this.btnNhanMatKhauMoi.Size = new System.Drawing.Size(172, 35);
+            this.btnNhanMatKhauMoi.Size = new System.Drawing.Size(172, 34);
             this.btnNhanMatKhauMoi.TabIndex = 5;
             this.btnNhanMatKhauMoi.Text = "Nhận mật khẩu mới";
-            this.btnNhanMatKhauMoi.UseVisualStyleBackColor = true;
+            this.btnNhanMatKhauMoi.UseVisualStyleBackColor = false;
             this.btnNhanMatKhauMoi.Click += new System.EventHandler(this.btnNhanMatKhauMoi_Click);
             // 
             // btnXacNhan
             // 
+            this.btnXacNhan.BackColor = System.Drawing.Color.White;
             this.btnXacNhan.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXacNhan.Location = new System.Drawing.Point(260, 432);
+            this.btnXacNhan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnXacNhan.Name = "btnXacNhan";
             this.btnXacNhan.Size = new System.Drawing.Size(263, 58);
             this.btnXacNhan.TabIndex = 6;
             this.btnXacNhan.Text = "Xác nhận";
-            this.btnXacNhan.UseVisualStyleBackColor = true;
+            this.btnXacNhan.UseVisualStyleBackColor = false;
             this.btnXacNhan.Click += new System.EventHandler(this.btnXacNhan_Click);
             // 
             // FormQuenMatKhau
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 538);
             this.Controls.Add(this.btnXacNhan);
             this.Controls.Add(this.btnNhanMatKhauMoi);
@@ -118,6 +125,7 @@
             this.Controls.Add(this.txtXacNhanEmail);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormQuenMatKhau";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormQuenMatKhau";

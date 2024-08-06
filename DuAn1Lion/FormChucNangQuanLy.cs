@@ -3364,6 +3364,7 @@ namespace DuAn1Lion
         private void btnHuy_Click(object sender, EventArgs e)
         {
             buttonHuyOrder();
+            LamMoiOther();
         }
 
         private void btnThanhToan_Click(object sender, EventArgs e)
@@ -3378,6 +3379,7 @@ namespace DuAn1Lion
             {
                 XuatHoaDonThanhToan();
                 LamMoiOther();
+                buttonHuyOrder();
             }
             else
             {
@@ -3477,7 +3479,7 @@ namespace DuAn1Lion
                     XStringFormats.TopLeft);
 
                 // Giờ ra
-                gfx.DrawString($"Giờ ra: {DateTime.Now:HH:mm}", fontRegular, XBrushes.Black,
+                gfx.DrawString($"Giờ xuất hóa đơn: {DateTime.Now:HH:mm}", fontRegular, XBrushes.Black,
                     new XRect(50, infoYPosition + 3 * infoHeight, infoWidth, infoHeight),
                     XStringFormats.TopLeft);
 
