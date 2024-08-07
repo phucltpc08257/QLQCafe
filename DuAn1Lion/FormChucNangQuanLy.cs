@@ -112,6 +112,7 @@ namespace DuAn1Lion
             if (tclFormChucNang.SelectedTab == tpNhanVien)
             {
                 HienThiNhanVien();
+                ClearTextBox();
             }
 
             if (tclFormChucNang.SelectedTab == tpVaiTro)
@@ -123,6 +124,16 @@ namespace DuAn1Lion
             {
                 hienThiKhachHang();
                 lamMoiKhachHang();
+            }
+
+            if (tclFormChucNang.SelectedTab == tpSanPham)
+            {
+                LamMoi_SP();
+            }
+
+            if (tclFormChucNang.SelectedTab == tpNguyenLieu)
+            {
+                LamMoi_NguyenLieu();
             }
 
             if (tclFormChucNang.SelectedTab == tpThongKe)
@@ -1279,6 +1290,7 @@ namespace DuAn1Lion
                     hienThiSan_Pham();
                     hienThi_ThongKe_SanPham();
                     LamMoi_SP();
+                    Hien_Thi_Gia_Text_Box();
                 }
                 catch (Exception ex)
                 {
@@ -1397,6 +1409,7 @@ namespace DuAn1Lion
                     hienThiSan_Pham();
                     hienThi_ThongKe_SanPham();
                     LamMoi_SP();
+                    Hien_Thi_Gia_Text_Box();
                 }
                 catch (Exception ex)
                 {
@@ -1448,6 +1461,7 @@ namespace DuAn1Lion
                     hienThiSan_Pham();
                     hienThi_ThongKe_SanPham();
                     LamMoi_SP();
+                    Hien_Thi_Gia_Text_Box();
                 }
             }
             else
@@ -3369,22 +3383,26 @@ namespace DuAn1Lion
 
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
-            if (!TienKhachDua())
-            {
-                return;
-            }
-
+            // Hiển thị hộp thoại xác nhận
             DialogResult dialogResult = MessageBox.Show("Bạn có chắc chắn muốn thanh toán không?", "Xác nhận thanh toán", MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes)
             {
+                // Kiểm tra số tiền khách đưa
+                if (!TienKhachDua())
+                {
+                    return;
+                }
+
+                // Thực hiện thanh toán hóa đơn
                 bool thanhToanThanhCong = ThanhToanHoaDon();
                 if (thanhToanThanhCong)
                 {
+                    // Xuất hóa đơn chỉ khi thanh toán thành công
                     XuatHoaDonThanhToan();
                     LamMoiOther();
                     buttonHuyOrder();
-                    MessageBox.Show("Thanh toán đã được xác nhận và hóa đơn đã được tạo thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Hóa đơn đã được tạo thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -3393,6 +3411,7 @@ namespace DuAn1Lion
             }
             else if (dialogResult == DialogResult.No)
             {
+                // Xử lý khi người dùng chọn "No"
                 MessageBox.Show("Thanh toán đã bị hủy.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -3444,7 +3463,7 @@ namespace DuAn1Lion
                 var linePen = new XPen(lineColor, 1); // Đường kẽ dưới với độ dày 1
 
                 // Vẽ logo
-                var logoPath = @"D:\DuAn1\Anh\logo.png"; // Đường dẫn tới logo
+                var logoPath = @"C:\Users\HP\Downloads\Ảnh chụp màn hình 2024-08-04 022516.png"; // Đường dẫn tới logo
                 var logo = XImage.FromFile(logoPath);
                 var logoWidth = 100; // Điều chỉnh kích thước logo
                 var logoHeight = (int)(logo.PixelHeight * (logoWidth / (double)logo.PixelWidth));
@@ -3543,59 +3562,105 @@ namespace DuAn1Lion
                         new XRect(50 + columnWidths[0] + columnWidths[1] + columnWidths[2], yPosition, columnWidths[3], rowHeight),
                         XStringFormats.Center);
 
-                    yPosition += rowHeight;
-
                     totalAmount += totalPrice;
+                    yPosition += rowHeight;
                 }
 
-                // Vẽ tổng tiền cần thanh toán
-                yPosition += 20;
-                gfx.DrawString("Tổng cộng:", fontBold, XBrushes.Black,
-                    new XRect(50 + columnWidths[0] + columnWidths[1], yPosition, columnWidths[2], rowHeight),
-                    XStringFormats.Center);
-
-                gfx.DrawString(string.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C0}", totalAmount), fontBold, XBrushes.Black,
-                    new XRect(50 + columnWidths[0] + columnWidths[1] + columnWidths[2], yPosition, columnWidths[3], rowHeight),
-                    XStringFormats.Center);
-
-                // Tạo thông tin bổ sung
-                var supplementYPosition = yPosition + rowHeight + 20;
-
-                gfx.DrawString("Thông tin bổ sung:", fontBoldLabel, XBrushes.Black,
-                    new XRect(50, supplementYPosition, page.Width - 100, rowHeight),
-                    XStringFormats.TopLeft);
-
-                supplementYPosition += rowHeight;
-
-                if (!string.IsNullOrEmpty(maKhachHang))
+                // Tính toán giảm giá
+                decimal discountPercentage = 0;
+                if (cbbGiamGia.SelectedItem != null)
                 {
-                    gfx.DrawString($"Mã Khách Hàng: {maKhachHang}", fontRegular, XBrushes.Black,
-                        new XRect(50, supplementYPosition, page.Width - 100, rowHeight),
-                        XStringFormats.TopLeft);
-
-                    supplementYPosition += rowHeight;
+                    string selectedDiscount = cbbGiamGia.SelectedItem.ToString().Replace("%", "").Trim();
+                    if (decimal.TryParse(selectedDiscount, out discountPercentage))
+                    {
+                        discountPercentage = discountPercentage / 100; // Chuyển đổi phần trăm thành số thập phân
+                    }
                 }
 
-                gfx.DrawString($"Nhân viên phục vụ: {txtMaNhanVien.Text}", fontRegular, XBrushes.Black,
-                    new XRect(50, supplementYPosition, page.Width - 100, rowHeight),
+                // Tính tổng số tiền sau khi giảm giá
+                decimal discountAmount = totalAmount * discountPercentage;
+                decimal thanhToan = totalAmount - discountAmount;
+
+                // Thêm thông tin giảm giá vào hóa đơn
+                var additionalInfoTop = yPosition + rowHeight + 20; // Điều chỉnh khoảng cách giữa bảng và thông tin bổ sung
+                var infoLabelWidth = 150; // Chiều rộng vùng tiêu đề
+                var infoValueWidth = page.Width - 50 - infoLabelWidth; // Chiều rộng vùng giá trị
+
+                gfx.DrawString("Tổng tiền:", fontBoldLabel, XBrushes.Black,
+                    new XRect(50, additionalInfoTop, infoLabelWidth, 20),
                     XStringFormats.TopLeft);
 
-                supplementYPosition += rowHeight;
+                gfx.DrawString(string.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C0}", totalAmount), fontBoldSmall, XBrushes.Black,
+                    new XRect(page.Width - 50 - infoValueWidth, additionalInfoTop, infoValueWidth, 20),
+                    XStringFormats.TopRight);
 
-                // Lưu file PDF
-                string filename = "HoaDon.pdf";
-                document.Save(filename);
+                gfx.DrawString("Giảm giá:", fontBoldLabel, XBrushes.Black,
+                    new XRect(50, additionalInfoTop + 20, infoLabelWidth, 20),
+                    XStringFormats.TopLeft);
 
-                MessageBox.Show("Hóa đơn đã được tạo thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                gfx.DrawString(string.Format(new System.Globalization.CultureInfo("vi-VN"), "-{0:C0}", discountAmount), fontBoldSmall, XBrushes.Black,
+                    new XRect(page.Width - 50 - infoValueWidth, additionalInfoTop + 20, infoValueWidth, 20),
+                    XStringFormats.TopRight);
+
+                gfx.DrawString("Tiền thanh toán:", fontBoldLabel, XBrushes.Black,
+                    new XRect(50, additionalInfoTop + 40, infoLabelWidth, 20),
+                    XStringFormats.TopLeft);
+
+                gfx.DrawString(string.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C0}", thanhToan), fontBoldSmall, XBrushes.Black,
+                    new XRect(page.Width - 50 - infoValueWidth, additionalInfoTop + 40, infoValueWidth, 20),
+                    XStringFormats.TopRight);
+
+                gfx.DrawString("Tiền khách đưa:", fontBoldLabel, XBrushes.Black,
+                    new XRect(50, additionalInfoTop + 60, infoLabelWidth, 20),
+                    XStringFormats.TopLeft);
+
+                gfx.DrawString(txtTienKhachDua.Text, fontBoldSmall, XBrushes.Black,
+                    new XRect(page.Width - 50 - infoValueWidth, additionalInfoTop + 60, infoValueWidth, 20),
+                    XStringFormats.TopRight);
+
+                gfx.DrawString("Tiền thừa:", fontBoldLabel, XBrushes.Black,
+                    new XRect(50, additionalInfoTop + 80, infoLabelWidth, 20),
+                    XStringFormats.TopLeft);
+
+                gfx.DrawString(txtTienThua.Text, fontBoldSmall, XBrushes.Black,
+                    new XRect(page.Width - 50 - infoValueWidth, additionalInfoTop + 80, infoValueWidth, 20),
+                    XStringFormats.TopRight);
+
+                // Vẽ đường kẻ phía trên lời cảm ơn
+                var thankYouLineTop = additionalInfoTop + 100;
+                gfx.DrawLine(linePen,
+                    new XPoint(50, thankYouLineTop),
+                    new XPoint(page.Width - 50, thankYouLineTop));
+
+                // Vẽ lời cảm ơn
+                var thankYouYPosition = thankYouLineTop + 10; // Vị trí lời cảm ơn
+                gfx.DrawString("Cảm ơn Quý khách. Hẹn gặp lại.", fontBold, XBrushes.Black,
+                    new XRect(0, thankYouYPosition, page.Width, 20),
+                    XStringFormats.Center);
+
+                // Lưu tài liệu PDF
+                var filePath = @"C:\Users\HP\Downloads\DuAn1Lion (1)\HoaDonThanhToan.pdf"; // Đường dẫn lưu hóa đơn
+                document.Save(filePath);
+
+
+
+
+
+                // Mở tài liệu sau khi tạo
+                Process.Start("explorer.exe", filePath);
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Có lỗi xảy ra khi xuất hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Đã xảy ra lỗi khi tạo hóa đơn: {ex.Message}");
             }
+
         }
 
         public bool ThanhToanHoaDon()
         {
+            // Không cần kiểm tra trạng thái hủy ở đây nữa, vì đã được xử lý ở trên
+
             string maNhanVienDangNhap = maNhanVien; // Mã nhân viên đăng nhập hiện tại
             string maKhachHang = txtMaKhachHangOrder.Text; // Nhập từ giao diện người dùng
             decimal tongHoaDon = orderList.Sum(o => o.Price * o.Quantity); // Tổng hóa đơn từ orderList
@@ -3612,6 +3677,7 @@ namespace DuAn1Lion
 
             ThanhToan thanhToan = new ThanhToan(maNhanVienDangNhap);
             return thanhToan.ThucHienThanhToan(maKhachHang, tongHoaDon, soLuongMon, giamGia, ghiChu, chiTietHoaDon);
+
         }
 
         public class ThanhToan

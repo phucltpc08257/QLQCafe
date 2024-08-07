@@ -9,6 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace DuAn1Lion
 {
@@ -42,7 +43,8 @@ namespace DuAn1Lion
                     if (user != null)
                     {
                         string matKhauMoi = GenerateRandomPassword();
-                        user.MatKhau = matKhauMoi;
+                        string hashedPassword = HashPassword(matKhauMoi);
+                        user.MatKhau = hashedPassword;
                         QLBanHang.SubmitChanges();
                         SendEmail(email, matKhauMoi);
                     }
@@ -110,6 +112,22 @@ namespace DuAn1Lion
             {
                 MessageBox.Show($"Đã xảy ra lỗi khi tạo mật khẩu mới: {ex.Message}");
                 return null;
+            }
+        }
+
+        private string HashPassword(string password)
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] inputBytes = Encoding.ASCII.GetBytes(password);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes[i].ToString("x2"));
+                }
+                return sb.ToString();
             }
         }
 
