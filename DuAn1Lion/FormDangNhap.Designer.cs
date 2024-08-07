@@ -61,7 +61,7 @@
             this.label1.ForeColor = System.Drawing.Color.Chocolate;
             this.label1.Location = new System.Drawing.Point(277, 142);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(181, 36);
+            this.label1.Size = new System.Drawing.Size(223, 42);
             this.label1.TabIndex = 1;
             this.label1.Text = "CAFE LION";
             // 
@@ -71,7 +71,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(103, 215);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 24);
+            this.label2.Size = new System.Drawing.Size(138, 29);
             this.label2.TabIndex = 2;
             this.label2.Text = "Nhập Email";
             // 
@@ -81,7 +81,7 @@
             this.txtNhapEmail.Location = new System.Drawing.Point(109, 268);
             this.txtNhapEmail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNhapEmail.Name = "txtNhapEmail";
-            this.txtNhapEmail.Size = new System.Drawing.Size(537, 28);
+            this.txtNhapEmail.Size = new System.Drawing.Size(537, 34);
             this.txtNhapEmail.TabIndex = 3;
             // 
             // label3
@@ -90,7 +90,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(103, 345);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(137, 24);
+            this.label3.Size = new System.Drawing.Size(173, 29);
             this.label3.TabIndex = 4;
             this.label3.Text = "Nhập mật khẩu";
             // 
@@ -101,12 +101,12 @@
             this.txtNhapMatKhau.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNhapMatKhau.Name = "txtNhapMatKhau";
             this.txtNhapMatKhau.PasswordChar = '*';
-            this.txtNhapMatKhau.Size = new System.Drawing.Size(537, 28);
+            this.txtNhapMatKhau.Size = new System.Drawing.Size(537, 34);
             this.txtNhapMatKhau.TabIndex = 5;
             // 
             // btnQuenMatKhau
             // 
-            this.btnQuenMatKhau.BackColor = System.Drawing.Color.White;
+            this.btnQuenMatKhau.BackColor = System.Drawing.Color.NavajoWhite;
             this.btnQuenMatKhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnQuenMatKhau.Location = new System.Drawing.Point(109, 478);
             this.btnQuenMatKhau.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -119,7 +119,7 @@
             // 
             // btnDoiMatKhau
             // 
-            this.btnDoiMatKhau.BackColor = System.Drawing.Color.White;
+            this.btnDoiMatKhau.BackColor = System.Drawing.Color.NavajoWhite;
             this.btnDoiMatKhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDoiMatKhau.Location = new System.Drawing.Point(437, 478);
             this.btnDoiMatKhau.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -132,7 +132,7 @@
             // 
             // btnDangNhap
             // 
-            this.btnDangNhap.BackColor = System.Drawing.Color.White;
+            this.btnDangNhap.BackColor = System.Drawing.Color.SpringGreen;
             this.btnDangNhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDangNhap.Location = new System.Drawing.Point(109, 572);
             this.btnDangNhap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -147,7 +147,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(163)))), ((int)(((byte)(10)))));
             this.ClientSize = new System.Drawing.Size(800, 670);
             this.Controls.Add(this.btnDangNhap);
             this.Controls.Add(this.btnDoiMatKhau);
