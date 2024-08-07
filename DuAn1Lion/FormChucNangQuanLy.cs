@@ -128,11 +128,13 @@ namespace DuAn1Lion
 
             if (tclFormChucNang.SelectedTab == tpSanPham)
             {
+                hienThiSan_Pham();
                 LamMoi_SP();
             }
 
             if (tclFormChucNang.SelectedTab == tpNguyenLieu)
             {
+                Hien_Thi_Nguyen_Lieu();
                 LamMoi_NguyenLieu();
             }
 
