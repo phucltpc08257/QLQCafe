@@ -132,6 +132,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="bin\Debug\DuAn1Lion.exe.config" />
     <None Include="LionQuanLyQuanCaPhe.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>LionQuanLyQuanCaPhe.designer.cs</LastGenOutput>
@@ -157,9 +158,36 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="bin\Debug\de\PdfSharp.Charting.resources.dll" />
+    <Content Include="bin\Debug\de\PdfSharp.resources.dll" />
+    <Content Include="bin\Debug\DuAn1Lion.exe" />
+    <Content Include="bin\Debug\DuAn1Lion.pdb" />
+    <Content Include="bin\Debug\EPPlus.dll" />
+    <Content Include="bin\Debug\EPPlus.Interfaces.dll" />
+    <Content Include="bin\Debug\EPPlus.System.Drawing.dll" />
+    <Content Include="bin\Debug\EPPlus.xml" />
+    <Content Include="bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll" />
+    <Content Include="bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml" />
+    <Content Include="bin\Debug\PdfSharp.Charting.dll" />
+    <Content Include="bin\Debug\PdfSharp.Charting.xml" />
+    <Content Include="bin\Debug\PdfSharp.dll" />
+    <Content Include="bin\Debug\PdfSharp.xml" />
+    <Content Include="bin\Debug\System.Buffers.dll" />
+    <Content Include="bin\Debug\System.Buffers.xml" />
+    <Content Include="bin\Debug\System.ComponentModel.Annotations.dll" />
+    <Content Include="bin\Debug\System.Memory.dll" />
+    <Content Include="bin\Debug\System.Memory.xml" />
+    <Content Include="bin\Debug\System.Numerics.Vectors.dll" />
+    <Content Include="bin\Debug\System.Numerics.Vectors.xml" />
+    <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.xml" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\z5708931448693_ee506a1607feb7c15c96ad0219821b2a.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
