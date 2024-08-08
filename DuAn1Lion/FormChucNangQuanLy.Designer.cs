@@ -308,6 +308,7 @@
             this.tpSanPham.Controls.Add(this.label3);
             this.tpSanPham.Controls.Add(this.label2);
             this.tpSanPham.Controls.Add(this.label1);
+            this.tpSanPham.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tpSanPham.Location = new System.Drawing.Point(4, 25);
             this.tpSanPham.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tpSanPham.Name = "tpSanPham";
