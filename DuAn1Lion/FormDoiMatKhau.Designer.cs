@@ -44,6 +44,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Image = global::DuAn1Lion.Properties.Resources.z5708931448693_ee506a1607feb7c15c96ad0219821b2a1;
             this.label1.Location = new System.Drawing.Point(351, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(209, 38);
@@ -55,6 +56,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(163)))), ((int)(((byte)(10)))));
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Image = global::DuAn1Lion.Properties.Resources.z5708931448693_ee506a1607feb7c15c96ad0219821b2a;
             this.label2.Location = new System.Drawing.Point(104, 113);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(172, 29);
@@ -74,6 +76,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Image = global::DuAn1Lion.Properties.Resources.z5708931448693_ee506a1607feb7c15c96ad0219821b2a;
             this.label3.Location = new System.Drawing.Point(104, 194);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(204, 29);
@@ -93,6 +96,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Image = global::DuAn1Lion.Properties.Resources.z5708931448693_ee506a1607feb7c15c96ad0219821b2a;
             this.label4.Location = new System.Drawing.Point(104, 270);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(219, 29);
@@ -112,11 +116,12 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Image = global::DuAn1Lion.Properties.Resources.z5708931448693_ee506a1607feb7c15c96ad0219821b2a1;
             this.label5.Location = new System.Drawing.Point(104, 343);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(261, 29);
+            this.label5.Size = new System.Drawing.Size(204, 29);
             this.label5.TabIndex = 7;
-            this.label5.Text = "Xác nhận mật khẩu mới";
+            this.label5.Text = "Nhập lại mật khẩu";
             // 
             // txtXacNhanMatKhauMoi
             // 
@@ -145,6 +150,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(163)))), ((int)(((byte)(10)))));
+            this.BackgroundImage = global::DuAn1Lion.Properties.Resources.z5708931448693_ee506a1607feb7c15c96ad0219821b2a;
             this.ClientSize = new System.Drawing.Size(931, 522);
             this.Controls.Add(this.btnXacNhan);
             this.Controls.Add(this.txtXacNhanMatKhauMoi);

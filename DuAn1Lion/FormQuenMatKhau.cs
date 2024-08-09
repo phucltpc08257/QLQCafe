@@ -76,7 +76,7 @@ namespace DuAn1Lion
 
                 using (var QLBanHang = new LionQuanLyQuanCaPheDataContext())
                 {
-                    var user = QLBanHang.NhanViens.FirstOrDefault(u => u.Email == email && u.MatKhau == matKhau);
+                    var user = QLBanHang.NhanViens.FirstOrDefault(u => u.Email == email && u.MatKhau == HashPassword(matKhau));
 
                     if (user != null)
                     {
@@ -95,24 +95,17 @@ namespace DuAn1Lion
                 MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}");
             }
         }
+
         private string GenerateRandomPassword()
         {
-            try
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            StringBuilder stringBuilder = new StringBuilder();
+            Random random = new Random();
+            for (int i = 0; i < 8; i++)
             {
-                const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                StringBuilder stringBuilder = new StringBuilder();
-                Random random = new Random();
-                for (int i = 0; i < 8; i++)
-                {
-                    stringBuilder.Append(chars[random.Next(chars.Length)]);
-                }
-                return stringBuilder.ToString();
+                stringBuilder.Append(chars[random.Next(chars.Length)]);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Đã xảy ra lỗi khi tạo mật khẩu mới: {ex.Message}");
-                return null;
-            }
+            return stringBuilder.ToString();
         }
 
         private string HashPassword(string password)
@@ -121,13 +114,16 @@ namespace DuAn1Lion
             {
                 byte[] inputBytes = Encoding.ASCII.GetBytes(password);
                 byte[] hashBytes = md5.ComputeHash(inputBytes);
-
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < hashBytes.Length; i++)
                 {
                     sb.Append(hashBytes[i].ToString("x2"));
                 }
-                return sb.ToString();
+                string md5Hash = sb.ToString();
+                string maskedHash = new string('*', 8); // Dự kiến là dấu '*'
+
+                return maskedHash;
+
             }
         }
 
@@ -143,7 +139,7 @@ namespace DuAn1Lion
 
                 var smtp = new SmtpClient
                 {
-                    Host = "smtp.gmail.com", // Sử dụng máy chủ SMTP của Gmail
+                    Host = "smtp.gmail.com",
                     Port = 587,
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
@@ -178,5 +174,6 @@ namespace DuAn1Lion
             formDangNhap.Show();
             this.Hide();
         }
+        
     }
 }

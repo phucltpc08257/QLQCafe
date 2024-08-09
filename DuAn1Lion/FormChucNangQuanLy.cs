@@ -35,11 +35,9 @@ namespace DuAn1Lion
         {
             AnMaVaiTro();
             AnMaNhanVien();
-            anMaKH();
             hienThiSan_Pham();
             Hien_Thi_Nguyen_Lieu();
             hienThiKhachHang();
-            anSanPham_NguyenLieu();
             Hien_Thi_Gia_Text_Box();
             KhongChoNguoiDungNhapTXT();
             hienThiOrder();
@@ -82,14 +80,7 @@ namespace DuAn1Lion
                 // Ẩn các tab không phù hợp
                 tclFormChucNang.TabPages.Remove(tpVaiTro);
                 // Ẩn các chức năng không cần thiết cho Quản Lý
-                btnThemNhanVien.Enabled = false;
-                btnSuaNhanVien.Enabled = false;
-                btnXoaNhanVien.Enabled = false;
-                btnThemNhanVien.Enabled = false;
-                btnSuaKhachHang.Enabled = false;
-                btnXoaKhachHang.Enabled = false;
-                btnSuaSanPham.Enabled = false;
-                btnXoaSanPham.Enabled = false;
+               
             }
             else if (UserRole == "VT003")
             {
@@ -99,11 +90,7 @@ namespace DuAn1Lion
                 tclFormChucNang.TabPages.Remove(tpVaiTro);
                 tclFormChucNang.TabPages.Remove(tpNguyenLieu);
                 // Ẩn các chức năng không cần thiết cho Nhân viên
-                btnSuaKhachHang.Enabled = false;
-                btnXoaKhachHang.Enabled = false;
-                btnThemSanPham.Enabled = false;
-                btnSuaSanPham.Enabled = false;
-                btnXoaSanPham.Enabled = false;
+                
             }
         }
 
@@ -155,24 +142,18 @@ namespace DuAn1Lion
         {
             txtMaNhanVien.ReadOnly = true;
             txtMaNhanVien.TabStop = false;
+            txtMaNhanVien.Visible = false;
+            lblMaNhanVien.Visible = false;
         }
         private void AnMaVaiTro()
         {
             txtMaVaiTro.ReadOnly = true;
             txtMaVaiTro.TabStop = false;
+            txtMaVaiTro.Visible = false;
+            lblMaVaitro.Visible = false;
+
         }
-        private void anMaKH()
-        {
-            txtMaKhachHang.ReadOnly = true;
-            txtMaKhachHang.TabStop = false;
-        }
-        private void anSanPham_NguyenLieu()
-        {
-            txtMaSanPham.ReadOnly = true;
-            txtMaSanPham.TabStop = false;
-            txtMaNguyenLieu.ReadOnly = true;
-            txtMaNguyenLieu.TabStop = false;
-        }
+        
 
         private void ThongKeNV_KH()
         {
@@ -455,6 +436,17 @@ namespace DuAn1Lion
         /*---Thêm nhân viên---*/
         private void ThemNhanVien()
         {
+            if (UserRole == "VT002")
+            {
+                MessageBox.Show("Bạn không thể thêm với vai trò là quản lý", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (UserRole == "VT003")
+            {
+                MessageBox.Show("Bạn không thể thêm với vai trò là nhân viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (ValidateNhanVienInput())
             {
                 using (var QLNV = new LionQuanLyQuanCaPheDataContext())
@@ -494,6 +486,17 @@ namespace DuAn1Lion
         /*---Sửa Nhân viên---*/
         private void SuaNhanVien()
         {
+            if (UserRole == "VT002")
+            {
+                MessageBox.Show("Bạn không thể sửa với vai trò là quản lý", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (UserRole == "VT003")
+            {
+                MessageBox.Show("Bạn không thể sửa với vai trò là nhân viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (ValidateNhanVienInput())
             {
                 using (var QLNV = new LionQuanLyQuanCaPheDataContext())
@@ -535,15 +538,35 @@ namespace DuAn1Lion
         /*---Xóa nhân viên---*/
         private void XoaNhanVien()
         {
+            if (UserRole == "VT002")
+            {
+                MessageBox.Show("Bạn không thể xóa với vai trò là quản lý", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (UserRole == "VT003")
+            {
+                MessageBox.Show("Bạn không thể xóa với vai trò là nhân viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
-                DialogResult dialogResult = MessageBox.Show("Bạn chắc chắn muốn xóa nhân viên này?", "Xác nhận xóa", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
+                using (var QLNV = new LionQuanLyQuanCaPheDataContext())
                 {
-                    using (var QLNV = new LionQuanLyQuanCaPheDataContext())
+                    string maNV = txtMaNhanVien.Text;
+                    var nhanvien = QLNV.NhanViens.FirstOrDefault(k => k.MaNhanVien == maNV);
+
+                    // Kiểm tra vai trò của nhân viên muốn xóa
+                    if (nhanvien != null && nhanvien.MaVaiTro == "VT001" && UserRole == "VT001")
                     {
-                        string maNV = txtMaNhanVien.Text;
-                        var nhanvien = QLNV.NhanViens.FirstOrDefault(k => k.MaNhanVien == maNV);
+                        // Hiển thị thông báo lỗi nếu đang cố gắng xóa một nhân viên VT001 khác
+                        MessageBox.Show("Bạn không thể xóa nhân viên có vai trò Admin.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; // Dừng thực hiện phương thức
+                    }
+
+                    DialogResult dialogResult = MessageBox.Show("Bạn chắc chắn muốn xóa nhân viên này?", "Xác nhận xóa", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
                         if (nhanvien != null)
                         {
                             QLNV.NhanViens.DeleteOnSubmit(nhanvien);
@@ -589,6 +612,8 @@ namespace DuAn1Lion
 
                 dtgvThongTinNhanVien.DataSource = list.ToList();
 
+                // Ẩn cột MaVaiTro
+                dtgvThongTinNhanVien.Columns["MaVaiTro"].Visible = false;
 
                 var vaiTroList = QLNV.VaiTros.ToList();
                 cbbVaiTroCuaNhanVien.DataSource = vaiTroList;
@@ -969,6 +994,17 @@ namespace DuAn1Lion
         /*---Sửa khách hàng---*/
         private void suaKhachHang()
         {
+            if (UserRole == "VT002")
+            {
+                MessageBox.Show("Bạn không thể sửa với vai trò là quản lý", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (UserRole == "VT003")
+            {
+                MessageBox.Show("Bạn không thể sửa với vai trò là nhân viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (string.IsNullOrEmpty(txtTenKhachHang.Text) || string.IsNullOrEmpty(txtDiaChiKhachHang.Text) ||
                 string.IsNullOrEmpty(txtSDTKhachHang.Text) || string.IsNullOrEmpty(dttpNgaySinhKhachHang.Text) ||
                 string.IsNullOrEmpty(txtEmailKhachHang.Text))
@@ -1062,6 +1098,16 @@ namespace DuAn1Lion
         /*---Xóa khách hàng---*/
         private void xoaKhachHang()
         {
+            if (UserRole == "VT002")
+            {
+                MessageBox.Show("Bạn không thể xóa với vai trò là quản lý", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (UserRole == "VT003")
+            {
+                MessageBox.Show("Bạn không thể xóa với vai trò là nhân viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             DialogResult dl = MessageBox.Show("Bạn chắc chắn muốn Xóa không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dl == DialogResult.Yes)
@@ -1180,7 +1226,6 @@ namespace DuAn1Lion
         /*---Làm mới khách hàng---*/
         private void lamMoiKhachHang()
         {
-            txtMaKhachHang.Clear();
             txtTenKhachHang.Clear();
             txtDiaChiKhachHang.Clear();
             txtSDTKhachHang.Clear();
@@ -1315,7 +1360,6 @@ namespace DuAn1Lion
         private void LamMoi_SP()
         {
             txtTenSanPham.Clear();
-            txtMaSanPham.Clear();
             txtGiaBan.Clear();
             txtGiaNhap.Clear();
             pic_AnhSanPham.Image = null;
@@ -1690,23 +1734,24 @@ namespace DuAn1Lion
         /*---Hiển thị sản phẩm---*/
         private void hienThiSan_Pham()
         {
-
             var list_SP = new LionQuanLyQuanCaPheDataContext();
 
             var List_SP = from Sp in list_SP.SanPhams
+                          join nv in list_SP.NhanViens on Sp.MaNhanVien equals nv.MaNhanVien
                           select new
                           {
                               Sp.MaSanPham,
                               Sp.TenSanPham,
                               Sp.GiaNhap,
                               Sp.GiaBan,
-                              Sp.MaNhanVien,
                               Sp.HinhAnh,
+                              nv.TenNhanVien
                           };
 
             var resultList = List_SP.ToList();
             dtgvSanPham.DataSource = resultList;
 
+            // Định dạng cột Giá bán và Giá nhập
             if (dtgvSanPham.Columns.Contains("GiaBan"))
             {
                 dtgvSanPham.Columns["GiaBan"].DefaultCellStyle.Format = "N0";
@@ -1725,6 +1770,7 @@ namespace DuAn1Lion
                 };
             }
 
+            // Thêm cột Ảnh sản phẩm nếu chưa có
             if (!dtgvSanPham.Columns.Contains("AnhSanPham"))
             {
                 DataGridViewImageColumn Column = new DataGridViewImageColumn();
@@ -1735,6 +1781,15 @@ namespace DuAn1Lion
                 dtgvSanPham.Columns.Add(Column);
             }
 
+            // Sắp xếp thứ tự hiển thị cột
+            dtgvSanPham.Columns["MaSanPham"].DisplayIndex = 0;
+            dtgvSanPham.Columns["TenSanPham"].DisplayIndex = 1;
+            dtgvSanPham.Columns["GiaNhap"].DisplayIndex = 2;
+            dtgvSanPham.Columns["GiaBan"].DisplayIndex = 3;
+            dtgvSanPham.Columns["AnhSanPham"].DisplayIndex = 4;
+            dtgvSanPham.Columns["TenNhanVien"].DisplayIndex = 5;
+
+            // Hiển thị ảnh sản phẩm
             foreach (DataGridViewRow row in dtgvSanPham.Rows)
             {
                 var cellValue = row.Cells["HinhAnh"].Value;
@@ -1753,11 +1808,13 @@ namespace DuAn1Lion
                 }
             }
 
+            // Ẩn cột "HinhAnh" gốc
             if (dtgvSanPham.Columns["HinhAnh"] != null)
             {
                 dtgvSanPham.Columns["HinhAnh"].Visible = false;
             }
         }
+
         private void Chon_Anh_San_Pham()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -1785,6 +1842,17 @@ namespace DuAn1Lion
         /*---Thêm nguyên liệu---*/
         private void Them_Nguyen_Lieu()
         {
+            if (UserRole == "VT002")
+            {
+                MessageBox.Show("Bạn không thể thêm với vai trò là quản lý", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (UserRole == "VT003")
+            {
+                MessageBox.Show("Bạn không thể thêm với vai trò là nhân viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (string.IsNullOrEmpty(txtTenNguyenLieu.Text) ||
                 string.IsNullOrEmpty(txtSoLuongNguyenLieu.Text) ||
                 string.IsNullOrEmpty(txtNhaSanXuat.Text))
@@ -1889,7 +1957,6 @@ namespace DuAn1Lion
         }
         private void LamMoi_NguyenLieu()
         {
-            txtMaNguyenLieu.Clear();
             txtGiaNhapNguyenLieu.Clear();
             txtTenNguyenLieu.Clear();
             txtThanhPhan.Clear();
@@ -1931,6 +1998,17 @@ namespace DuAn1Lion
         /*---Sửa nguyên liệu---*/
         private void Sua_Nguyen_Lieu()
         {
+            if (UserRole == "VT002")
+            {
+                MessageBox.Show("Bạn không thể sửa với vai trò là quản lý", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (UserRole == "VT003")
+            {
+                MessageBox.Show("Bạn không thể sửa với vai trò là nhân viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             decimal donGiaNhap;
 
             if (!decimal.TryParse(txtGiaNhapNguyenLieu.Text, out donGiaNhap) || donGiaNhap <= 0)
@@ -1994,6 +2072,17 @@ namespace DuAn1Lion
         /*---Xóa nguyên liệu---*/
         private void Xoa_Nguyen_Lieu()
         {
+            if (UserRole == "VT002")
+            {
+                MessageBox.Show("Bạn không thể sửa với vai trò là quản lý", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (UserRole == "VT003")
+            {
+                MessageBox.Show("Bạn không thể sửa với vai trò là nhân viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (dtgvThongTinNguyenLieu.SelectedRows.Count > 0)
             {
                 DialogResult dl = MessageBox.Show("Bạn có chắc chắn muốn xóa Nguyên Liệu đã chọn không?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -2481,7 +2570,6 @@ namespace DuAn1Lion
             {
                 DataGridViewRow row = dtgvSanPham.Rows[e.RowIndex];
 
-                txtMaSanPham.Text = row.Cells["MaSanPham"].Value.ToString();
                 txtTenSanPham.Text = row.Cells["TenSanPham"].Value.ToString();
 
                 decimal giaBan, giaNhap;
@@ -2538,7 +2626,6 @@ namespace DuAn1Lion
                                Cells["MaKhachHang"].Value.ToString()
                                select kh).SingleOrDefault();
 
-            txtMaKhachHang.Text = HTKhachHang.MaKhachHang.ToString();
             txtTenKhachHang.Text = HTKhachHang.TenKhachHang.ToString();
             txtDiaChiKhachHang.Text = HTKhachHang.DiaChi.ToString();
             txtSDTKhachHang.Text = HTKhachHang.SDT.ToString();
@@ -2557,7 +2644,6 @@ namespace DuAn1Lion
                     && row.Cells["ThanhPhan"] != null && row.Cells["SoLuongNhap"] != null
                     && row.Cells["NgayNhap"] != null && row.Cells["NgayHetHan"] != null)
                 {
-                    txtMaNguyenLieu.Text = row.Cells["MaNguyenLieu"].Value != DBNull.Value ? row.Cells["MaNguyenLieu"].Value.ToString() : string.Empty;
                     txtTenNguyenLieu.Text = row.Cells["TenNguyenLieu"].Value != DBNull.Value ? row.Cells["TenNguyenLieu"].Value.ToString() : string.Empty;
 
                     decimal giaNhapNL;
@@ -3798,7 +3884,7 @@ namespace DuAn1Lion
             this.Hide();
         }
 
-
+      
     }
 }
 

@@ -85,12 +85,6 @@ namespace DuAn1Lion
 
                 if (user != null)
                 {
-                    // Kiểm tra mật khẩu cũ
-                    if (user.MatKhau != hashedMatKhauCu)
-                    {
-                        MessageBox.Show("Mật khẩu cũ không đúng. Vui lòng kiểm tra lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
 
                     // Cập nhật mật khẩu mới cho user và lưu vào cơ sở dữ liệu
                     user.MatKhau = hashedMatKhauMoi;

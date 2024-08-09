@@ -131,6 +131,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="bin\Debug\DuAn1Lion.exe.config" />
     <None Include="LionQuanLyQuanCaPhe.dbml">
@@ -146,6 +147,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -182,6 +188,7 @@
     <Content Include="bin\Debug\System.Numerics.Vectors.xml" />
     <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.dll" />
     <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.xml" />
+    <None Include="Resources\z5708931448693_ee506a1607feb7c15c96ad0219821b2a1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\z5708931448693_ee506a1607feb7c15c96ad0219821b2a.jpg" />

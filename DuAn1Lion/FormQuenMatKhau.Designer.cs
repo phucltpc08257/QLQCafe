@@ -28,29 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuenMatKhau));
             this.label2 = new System.Windows.Forms.Label();
             this.txtXacNhanEmail = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtNhapMatKhauMoi = new System.Windows.Forms.TextBox();
             this.btnNhanMatKhauMoi = new System.Windows.Forms.Button();
             this.btnXacNhan = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(267, 43);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(273, 42);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Quên mật khẩu";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Image = ((System.Drawing.Image)(resources.GetObject("label2.Image")));
             this.label2.Location = new System.Drawing.Point(103, 142);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(238, 29);
@@ -70,6 +62,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
             this.label3.Location = new System.Drawing.Point(103, 258);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(219, 29);
@@ -112,19 +105,31 @@
             this.btnXacNhan.UseVisualStyleBackColor = false;
             this.btnXacNhan.Click += new System.EventHandler(this.btnXacNhan_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
+            this.label1.Location = new System.Drawing.Point(275, 54);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(228, 36);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Quên mật khẩu";
+            // 
             // FormQuenMatKhau
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(163)))), ((int)(((byte)(10)))));
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(800, 538);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnXacNhan);
             this.Controls.Add(this.btnNhanMatKhauMoi);
             this.Controls.Add(this.txtNhapMatKhauMoi);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtXacNhanEmail);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormQuenMatKhau";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -137,13 +142,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtXacNhanEmail;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtNhapMatKhauMoi;
         private System.Windows.Forms.Button btnNhanMatKhauMoi;
         private System.Windows.Forms.Button btnXacNhan;
+        private System.Windows.Forms.Label label1;
     }
 }
