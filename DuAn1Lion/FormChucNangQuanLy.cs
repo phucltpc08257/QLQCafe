@@ -2229,6 +2229,21 @@ namespace DuAn1Lion
                 dtgvThongKeSanPham.Columns["GiaNhap"].DefaultCellStyle.Format = "N0";
                 dtgvThongKeSanPham.Columns["GiaNhap"].DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
             }
+            if (dtgvThongKeSanPham.Columns.Contains("TongGiaBanRaTuan"))
+            {
+                dtgvThongKeSanPham.Columns["TongGiaBanRaTuan"].DefaultCellStyle.Format = "N0";
+                dtgvThongKeSanPham.Columns["TongGiaBanRaTuan"].DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+            }
+            if (dtgvThongKeSanPham.Columns.Contains("TongGiaBanRaThang"))
+            {
+                dtgvThongKeSanPham.Columns["TongGiaBanRaThang"].DefaultCellStyle.Format = "N0";
+                dtgvThongKeSanPham.Columns["TongGiaBanRaThang"].DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+            }
+            if (dtgvThongKeSanPham.Columns.Contains("TongGiaBanRaNam"))
+            {
+                dtgvThongKeSanPham.Columns["TongGiaBanRaNam"].DefaultCellStyle.Format = "N0";
+                dtgvThongKeSanPham.Columns["TongGiaBanRaNam"].DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+            }
         }
 
         private void TimKiem_ThongKe_SanPham()
@@ -3888,9 +3903,6 @@ namespace DuAn1Lion
             formDangNhap.Show();
             this.Hide();
         }
-
-
-
      
     }
 }

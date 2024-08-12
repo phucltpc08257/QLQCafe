@@ -24,54 +24,44 @@ namespace DuAn1Lion
 
         }
 
-        private void btnDangNhap_Click(object sender, EventArgs e)
+        private string HashPassword(string password)
         {
-            string email = txtNhapEmail.Text;
-            string matKhau = txtNhapMatKhau.Text;
-
-            // Mã hóa mật khẩu trước khi so sánh
-            string hashedMatKhau = HashPassword(matKhau);
-
-            using (var QLBanHang = new LionQuanLyQuanCaPheDataContext())
+            using (MD5 md5 = MD5.Create())
             {
-                var user = QLBanHang.NhanViens.FirstOrDefault(u => u.Email == email && u.MatKhau == hashedMatKhau);
-
-                if (user != null)
-                {
-                    MaNhanVienHienTai = user.MaNhanVien;
-                    string vaiTro = user.VaiTro.MaVaiTro;
-                    FormChucNangQuanLy formChucNangQuanLy = new FormChucNangQuanLy(vaiTro);
-                    formChucNangQuanLy.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.");
-                }
-            }
-        }
-
-
-
-        // Hàm mã hóa
-        public string HashPassword(string password)
-        {
-            using (var sha256 = SHA256.Create())
-            {
-                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                byte[] inputBytes = Encoding.ASCII.GetBytes(password);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
                 StringBuilder sb = new StringBuilder();
-
                 for (int i = 0; i < hashBytes.Length; i++)
                 {
                     sb.Append(hashBytes[i].ToString("x2"));
                 }
-
-                return sb.ToString(); // Trả về chuỗi hexa
+                return sb.ToString();
             }
-
-
         }
 
+
+        private void btnDangNhap_Click(object sender, EventArgs e)
+        {
+            string email = txtNhapEmail.Text;
+            string matKhau = txtNhapMatKhau.Text;
+            string hashedMatKhau = HashPassword(matKhau); // Hash the input password
+
+            var QLBanHang = new LionQuanLyQuanCaPheDataContext();
+            var user = QLBanHang.NhanViens.FirstOrDefault(u => u.Email == email && u.MatKhau == hashedMatKhau);
+
+            if (user != null)
+            {
+                MaNhanVienHienTai = user.MaNhanVien;
+                string vaiTro = user.VaiTro.MaVaiTro;
+                FormChucNangQuanLy formChucNangQuanLy = new FormChucNangQuanLy(vaiTro);
+                formChucNangQuanLy.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.");
+            }
+        }
 
         private void btnQuenMatKhau_Click(object sender, EventArgs e)
         {
