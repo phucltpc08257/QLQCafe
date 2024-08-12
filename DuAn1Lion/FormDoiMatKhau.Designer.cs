@@ -167,7 +167,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormDoiMatKhau";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormDoiMatKhau_FormClosed);
-            this.Load += new System.EventHandler(this.FormDoiMatKhau_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

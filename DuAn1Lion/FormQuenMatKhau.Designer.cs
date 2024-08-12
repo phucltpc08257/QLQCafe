@@ -135,7 +135,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormQuenMatKhau";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormQuenMatKhau_FormClosed);
-            this.Load += new System.EventHandler(this.FormQuenMatKhau_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,24 +29,49 @@ namespace DuAn1Lion
             string email = txtNhapEmail.Text;
             string matKhau = txtNhapMatKhau.Text;
 
-            var QLBanHang = new LionQuanLyQuanCaPheDataContext();
-            var user = QLBanHang.NhanViens.FirstOrDefault(u => u.Email == email && u.MatKhau == matKhau);
+            // Mã hóa mật khẩu trước khi so sánh
+            string hashedMatKhau = HashPassword(matKhau);
 
-
-
-            if (user != null)
+            using (var QLBanHang = new LionQuanLyQuanCaPheDataContext())
             {
-                MaNhanVienHienTai = user.MaNhanVien;
-                string vaiTro = user.VaiTro.MaVaiTro;
-                FormChucNangQuanLy formChucNangQuanLy = new FormChucNangQuanLy(vaiTro);
-                formChucNangQuanLy.Show();
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.");
+                var user = QLBanHang.NhanViens.FirstOrDefault(u => u.Email == email && u.MatKhau == hashedMatKhau);
+
+                if (user != null)
+                {
+                    MaNhanVienHienTai = user.MaNhanVien;
+                    string vaiTro = user.VaiTro.MaVaiTro;
+                    FormChucNangQuanLy formChucNangQuanLy = new FormChucNangQuanLy(vaiTro);
+                    formChucNangQuanLy.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.");
+                }
             }
         }
+
+
+
+        // Hàm mã hóa
+        public string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder sb = new StringBuilder();
+
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes[i].ToString("x2"));
+                }
+
+                return sb.ToString(); // Trả về chuỗi hexa
+            }
+
+
+        }
+
 
         private void btnQuenMatKhau_Click(object sender, EventArgs e)
         {

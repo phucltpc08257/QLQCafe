@@ -32,6 +32,8 @@
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.tpVaiTro = new System.Windows.Forms.TabPage();
+            this.txtMaVaiTro = new System.Windows.Forms.TextBox();
+            this.lblMaVaitro = new System.Windows.Forms.Label();
             this.cbbvaitro = new System.Windows.Forms.ComboBox();
             this.dtgvThongTinVaiTro = new System.Windows.Forms.GroupBox();
             this.dtgvVaiTro = new System.Windows.Forms.DataGridView();
@@ -138,6 +140,8 @@
             this.dtgvThongTinNguyenLieu = new System.Windows.Forms.DataGridView();
             this.label33 = new System.Windows.Forms.Label();
             this.tpNhanVien = new System.Windows.Forms.TabPage();
+            this.txtMaNhanVien = new System.Windows.Forms.TextBox();
+            this.lblMaNhanVien = new System.Windows.Forms.Label();
             this.cbbVaiTroCuaNhanVien = new System.Windows.Forms.ComboBox();
             this.dttpNgayBatDauLamCuaNhanVien = new System.Windows.Forms.DateTimePicker();
             this.cbbGioiTinhNhanVien = new System.Windows.Forms.ComboBox();
@@ -206,10 +210,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblMaNhanVien = new System.Windows.Forms.Label();
-            this.txtMaNhanVien = new System.Windows.Forms.TextBox();
-            this.lblMaVaitro = new System.Windows.Forms.Label();
-            this.txtMaVaiTro = new System.Windows.Forms.TextBox();
             this.tpVaiTro.SuspendLayout();
             this.dtgvThongTinVaiTro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvVaiTro)).BeginInit();
@@ -285,6 +285,22 @@
             this.tpVaiTro.Size = new System.Drawing.Size(1316, 965);
             this.tpVaiTro.TabIndex = 6;
             this.tpVaiTro.Text = "Vai Trò";
+            // 
+            // txtMaVaiTro
+            // 
+            this.txtMaVaiTro.Location = new System.Drawing.Point(249, 202);
+            this.txtMaVaiTro.Name = "txtMaVaiTro";
+            this.txtMaVaiTro.Size = new System.Drawing.Size(100, 22);
+            this.txtMaVaiTro.TabIndex = 52;
+            // 
+            // lblMaVaitro
+            // 
+            this.lblMaVaitro.AutoSize = true;
+            this.lblMaVaitro.Location = new System.Drawing.Point(218, 160);
+            this.lblMaVaitro.Name = "lblMaVaitro";
+            this.lblMaVaitro.Size = new System.Drawing.Size(65, 16);
+            this.lblMaVaitro.TabIndex = 51;
+            this.lblMaVaitro.Text = "Mã vai trò";
             // 
             // cbbvaitro
             // 
@@ -1556,6 +1572,22 @@
             this.tpNhanVien.TabIndex = 2;
             this.tpNhanVien.Text = "Nhân viên";
             // 
+            // txtMaNhanVien
+            // 
+            this.txtMaNhanVien.Location = new System.Drawing.Point(250, 43);
+            this.txtMaNhanVien.Name = "txtMaNhanVien";
+            this.txtMaNhanVien.Size = new System.Drawing.Size(100, 22);
+            this.txtMaNhanVien.TabIndex = 54;
+            // 
+            // lblMaNhanVien
+            // 
+            this.lblMaNhanVien.AutoSize = true;
+            this.lblMaNhanVien.Location = new System.Drawing.Point(97, 56);
+            this.lblMaNhanVien.Name = "lblMaNhanVien";
+            this.lblMaNhanVien.Size = new System.Drawing.Size(85, 16);
+            this.lblMaNhanVien.TabIndex = 53;
+            this.lblMaNhanVien.Text = "MaNhanVien";
+            // 
             // cbbVaiTroCuaNhanVien
             // 
             this.cbbVaiTroCuaNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2335,38 +2367,6 @@
             this.label1.Size = new System.Drawing.Size(287, 38);
             this.label1.TabIndex = 0;
             this.label1.Text = "Quản lý Sản phẩm";
-            // 
-            // lblMaNhanVien
-            // 
-            this.lblMaNhanVien.AutoSize = true;
-            this.lblMaNhanVien.Location = new System.Drawing.Point(97, 56);
-            this.lblMaNhanVien.Name = "lblMaNhanVien";
-            this.lblMaNhanVien.Size = new System.Drawing.Size(106, 20);
-            this.lblMaNhanVien.TabIndex = 53;
-            this.lblMaNhanVien.Text = "MaNhanVien";
-            // 
-            // txtMaNhanVien
-            // 
-            this.txtMaNhanVien.Location = new System.Drawing.Point(250, 43);
-            this.txtMaNhanVien.Name = "txtMaNhanVien";
-            this.txtMaNhanVien.Size = new System.Drawing.Size(100, 22);
-            this.txtMaNhanVien.TabIndex = 54;
-            // 
-            // lblMaVaitro
-            // 
-            this.lblMaVaitro.AutoSize = true;
-            this.lblMaVaitro.Location = new System.Drawing.Point(218, 160);
-            this.lblMaVaitro.Name = "lblMaVaitro";
-            this.lblMaVaitro.Size = new System.Drawing.Size(81, 20);
-            this.lblMaVaitro.TabIndex = 51;
-            this.lblMaVaitro.Text = "Mã vai trò";
-            // 
-            // txtMaVaiTro
-            // 
-            this.txtMaVaiTro.Location = new System.Drawing.Point(249, 202);
-            this.txtMaVaiTro.Name = "txtMaVaiTro";
-            this.txtMaVaiTro.Size = new System.Drawing.Size(100, 22);
-            this.txtMaVaiTro.TabIndex = 52;
             // 
             // FormChucNangQuanLy
             // 

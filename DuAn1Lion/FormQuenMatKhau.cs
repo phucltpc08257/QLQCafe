@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows.Forms;
 using System.Net.Mail;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Security.Cryptography;
 
 namespace DuAn1Lion
 {
@@ -18,11 +13,6 @@ namespace DuAn1Lion
         public FormQuenMatKhau()
         {
             InitializeComponent();
-        }
-
-        private void FormQuenMatKhau_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void btnNhanMatKhauMoi_Click(object sender, EventArgs e)
@@ -43,10 +33,10 @@ namespace DuAn1Lion
                     if (user != null)
                     {
                         string matKhauMoi = GenerateRandomPassword();
-                        string hashedPassword = HashPassword(matKhauMoi);
+                        string hashedPassword = HashPassword(matKhauMoi); // Hash the new password
                         user.MatKhau = hashedPassword;
                         QLBanHang.SubmitChanges();
-                        SendEmail(email, matKhauMoi);
+                        SendEmail(email, matKhauMoi);  // Send the plaintext password
                     }
                     else
                     {
@@ -76,7 +66,8 @@ namespace DuAn1Lion
 
                 using (var QLBanHang = new LionQuanLyQuanCaPheDataContext())
                 {
-                    var user = QLBanHang.NhanViens.FirstOrDefault(u => u.Email == email && u.MatKhau == HashPassword(matKhau));
+                    string hashedInputPassword = HashPassword(matKhau);  // Băm mật khẩu trước khi so sánh
+                    var user = QLBanHang.NhanViens.FirstOrDefault(u => u.Email == email && u.MatKhau == hashedInputPassword);
 
                     if (user != null)
                     {
@@ -108,22 +99,19 @@ namespace DuAn1Lion
             return stringBuilder.ToString();
         }
 
-        private string HashPassword(string password)
+        public string HashPassword(string password)
         {
-            using (MD5 md5 = MD5.Create())
+            using (var sha256 = SHA256.Create())
             {
-                byte[] inputBytes = Encoding.ASCII.GetBytes(password);
-                byte[] hashBytes = md5.ComputeHash(inputBytes);
+                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
                 StringBuilder sb = new StringBuilder();
+
                 for (int i = 0; i < hashBytes.Length; i++)
                 {
                     sb.Append(hashBytes[i].ToString("x2"));
                 }
-                string md5Hash = sb.ToString();
-                string maskedHash = new string('*', 8); // Dự kiến là dấu '*'
 
-                return maskedHash;
-
+                return sb.ToString(); // Trả về chuỗi hexa
             }
         }
 
@@ -135,7 +123,7 @@ namespace DuAn1Lion
                 var toAddress = new MailAddress(toEmail);
                 const string fromPassword = "ufdr koar dvdh agun"; // Mật khẩu ứng dụng của bạn
                 const string subject = "Mật khẩu mới của bạn";
-                string body = $"Mật khẩu mới là: {newPassword}";
+                string body = $"Mật khẩu mới của bạn là: {newPassword}";
 
                 var smtp = new SmtpClient
                 {
@@ -174,6 +162,5 @@ namespace DuAn1Lion
             formDangNhap.Show();
             this.Hide();
         }
-        
     }
 }

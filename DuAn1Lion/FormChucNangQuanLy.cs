@@ -80,7 +80,7 @@ namespace DuAn1Lion
                 // Ẩn các tab không phù hợp
                 tclFormChucNang.TabPages.Remove(tpVaiTro);
                 // Ẩn các chức năng không cần thiết cho Quản Lý
-               
+
             }
             else if (UserRole == "VT003")
             {
@@ -90,7 +90,7 @@ namespace DuAn1Lion
                 tclFormChucNang.TabPages.Remove(tpVaiTro);
                 tclFormChucNang.TabPages.Remove(tpNguyenLieu);
                 // Ẩn các chức năng không cần thiết cho Nhân viên
-                
+
             }
         }
 
@@ -117,17 +117,22 @@ namespace DuAn1Lion
             {
                 hienThiSan_Pham();
                 LamMoi_SP();
+                Hien_Thi_Gia_Text_Box();
             }
 
             if (tclFormChucNang.SelectedTab == tpNguyenLieu)
             {
                 Hien_Thi_Nguyen_Lieu();
                 LamMoi_NguyenLieu();
+                Hien_Thi_Gia_Text_Box();
             }
 
             if (tclFormChucNang.SelectedTab == tpThongKe)
             {
-
+                hienThi_ThongKe_SanPham();
+                HienThiThongKeNhanVien();
+                HienThiThongKeKhachHang();
+                HienThiThongKeHoaDon();
             }
 
             if (tclFormChucNang.SelectedTab == tpOrder)
@@ -153,7 +158,7 @@ namespace DuAn1Lion
             lblMaVaitro.Visible = false;
 
         }
-        
+
 
         private void ThongKeNV_KH()
         {
@@ -3884,7 +3889,9 @@ namespace DuAn1Lion
             this.Hide();
         }
 
-      
+
+
+     
     }
 }
 
